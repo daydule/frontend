@@ -1,3 +1,5 @@
-export default function Settings() {
+const Settings: React.FC = () => {
   return <h1>This is Settings page.</h1>;
-}
+};
+
+export default Settings;

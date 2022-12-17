@@ -1,3 +1,5 @@
-export default function Login() {
-  return <h1>This is login page.</h1>;
-}
+const Login: React.FC = () => {
+  return <div>This is login page.</div>;
+};
+
+export default Login;
