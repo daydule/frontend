@@ -1,4 +1,6 @@
-const ResetPassword: React.FC = () => {
+import { NextPage } from 'next';
+
+const ResetPassword: NextPage = () => {
   return <h1>This is Reset Password page.</h1>;
 };
 

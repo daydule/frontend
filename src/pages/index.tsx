@@ -1,5 +1,6 @@
+import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { guestCheck } from '@/services/authentication';
+import { guestCheck } from '@/services/authServices';
 
 type guestCheckResult = {
   isError: boolean;
@@ -7,7 +8,7 @@ type guestCheckResult = {
   isGuest: boolean;
 };
 
-const Index: React.FC = () => {
+const Index: NextPage = () => {
   const [guestCheckResult, setGuestCheckResult] = useState<guestCheckResult>();
 
   // api呼び出しサンプル
