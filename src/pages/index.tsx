@@ -21,7 +21,7 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <div className='text-3xl font-bold underline'>This is Main page.</div>
+      <div className='text-3xl font-bold underline'>This is about page.</div>
       <p>{guestCheckResult?.isError ? 'エラー' : 'エラーじゃない！'}</p>
       <p>{guestCheckResult?.isLogin ? 'ログイン済み' : '未ログイン'}</p>
       <p>{guestCheckResult?.isGuest ? 'ゲスト' : 'ゲストじゃない！'}</p>

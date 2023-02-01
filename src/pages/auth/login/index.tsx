@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 
-const Login: NextPage = () => {
+const LoginPage: NextPage = () => {
   return <div>This is login page.</div>;
 };
 
-export default Login;
+export default LoginPage;

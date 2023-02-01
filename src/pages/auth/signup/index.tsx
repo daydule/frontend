@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 
-const Signup: NextPage = () => {
+const SignupPage: NextPage = () => {
   return <h1>This is Signup page.</h1>;
 };
 
-export default Signup;
+export default SignupPage;

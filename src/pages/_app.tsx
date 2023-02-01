@@ -1,16 +1,15 @@
-import { AppProps } from 'next/app';
-import Head from 'next/head';
 import '@/styles/global.css';
 
-const App = ({ Component, pageProps }: AppProps): JSX.Element => (
-  <>
-    <Head>
-      <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
-      {/* <link rel="shortcut icon" href="/favicon.png" key="shortcutIcon" /> */}
-      {/* <link rel="manifest" href="/manifest.json" /> */}
-    </Head>
-    <Component {...pageProps} />
-  </>
-);
+import React from 'react';
+import type { AppProps } from 'next/app';
+import LayoutComponent from '@/components/utils/LayoutComponent';
+
+function App({ Component, pageProps }: AppProps) {
+  return (
+    <LayoutComponent>
+      <Component {...pageProps} />
+    </LayoutComponent>
+  );
+}
 
 export default App;
