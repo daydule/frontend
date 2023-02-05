@@ -1,6 +1,5 @@
 import { AiFillSchedule } from 'react-icons/ai';
 import { IconContext } from 'react-icons/lib';
-import { text } from 'stream/consumers';
 
 const HeaderComponent: React.FC = () => {
   return (
