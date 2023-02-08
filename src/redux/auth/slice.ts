@@ -36,7 +36,6 @@ export const authApi = createApi({
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
   }),
   endpoints: (builder) => ({
     guestCheck: builder.query<guestCheckState, void>({
@@ -57,7 +56,6 @@ export const authApi = createApi({
         url: 'login',
         method: 'POST',
         body,
-        mode: 'no-cors',
       }),
     }),
   }),
