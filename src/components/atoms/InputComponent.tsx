@@ -1,14 +1,15 @@
-import { MouseEventHandler } from 'react';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
 import { IconContext } from 'react-icons/lib';
 
 type Props = {
+  id: string;
+  name: string;
   type?: 'text' | 'password' | undefined;
-  text?: string;
+  value: string;
   placeholder?: string;
   iconType?: string;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  setter: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const getIcon = (type?: string) => {
@@ -24,6 +25,9 @@ const getIcon = (type?: string) => {
 
 export const InputComponent: React.FC<Props> = (props) => {
   const icon = getIcon(props.iconType);
+  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.setter(event.target.value);
+  };
 
   return (
     <>
@@ -34,9 +38,12 @@ export const InputComponent: React.FC<Props> = (props) => {
           </IconContext.Provider>
         </div>
         <input
+          id={props.id}
+          name={props.name}
           type={props.type}
           className='w-full border border-black text-base block pl-10 p-2.5 h-12'
           placeholder={props.placeholder}
+          onChange={inputHandler}
         />
       </div>
     </>

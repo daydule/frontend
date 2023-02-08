@@ -1,30 +1,59 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { type } from 'os';
 
-interface LoginForm {
-  userName: string;
+export type guestCheckState = {
+  isError: false;
+  isLogin: false;
+  isGuest: false;
+};
+
+export type SignupForm = {
+  email: string;
   password: string;
-}
+};
 
-interface UserState {
-  userName: string | undefined;
-  token: string | undefined;
-}
+export type LoginForm = {
+  email: string;
+  password: string;
+};
 
-export interface AuthState {
-  user: UserState | undefined;
-}
+export type AuthState = {
+  guestCheck: guestCheckState | undefined;
+};
 
 const initialState: AuthState = {
-  user: undefined,
+  guestCheck: {
+    isError: false,
+    isLogin: false,
+    isGuest: false,
+  },
 };
 
 export const authApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }),
   endpoints: (builder) => ({
-    login: builder.mutation<UserState, LoginForm>({
+    guestCheck: builder.query<guestCheckState, void>({
+      query: () => ({
+        url: 'guestCheck',
+        method: 'GET',
+      }),
+    }),
+    signup: builder.mutation<void, SignupForm>({
       query: (body) => ({
-        url: 'mockLogin',
+        url: 'signup',
+        method: 'POST',
+        body,
+      }),
+    }),
+    login: builder.mutation<void, LoginForm>({
+      query: (body) => ({
+        url: 'login',
         method: 'POST',
         body,
       }),
@@ -32,15 +61,15 @@ export const authApi = createApi({
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useGuestCheckQuery, useSignupMutation, useLoginMutation } = authApi;
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addMatcher(authApi.endpoints.login.matchFulfilled, (state, action: PayloadAction<UserState>) => {
-      state.user = action.payload;
+    builder.addMatcher(authApi.endpoints.guestCheck.matchFulfilled, (state, action: PayloadAction<guestCheckState>) => {
+      state.guestCheck = action.payload;
     });
   },
 });

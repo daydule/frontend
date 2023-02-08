@@ -6,11 +6,6 @@ import LayoutComponent from '@/components/utils/LayoutComponent';
 import { Provider } from 'react-redux';
 import { store } from '@/redux/store';
 
-if (process.env.NODE_ENV === 'development') {
-  const MockServer = () => import('@/mocks/worker');
-  MockServer();
-}
-
 function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
