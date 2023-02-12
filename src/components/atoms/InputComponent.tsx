@@ -1,4 +1,4 @@
-import { ReactComponentElement, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { IconContext } from 'react-icons/lib';
 
 type Props = {
