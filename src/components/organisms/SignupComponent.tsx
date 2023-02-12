@@ -23,6 +23,9 @@ export const SignupComponent: React.FC = () => {
       }
 
       await signup(data).unwrap();
+      const signupForm = document.getElementById('signup-form') as HTMLFormElement;
+      signupForm?.reset();
+
       window.location.href = '/';
     } catch (e) {
       const signupErrorDisplay = document.getElementById('signup-error-display');
@@ -46,42 +49,45 @@ export const SignupComponent: React.FC = () => {
         >
           <span id='signup-error-message' className='block sm:inline'></span>
         </div>
-        <div className='mt-12 mx-auto xl:w-3/5 w-4/5'>
-          <InputComponent
-            id='email'
-            name='email'
-            type='text'
-            value={email}
-            placeholder='メールアドレス'
-            icon={<AiOutlineMail />}
-            setter={setEmail}
-          />
-        </div>
-        <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
-          <InputComponent
-            id='password'
-            name='password'
-            type='password'
-            value={password}
-            placeholder='パスワード'
-            icon={<RiLock2Line />}
-            setter={setPassword}
-          />
-        </div>
-        <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
-          <InputComponent
-            id='password-confirmation'
-            name='password-confirmation'
-            type='password'
-            value={passwordConfirmation}
-            placeholder='パスワード再入力'
-            icon={<RiLock2Line />}
-            setter={setPasswordConfirmation}
-          />
-        </div>
-        <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
-          <ButtonComponent type='button' text='サインアップ' onClick={onClickSignup} />
-        </div>
+
+        <form id='signup-form'>
+          <div className='mt-12 mx-auto xl:w-3/5 w-4/5'>
+            <InputComponent
+              id='email'
+              name='email'
+              type='text'
+              value={email}
+              placeholder='メールアドレス'
+              icon={<AiOutlineMail />}
+              setter={setEmail}
+            />
+          </div>
+          <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
+            <InputComponent
+              id='password'
+              name='password'
+              type='password'
+              value={password}
+              placeholder='パスワード'
+              icon={<RiLock2Line />}
+              setter={setPassword}
+            />
+          </div>
+          <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
+            <InputComponent
+              id='password-confirmation'
+              name='password-confirmation'
+              type='password'
+              value={passwordConfirmation}
+              placeholder='パスワード再入力'
+              icon={<RiLock2Line />}
+              setter={setPasswordConfirmation}
+            />
+          </div>
+          <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
+            <ButtonComponent type='button' text='サインアップ' onClick={onClickSignup} />
+          </div>
+        </form>
         <div>
           <p className='my-4 text-center text-sm'>
             ログインは

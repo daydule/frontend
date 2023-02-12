@@ -18,6 +18,9 @@ export const LoginComponent: React.FC = () => {
     };
     try {
       await login(data).unwrap();
+      const loginForm = document.getElementById('login-form') as HTMLFormElement;
+      loginForm?.reset();
+
       window.location.href = '/';
     } catch (e) {
       const loginErrorDisplay = document.getElementById('login-error-display');
@@ -41,31 +44,34 @@ export const LoginComponent: React.FC = () => {
         >
           <span id='login-error-message' className='block sm:inline'></span>
         </div>
-        <div className='mt-12 mx-auto xl:w-3/5 w-4/5'>
-          <InputComponent
-            id='email'
-            name='email'
-            type='text'
-            value={email}
-            placeholder='メールアドレス'
-            icon={<AiOutlineMail />}
-            setter={setEmail}
-          />
-        </div>
-        <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
-          <InputComponent
-            id='password'
-            name='password'
-            type='password'
-            value={password}
-            placeholder='パスワード'
-            icon={<RiLock2Line />}
-            setter={setPassword}
-          />
-        </div>
-        <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
-          <ButtonComponent type='button' text='ログイン' onClick={onClickLogin} />
-        </div>
+
+        <form id='login-form'>
+          <div className='mt-12 mx-auto xl:w-3/5 w-4/5'>
+            <InputComponent
+              id='email'
+              name='email'
+              type='text'
+              value={email}
+              placeholder='メールアドレス'
+              icon={<AiOutlineMail />}
+              setter={setEmail}
+            />
+          </div>
+          <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
+            <InputComponent
+              id='password'
+              name='password'
+              type='password'
+              value={password}
+              placeholder='パスワード'
+              icon={<RiLock2Line />}
+              setter={setPassword}
+            />
+          </div>
+          <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
+            <ButtonComponent type='button' text='ログイン' onClick={onClickLogin} />
+          </div>
+        </form>
         <div>
           <p className='mt-4 text-center text-sm'>
             サインアップは
