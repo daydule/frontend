@@ -85,7 +85,7 @@ export const SignupComponent: React.FC = () => {
         <div>
           <p className='my-4 text-center text-sm'>
             ログインは
-            <LinkComponent href='/auth/signup' text='こちら' />
+            <LinkComponent href='/auth/login' text='こちら' />
           </p>
         </div>
       </div>
