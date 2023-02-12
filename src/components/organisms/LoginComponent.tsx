@@ -2,6 +2,8 @@ import { InputComponent } from '../atoms/InputComponent';
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import React, { useState } from 'react';
 import { useLoginMutation } from '@/redux/auth/slice';
+import { AiOutlineMail } from 'react-icons/ai';
+import { RiLock2Line } from 'react-icons/ri';
 
 export const LoginComponent: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -31,7 +33,7 @@ export const LoginComponent: React.FC = () => {
             type='text'
             value={email}
             placeholder='メールアドレス'
-            iconType='AiOutlineMail'
+            icon={<AiOutlineMail />}
             setter={setEmail}
           />
         </div>
@@ -42,7 +44,7 @@ export const LoginComponent: React.FC = () => {
             type='text'
             value={password}
             placeholder='パスワード'
-            iconType='RiLock2Line'
+            icon={<RiLock2Line />}
             setter={setPassword}
           />
         </div>
