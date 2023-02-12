@@ -22,9 +22,9 @@ export const LoginComponent: React.FC = () => {
 
   return (
     <>
-      <div className='border border-black h-96'>
+      <div className='border border-black'>
         <h2 className='text-center text-2xl my-6'>ログイン</h2>
-        <div className='mt-12 mx-32'>
+        <div className='mt-12 mx-auto xl:w-3/5 w-4/5'>
           <InputComponent
             id='email'
             name='email'
@@ -35,7 +35,7 @@ export const LoginComponent: React.FC = () => {
             setter={setEmail}
           />
         </div>
-        <div className='mt-6 mx-32'>
+        <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
           <InputComponent
             id='password'
             name='password'
@@ -46,12 +46,12 @@ export const LoginComponent: React.FC = () => {
             setter={setPassword}
           />
         </div>
-        <div className='mt-6 text-center mx-72'>
+        <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
           <ButtonComponent type='button' text='ログイン' onClick={onClickLogin} />
         </div>
         <div>
           <p className='mt-4 text-center text-sm'>サインアップはこちら</p>
-          <p className='mt-2 text-center text-sm'>パスワードを忘れた方はこちら</p>
+          <p className='mt-2 mb-4 text-center text-sm'>パスワードを忘れた方はこちら</p>
         </div>
       </div>
     </>

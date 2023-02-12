@@ -11,9 +11,9 @@ const HeaderComponent: React.FC = () => {
         <AiFillSchedule />
         <img src='/logo.png' className='ml-3' />
       </IconContext.Provider>
-      <div className='mx-5'>isError: {data?.isError ? 'true' : 'false'}</div>
+      {/* <div className='mx-5'>isError: {data?.isError ? 'true' : 'false'}</div>
       <div className='mx-5'>isLogin: {data?.isLogin ? 'true' : 'false'}</div>
-      <div className='mx-5'>isGuest: {data?.isGuest ? 'true' : 'false'}</div>
+      <div className='mx-5'>isGuest: {data?.isGuest ? 'true' : 'false'}</div> */}
     </div>
   );
 };
