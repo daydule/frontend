@@ -1,9 +1,9 @@
 import { MouseEventHandler } from 'react';
 
 type Props = {
-  extraClassName?: string | undefined;
   type?: 'button' | 'submit' | 'reset' | undefined;
   text: string;
+  extraClassName?: string | undefined;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 

@@ -5,10 +5,10 @@ type Props = {
   id: string;
   name: string;
   type?: 'text' | 'password' | undefined;
-  extraClassName?: string | undefined;
   value: string;
   placeholder?: string;
   icon: ReactNode;
+  extraClassName?: string | undefined;
   setter: React.Dispatch<React.SetStateAction<string>>;
 };
 

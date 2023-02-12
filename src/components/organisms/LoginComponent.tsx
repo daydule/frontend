@@ -1,5 +1,6 @@
 import { InputComponent } from '../atoms/InputComponent';
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
+import { LinkComponent } from '../atoms/LinkComponent';
 import React, { useState } from 'react';
 import { useLoginMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
@@ -66,8 +67,14 @@ export const LoginComponent: React.FC = () => {
           <ButtonComponent type='button' text='ログイン' onClick={onClickLogin} />
         </div>
         <div>
-          <p className='mt-4 text-center text-sm'>サインアップはこちら</p>
-          <p className='mt-2 mb-4 text-center text-sm'>パスワードを忘れた方はこちら</p>
+          <p className='mt-4 text-center text-sm'>
+            サインアップは
+            <LinkComponent href='/auth/signup' text='こちら' />
+          </p>
+          <p className='mt-2 mb-4 text-center text-sm'>
+            パスワードを忘れた方は
+            <LinkComponent href='/auth/resetPassword/sendResetPasswordMail' text='こちら' />
+          </p>
         </div>
       </div>
     </>
