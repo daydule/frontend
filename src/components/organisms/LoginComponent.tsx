@@ -17,8 +17,15 @@ export const LoginComponent: React.FC = () => {
     };
     try {
       await login(data).unwrap();
+      window.location.href = '/';
     } catch (e) {
-      console.error(e);
+      const loginErrorDisplay = document.getElementById('login-error-display');
+      const errorMessage = document.getElementById('login-error-message');
+      if (loginErrorDisplay && errorMessage) {
+        loginErrorDisplay.classList.remove('hidden');
+        // TODO: エラーメッセージは後で修正
+        errorMessage.innerHTML = 'ログインエラー';
+      }
     }
   };
 
@@ -26,6 +33,13 @@ export const LoginComponent: React.FC = () => {
     <>
       <div className='border border-black'>
         <h2 className='text-center text-2xl my-6'>ログイン</h2>
+        <div
+          id='login-error-display'
+          className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mx-auto xl:w-3/5 w-4/5 hidden'
+          role='alert'
+        >
+          <span id='login-error-message' className='block sm:inline'></span>
+        </div>
         <div className='mt-12 mx-auto xl:w-3/5 w-4/5'>
           <InputComponent
             id='email'
@@ -41,7 +55,7 @@ export const LoginComponent: React.FC = () => {
           <InputComponent
             id='password'
             name='password'
-            type='text'
+            type='password'
             value={password}
             placeholder='パスワード'
             icon={<RiLock2Line />}
