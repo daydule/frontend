@@ -8,9 +8,9 @@ type Props = {
 
 const LayoutComponent: React.FC<Props> = ({ children }) => {
   return (
-    <div className='bg-white w-full h-screen'>
+    <div className='bg-white w-full h-screen border border-white'>
       <HeaderComponent />
-      <div className='w-full h-[calc(100%_-_20rem)]'>{children}</div>
+      <div className='w-[calc(100%_-_2rem)] h-[calc(100%_-_9rem)] my-20 mx-4 border border-white'>{children}</div>
       <FooterComponent />
     </div>
   );
