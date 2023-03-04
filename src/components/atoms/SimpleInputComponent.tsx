@@ -23,7 +23,7 @@ export const SimpleInputComponent = <T extends string | number>(props: Props<T>)
         name={props.name}
         type={props.type}
         value={props.value}
-        className={props.extraClassName + ' ' + 'w-full border border-black text-base block p-2.5 h-12'}
+        className={props.extraClassName + ' ' + 'w-full border border-black text-base block p-2.5 h-8'}
         placeholder={props.placeholder}
         onChange={inputHandler}
       />

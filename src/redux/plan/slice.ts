@@ -2,6 +2,7 @@ import { dayduleApi } from '@/redux/slice';
 
 export type CreateForm = {
   title: string;
+  date?: string;
   startTime?: string;
   endTime?: string;
   processTime?: number;

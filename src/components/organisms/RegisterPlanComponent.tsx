@@ -12,6 +12,7 @@ export const RegisterPlanComponent = () => {
   const onClickRegister = async () => {
     const data: CreateForm = {
       title: title,
+      date: new Date().toISOString(),
       startTime: '0945',
       endTime: '1000',
       priority: 1,
@@ -25,10 +26,10 @@ export const RegisterPlanComponent = () => {
     }
   };
   return (
-    <div className='border border-black rounded-md w-1/3 h-[calc(25%_-_1rem)] my-4 relative'>
+    <div className='border border-black rounded-md w-96 h-[calc(25%_-_1rem)] my-4 relative'>
       <div className='absolute top-3 left-3 text-xl'>予定</div>
       <form id='register-todo-form'>
-        <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
+        <div className='mt-10 mx-auto xl:w-3/5 w-4/5'>
           <SimpleInputComponent<string>
             id='title'
             name='title'
