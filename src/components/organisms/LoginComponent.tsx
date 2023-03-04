@@ -1,15 +1,17 @@
-import { InputComponent } from '../atoms/InputComponent';
+import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { LinkComponent } from '../atoms/LinkComponent';
 import React, { useState } from 'react';
 import { useLoginMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
+import { useRouter } from 'next/router';
 
-export const LoginComponent: React.FC = () => {
+export const LoginComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login, { isLoading, isError, isSuccess, status }] = useLoginMutation();
+  const router = useRouter();
 
   const onClickLogin = async () => {
     const data = {
@@ -18,10 +20,7 @@ export const LoginComponent: React.FC = () => {
     };
     try {
       await login(data).unwrap();
-      const loginForm = document.getElementById('login-form') as HTMLFormElement;
-      loginForm?.reset();
-
-      window.location.href = '/';
+      router.replace('/main');
     } catch (e) {
       const loginErrorDisplay = document.getElementById('login-error-display');
       const errorMessage = document.getElementById('login-error-message');
@@ -47,7 +46,7 @@ export const LoginComponent: React.FC = () => {
 
         <form id='login-form'>
           <div className='mt-12 mx-auto xl:w-3/5 w-4/5'>
-            <InputComponent
+            <InputWithIconComponent<string>
               id='email'
               name='email'
               type='text'
@@ -58,7 +57,7 @@ export const LoginComponent: React.FC = () => {
             />
           </div>
           <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
-            <InputComponent
+            <InputWithIconComponent<string>
               id='password'
               name='password'
               type='password'
@@ -69,7 +68,7 @@ export const LoginComponent: React.FC = () => {
             />
           </div>
           <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
-            <ButtonComponent type='button' text='ログイン' onClick={onClickLogin} />
+            <ButtonComponent type='button' children='ログイン' onClick={onClickLogin} />
           </div>
         </form>
         <div>

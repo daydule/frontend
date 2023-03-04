@@ -1,0 +1,20 @@
+export type Plan = {
+  id: number;
+  user_id: number;
+  title: string;
+  context: string;
+  date: Date;
+  start_time: string;
+  end_time: string;
+  process_time: number;
+  travel_time: number;
+  buffer_time: number;
+  plan_type: number;
+  priority: number;
+  place: string;
+  is_scheduled: boolean;
+  is_required_plan: boolean;
+  parent_plan_id: number;
+  is_parent_plan: boolean;
+  todo_start_time: Date;
+};

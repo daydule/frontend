@@ -1,20 +1,20 @@
 import { ReactNode } from 'react';
 import { IconContext } from 'react-icons/lib';
 
-type Props = {
+type Props<T> = {
   id: string;
   name: string;
-  type?: 'text' | 'password' | undefined;
-  value: string;
+  type?: 'text' | 'password' | 'number' | undefined;
+  value: T;
   placeholder?: string;
   icon: ReactNode;
   extraClassName?: string | undefined;
-  setter: React.Dispatch<React.SetStateAction<string>>;
+  setter: React.Dispatch<React.SetStateAction<T>>;
 };
 
-export const InputComponent: React.FC<Props> = (props) => {
+export const InputWithIconComponent = <T extends string | number>(props: Props<T>) => {
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.setter(event.target.value);
+    props.setter(event.target.value as T);
   };
 
   return (
@@ -29,6 +29,7 @@ export const InputComponent: React.FC<Props> = (props) => {
           id={props.id}
           name={props.name}
           type={props.type}
+          value={props.value}
           className={props.extraClassName + ' ' + 'w-full border border-black text-base block pl-10 p-2.5 h-12'}
           placeholder={props.placeholder}
           onChange={inputHandler}

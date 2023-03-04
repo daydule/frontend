@@ -1,16 +1,18 @@
-import { InputComponent } from '../atoms/InputComponent';
+import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { LinkComponent } from '../atoms/LinkComponent';
 import React, { useState } from 'react';
 import { useSignupMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
+import { useRouter } from 'next/router';
 
-export const SignupComponent: React.FC = () => {
+export const SignupComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [signup, { isLoading, isError, isSuccess, status }] = useSignupMutation();
+  const router = useRouter();
 
   const onClickSignup = async () => {
     const data = {
@@ -23,10 +25,7 @@ export const SignupComponent: React.FC = () => {
       }
 
       await signup(data).unwrap();
-      const signupForm = document.getElementById('signup-form') as HTMLFormElement;
-      signupForm?.reset();
-
-      window.location.href = '/';
+      router.replace('/auth/login');
     } catch (e) {
       const signupErrorDisplay = document.getElementById('signup-error-display');
       const errorMessage = document.getElementById('signup-error-message');
@@ -52,7 +51,7 @@ export const SignupComponent: React.FC = () => {
 
         <form id='signup-form'>
           <div className='mt-12 mx-auto xl:w-3/5 w-4/5'>
-            <InputComponent
+            <InputWithIconComponent<string>
               id='email'
               name='email'
               type='text'
@@ -63,7 +62,7 @@ export const SignupComponent: React.FC = () => {
             />
           </div>
           <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
-            <InputComponent
+            <InputWithIconComponent<string>
               id='password'
               name='password'
               type='password'
@@ -74,7 +73,7 @@ export const SignupComponent: React.FC = () => {
             />
           </div>
           <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
-            <InputComponent
+            <InputWithIconComponent<string>
               id='password-confirmation'
               name='password-confirmation'
               type='password'
@@ -85,7 +84,7 @@ export const SignupComponent: React.FC = () => {
             />
           </div>
           <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
-            <ButtonComponent type='button' text='サインアップ' onClick={onClickSignup} />
+            <ButtonComponent type='button' children='サインアップ' onClick={onClickSignup} />
           </div>
         </form>
         <div>
