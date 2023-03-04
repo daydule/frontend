@@ -27,10 +27,10 @@ export const RegisterTodoComponent = () => {
     }
   };
   return (
-    <div className='border border-black w-1/3 h-1/4 my-2'>
-      <div className='text-left text-2xl m-6'>TODO</div>
+    <div className='border border-black rounded-md w-1/3 h-1/4 my-2'>
+      <div className='text-left text-xl m-2'>TODO</div>
       <form id='register-todo-form'>
-        <div className='my-4 mx-auto xl:w-3/5 w-4/5'>
+        <div className='my-1 mx-auto xl:w-3/5 w-4/5'>
           <SimpleInputComponent<string>
             id='title'
             name='title'
@@ -40,7 +40,7 @@ export const RegisterTodoComponent = () => {
             setter={setTitle}
           />
         </div>
-        <div className='my-4 mx-auto xl:w-3/5 w-4/5'>
+        <div className='my-1 mx-auto xl:w-3/5 w-4/5'>
           <SimpleInputComponent<number>
             id='processTime'
             name='processTime'
@@ -50,7 +50,7 @@ export const RegisterTodoComponent = () => {
             setter={setProcessTime}
           />
         </div>
-        <div className='my-6 text-right mx-auto xl:w-1/5 w-2/5'>
+        <div className='my-2 mx-auto xl:w-1/5 w-2/5'>
           <ButtonComponent type='button' children='登録' onClick={onClickRegister} />
         </div>
       </form>

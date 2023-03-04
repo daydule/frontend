@@ -5,10 +5,10 @@ import { AuthCheckComponent } from '@/components/utils/AuthCheckComponent';
 const MainPage = () => {
   return (
     <AuthCheckComponent checkLevel='login'>
-      <div>
+      <>
         <RegisterTodoComponent />
         <TodoListComponent />
-      </div>
+      </>
     </AuthCheckComponent>
   );
 };
