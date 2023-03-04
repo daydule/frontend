@@ -1,3 +1,4 @@
+import { RegisterPlanComponent } from '@/components/organisms/RegisterPlanComponent';
 import { RegisterTodoComponent } from '@/components/organisms/RegisterTodoComponent';
 import { TodoListComponent } from '@/components/organisms/TodoListComponent';
 import { AuthCheckComponent } from '@/components/utils/AuthCheckComponent';
@@ -6,6 +7,7 @@ const MainPage = () => {
   return (
     <AuthCheckComponent checkLevel='login'>
       <>
+        <RegisterPlanComponent />
         <RegisterTodoComponent />
         <TodoListComponent />
       </>
