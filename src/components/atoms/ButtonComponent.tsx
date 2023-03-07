@@ -1,13 +1,13 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 
 type Props = {
-  type?: 'button' | 'submit' | 'reset' | undefined;
-  text: string;
-  extraClassName?: string | undefined;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  type?: 'button' | 'submit' | 'reset';
+  children: ReactNode;
+  extraClassName?: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 };
 
-export const ButtonComponent: React.FC<Props> = (props) => (
+export const ButtonComponent = (props: Props) => (
   <div className='relative'>
     <button
       className={
@@ -16,7 +16,7 @@ export const ButtonComponent: React.FC<Props> = (props) => (
       type={props.type}
       onClick={props.onClick}
     >
-      {props.text}
+      {props.children}
     </button>
   </div>
 );

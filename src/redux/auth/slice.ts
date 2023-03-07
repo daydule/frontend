@@ -1,7 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { dayduleApi } from '@/redux/slice';
 
-export type guestCheckState = {
+export type guestCheckResult = {
   isError: false;
   isLogin: false;
   isGuest: false;
@@ -17,32 +16,14 @@ export type LoginForm = {
   password: string;
 };
 
-export type AuthState = {
-  guestCheck: guestCheckState | undefined;
-};
-
-const initialState: AuthState = {
-  guestCheck: {
-    isError: false,
-    isLogin: false,
-    isGuest: false,
-  },
-};
-
-export const authApi = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-  }),
+const authApi = dayduleApi.injectEndpoints({
   endpoints: (builder) => ({
-    guestCheck: builder.query<guestCheckState, void>({
+    guestCheck: builder.query<guestCheckResult, void>({
       query: () => ({
         url: 'guestCheck',
         method: 'GET',
       }),
+      providesTags: ['Auth'],
     }),
     signup: builder.mutation<void, SignupForm>({
       query: (body) => ({
@@ -57,19 +38,18 @@ export const authApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Auth'],
+    }),
+    logout: builder.mutation<void, void>({
+      query: () => ({
+        url: 'logout',
+        method: 'POST',
+      }),
+      invalidatesTags: ['Auth'],
     }),
   }),
+  overrideExisting: false,
 });
 
-export const { useGuestCheckQuery, useSignupMutation, useLoginMutation } = authApi;
-
-export const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addMatcher(authApi.endpoints.guestCheck.matchFulfilled, (state, action: PayloadAction<guestCheckState>) => {
-      state.guestCheck = action.payload;
-    });
-  },
-});
+export const { useGuestCheckQuery, useLazyGuestCheckQuery, useSignupMutation, useLoginMutation, useLogoutMutation } =
+  authApi;
