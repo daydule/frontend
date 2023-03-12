@@ -1,14 +1,12 @@
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
-import { CONST } from '@/config/const';
+import { CONSTANT } from '@/config/const';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 
 export const RegisterTodoComponent = () => {
-  const defaultTitle = CONST.default.planTitle;
-  const defaultProcessTime = CONST.default.planProcessTime;
-  const [title, setTitle] = useState<string>(defaultTitle);
-  const [processTime, setProcessTime] = useState<number>(defaultProcessTime);
+  const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN_TITLE);
+  const [processTime, setProcessTime] = useState<number>(CONSTANT.DEFAULT.PLAN_PROCESS_TIME);
   const [createPlan, { isLoading, isError, isSuccess, status }] = useCreatePlanMutation();
 
   const onClickRegister = async () => {
@@ -20,8 +18,8 @@ export const RegisterTodoComponent = () => {
     };
     try {
       await createPlan(data).unwrap();
-      setTitle(defaultTitle);
-      setProcessTime(defaultProcessTime);
+      setTitle(CONSTANT.DEFAULT.PLAN_TITLE);
+      setProcessTime(CONSTANT.DEFAULT.PLAN_PROCESS_TIME);
     } catch (e) {
       console.error(e);
     }
