@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 
 export const RegisterTodoComponent = () => {
-  const [createPlan, { isLoading, isError, isSuccess, status }] = useCreatePlanMutation();
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
   const [processTime, setProcessTime] = useState<number>(CONSTANT.DEFAULT.PLAN.PROCESS_TIME);
+  const [createPlan] = useCreatePlanMutation();
 
   const onClickRegister = async () => {
     const data: CreateForm = {
