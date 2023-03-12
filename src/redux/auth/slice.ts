@@ -38,14 +38,14 @@ const authApi = dayduleApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Auth'],
+      invalidatesTags: ['Auth', 'Schedule'],
     }),
     logout: builder.mutation<void, void>({
       query: () => ({
         url: 'logout',
         method: 'POST',
       }),
-      invalidatesTags: ['Auth'],
+      invalidatesTags: ['Auth', 'Schedule'],
     }),
   }),
   overrideExisting: false,

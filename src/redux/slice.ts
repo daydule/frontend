@@ -8,6 +8,6 @@ export const dayduleApi = createApi({
     },
     credentials: 'include',
   }),
-  tagTypes: ['Auth', 'Todos'],
+  tagTypes: ['Auth', 'Schedule'],
   endpoints: (builder) => ({}),
 });
