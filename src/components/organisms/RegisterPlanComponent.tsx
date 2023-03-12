@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 
 export const RegisterPlanComponent = () => {
-  const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN_TITLE);
+  const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
   const [createPlan] = useCreatePlanMutation();
 
   const onClickRegister = async () => {
@@ -19,7 +19,7 @@ export const RegisterPlanComponent = () => {
     };
     try {
       await createPlan(data).unwrap();
-      setTitle(CONSTANT.DEFAULT.PLAN_TITLE);
+      setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
     } catch (e) {
       console.error(e);
     }

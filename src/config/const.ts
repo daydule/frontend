@@ -1,6 +1,8 @@
 export const CONSTANT = {
   DEFAULT: {
-    PLAN_TITLE: '',
-    PLAN_PROCESS_TIME: 10,
+    PLAN: {
+      TITLE: '',
+      PROCESS_TIME: 10,
+    },
   },
 };

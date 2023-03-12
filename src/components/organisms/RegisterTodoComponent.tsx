@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 
 export const RegisterTodoComponent = () => {
-  const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN_TITLE);
-  const [processTime, setProcessTime] = useState<number>(CONSTANT.DEFAULT.PLAN_PROCESS_TIME);
   const [createPlan, { isLoading, isError, isSuccess, status }] = useCreatePlanMutation();
+  const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
+  const [processTime, setProcessTime] = useState<number>(CONSTANT.DEFAULT.PLAN.PROCESS_TIME);
 
   const onClickRegister = async () => {
     const data: CreateForm = {
@@ -18,8 +18,8 @@ export const RegisterTodoComponent = () => {
     };
     try {
       await createPlan(data).unwrap();
-      setTitle(CONSTANT.DEFAULT.PLAN_TITLE);
-      setProcessTime(CONSTANT.DEFAULT.PLAN_PROCESS_TIME);
+      setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
+      setProcessTime(CONSTANT.DEFAULT.PLAN.PROCESS_TIME);
     } catch (e) {
       console.error(e);
     }
