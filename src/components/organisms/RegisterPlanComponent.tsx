@@ -1,13 +1,12 @@
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
-import { CONST } from '@/config/const';
+import { CONSTANT } from '@/config/const';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 
 export const RegisterPlanComponent = () => {
-  const defaultTitle = CONST.default.planTitle;
-  const [title, setTitle] = useState<string>(defaultTitle);
-  const [createPlan, { isLoading, isError, isSuccess, status }] = useCreatePlanMutation();
+  const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
+  const [createPlan] = useCreatePlanMutation();
 
   const onClickRegister = async () => {
     const data: CreateForm = {
@@ -20,7 +19,7 @@ export const RegisterPlanComponent = () => {
     };
     try {
       await createPlan(data).unwrap();
-      setTitle(defaultTitle);
+      setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
     } catch (e) {
       console.error(e);
     }

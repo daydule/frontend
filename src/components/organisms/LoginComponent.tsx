@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 export const LoginComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [login, { isLoading, isError, isSuccess, status }] = useLoginMutation();
+  const [login] = useLoginMutation();
   const router = useRouter();
 
   const onClickLogin = async () => {

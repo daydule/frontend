@@ -18,7 +18,7 @@ const planApi = dayduleApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Todos'],
+      invalidatesTags: ['Schedule'],
     }),
   }),
   overrideExisting: false,

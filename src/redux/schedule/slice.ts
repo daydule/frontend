@@ -21,7 +21,7 @@ const scheduleApi = dayduleApi.injectEndpoints({
         url: `schedule/read/${scheduleReadParams.date}`,
         method: 'GET',
       }),
-      providesTags: ['Todos'],
+      providesTags: ['Schedule'],
     }),
   }),
   overrideExisting: false,

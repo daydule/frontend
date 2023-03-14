@@ -1,6 +1,8 @@
-export const CONST = {
-  default: {
-    planTitle: '',
-    planProcessTime: 10,
+export const CONSTANT = {
+  DEFAULT: {
+    PLAN: {
+      TITLE: '',
+      PROCESS_TIME: 10,
+    },
   },
 };
