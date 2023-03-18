@@ -13,7 +13,7 @@ export type ReadUserResult = {
 
 const userApi = dayduleApi.injectEndpoints({
   endpoints: (builder) => ({
-    read: builder.query<ReadUserResult, void>({
+    readUser: builder.query<ReadUserResult, void>({
       query: () => ({
         url: 'user/read',
         method: 'GET',
@@ -24,4 +24,4 @@ const userApi = dayduleApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useReadQuery } = userApi;
+export const { useReadUserQuery } = userApi;
