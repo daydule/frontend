@@ -9,7 +9,11 @@ export const ScheduleComponent = () => {
       <div className='absolute top-3 left-3 text-xl'>スケジュール</div>
       <div className='mt-8'>
         {scheduleReadResult?.schedule.plans.map((plan) => (
-          <div key={plan.id}>{plan.title}</div>
+          <div key={plan.id} className='flex'>
+            <div className='w-1/12'>{plan.title}</div>
+            <div className='w-1/12'>{plan.startTime}</div>
+            <div className='w-1/12'>{plan.endTime}</div>
+          </div>
         ))}
       </div>
     </div>
