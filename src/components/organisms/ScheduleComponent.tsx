@@ -1,8 +1,8 @@
+import { formatToYYYY_MM_DD } from '@/helpers/dateUtils';
 import { useReadScheduleQuery } from '@/redux/schedule/slice';
 
 export const ScheduleComponent = () => {
-  const d = new Date();
-  const dateString = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  const dateString = formatToYYYY_MM_DD(new Date());
   const { data: scheduleReadResult } = useReadScheduleQuery({ date: dateString });
   return (
     <div className='border border-black rounded-md w-full h-[calc(100%_-_2rem)] my-4 relative'>

@@ -1,5 +1,6 @@
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { CONSTANT } from '@/config/const';
+import { formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateUtils';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
@@ -23,13 +24,11 @@ export const RegisterPlanComponent = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // リロードが走らないように入れている
     event.preventDefault();
-    const formattedStartTime = ('0' + startTime.getHours()).slice(-2) + ('0' + startTime.getMinutes()).slice(-2);
-    const formattedEndTime = ('0' + endTime.getHours()).slice(-2) + ('0' + endTime.getMinutes()).slice(-2);
     const data: CreateForm = {
       title: title,
-      date: new Date().toISOString(),
-      startTime: formattedStartTime,
-      endTime: formattedEndTime,
+      date: formatToYYYY_MM_DD(new Date()),
+      startTime: formatToTimeString4digits(startTime),
+      endTime: formatToTimeString4digits(endTime),
       priority: 0,
       planType: 0,
     };
