@@ -1,4 +1,4 @@
-import { formatToYYYY_MM_DD } from '@/helpers/dateUtils';
+import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { useReadScheduleQuery } from '@/redux/schedule/slice';
 
 export const ScheduleComponent = () => {

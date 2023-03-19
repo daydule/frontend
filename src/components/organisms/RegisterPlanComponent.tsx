@@ -1,6 +1,6 @@
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { CONSTANT } from '@/config/const';
-import { formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateUtils';
+import { formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
