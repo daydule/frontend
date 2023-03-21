@@ -1,4 +1,5 @@
 import { LinkComponent } from '@/components/atoms/LinkComponent';
+import SliderComponent from '@/components/atoms/SliderComponent';
 import { useGuestCheckQuery } from '@/redux/auth/slice';
 import { NextPage } from 'next';
 

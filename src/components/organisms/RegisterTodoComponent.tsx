@@ -3,10 +3,11 @@ import { CONSTANT } from '@/config/const';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
+import SliderComponent from '../atoms/SliderComponent';
 
 export const RegisterTodoComponent = () => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
-  const [processTime, setProcessTime] = useState<number>(CONSTANT.DEFAULT.PLAN.PROCESS_TIME);
+  const [processTime, setProcessTime] = useState<number[]>(CONSTANT.DEFAULT.PLAN.PROCESS_TIME);
   const [createPlan] = useCreatePlanMutation();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -14,14 +15,13 @@ export const RegisterTodoComponent = () => {
     event.preventDefault();
     const data: CreateForm = {
       title: title,
-      processTime: processTime,
+      processTime: processTime[0],
       priority: 1,
       planType: 2,
     };
     try {
       await createPlan(data).unwrap();
       setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
-      setProcessTime(CONSTANT.DEFAULT.PLAN.PROCESS_TIME);
     } catch (e) {
       console.error(e);
     }
@@ -40,15 +40,8 @@ export const RegisterTodoComponent = () => {
             setter={setTitle}
           />
         </div>
-        <div className='mt-2 mx-auto w-1/4'>
-          <SimpleInputComponent<number>
-            id='processTime'
-            name='processTime'
-            type='number'
-            placeholder='所要時間'
-            value={processTime}
-            setter={setProcessTime}
-          />
+        <div className='mt-4 mx-auto w-3/5'>
+          <SliderComponent min={15} max={120} title='所要時間' unit='分' values={processTime} setter={setProcessTime} />
         </div>
         <div className='absolute bottom-3 right-3 text-xl'>
           <ButtonComponent type='submit' children='登録' />
