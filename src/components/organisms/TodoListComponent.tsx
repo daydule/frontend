@@ -1,6 +1,6 @@
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { useReadScheduleQuery } from '@/redux/schedule/slice';
-import { TodoCardComponent } from '../atoms/TodoCardComponent';
+import { TodoCardComponent } from '@/components/molecules/TodoCardComponent';
 
 export const TodoListComponent = () => {
   const { data: scheduleReadResult } = useReadScheduleQuery({ date: formatToYYYY_MM_DD(new Date()) });
