@@ -5,7 +5,7 @@ export type Plan = {
   context: string;
   date: Date;
   startTime: string;
-  end_time: string;
+  endTime: string;
   processTime: number;
   travelTime: number;
   bufferTime: number;

@@ -10,7 +10,7 @@ export const TodoListComponent = () => {
       <div className='absolute top-3 left-3 text-xl'>TODO一覧</div>
       <div className='mt-[10%] overflow-auto h-5/6'>
         {scheduleReadResult?.todos.map((todo) => (
-          <TodoCardComponent todo={todo} />
+          <TodoCardComponent key={todo.id} todo={todo} />
         ))}
       </div>
     </div>

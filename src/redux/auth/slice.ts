@@ -1,6 +1,6 @@
 import { dayduleApi } from '@/redux/slice';
 
-export type guestCheckResult = {
+export type GuestCheckResult = {
   isError: false;
   isLogin: false;
   isGuest: false;
@@ -18,7 +18,7 @@ export type LoginForm = {
 
 const authApi = dayduleApi.injectEndpoints({
   endpoints: (builder) => ({
-    guestCheck: builder.query<guestCheckResult, void>({
+    guestCheck: builder.query<GuestCheckResult, void>({
       query: () => ({
         url: 'guestCheck',
         method: 'GET',
@@ -38,14 +38,14 @@ const authApi = dayduleApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Auth'],
+      invalidatesTags: ['Auth', 'Schedule'],
     }),
     logout: builder.mutation<void, void>({
       query: () => ({
         url: 'logout',
         method: 'POST',
       }),
-      invalidatesTags: ['Auth'],
+      invalidatesTags: ['Auth', 'Schedule'],
     }),
   }),
   overrideExisting: false,
