@@ -24,11 +24,13 @@ const SliderComponent = (props: Props) => {
         values={props.values}
         onChange={handleChange}
         renderTrack={({ props, children }) => (
-          <div {...props} className='h-2 bg-gray-300 w-full rounded-full'>
+          <div {...props} className='h-2 bg-gray-300 w-full rounded-full shadow-md'>
             {children}
           </div>
         )}
-        renderThumb={({ props }) => <div {...props} className='w-4 h-4 bg-gray-700 rounded-full focus:outline-none' />}
+        renderThumb={({ props }) => (
+          <div {...props} className='w-4 h-4 bg-gray-700 shadow-md rounded-full focus:outline-none' />
+        )}
       />
       <div className='absolute top-2 left-0'>{props.min}</div>
       <div className='absolute top-2 right-0'>{props.max}</div>

@@ -21,7 +21,7 @@ export const TimePickerComponent = (props: Props) => {
       timeIntervals={15}
       timeCaption={props.header}
       dateFormat='hh:mm aa'
-      className={props.extraClassName + ' ' + 'w-full border border-gray-100 shadow-sm text-base block p-1 h-12'}
+      className={props.extraClassName + ' ' + 'w-full border border-gray-200 shadow-md text-base block p-1 h-12'}
     />
   );
 };

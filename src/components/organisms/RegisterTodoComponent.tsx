@@ -27,7 +27,7 @@ export const RegisterTodoComponent = () => {
     }
   };
   return (
-    <div className='border border-gray-100 shadow-md rounded-md w-96 h-[calc(25%_-_1rem)] my-4 relative'>
+    <div className='border border-gray-200 shadow-md rounded-md w-96 h-[calc(25%_-_1rem)] my-4 relative'>
       <div className='absolute top-3 left-3 text-xl'>TODO</div>
       <form id='register-todo-form' onSubmit={handleSubmit}>
         <div className='mt-10 mx-auto w-3/5'>
