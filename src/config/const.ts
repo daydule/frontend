@@ -2,7 +2,7 @@ export const CONSTANT = {
   DEFAULT: {
     PLAN: {
       TITLE: '',
-      PROCESS_TIME: 10,
+      PROCESS_TIME: [30],
     },
   },
 };

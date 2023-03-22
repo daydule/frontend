@@ -4,7 +4,7 @@ type Props = {
   type?: 'button' | 'submit' | 'reset';
   children: ReactNode;
   extraClassName?: string;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
 export const ButtonComponent = (props: Props) => (
