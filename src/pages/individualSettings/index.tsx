@@ -1,11 +1,11 @@
-import { AuthCheckComponent } from '@/components/utils/AuthCheckComponent';
+import { RedirectWithAuthCheckComponent } from '@/components/utils/RedirectWithAuthCheckComponent';
 import { NextPage } from 'next';
 
 const IndividualSettingsPage: NextPage = () => {
   return (
-    <AuthCheckComponent checkLevel='guest'>
+    <RedirectWithAuthCheckComponent checkLevel='loginAsIdentifiedUser'>
       <h1>This is IndividualSettingsPage.</h1>
-    </AuthCheckComponent>
+    </RedirectWithAuthCheckComponent>
   );
 };
 
