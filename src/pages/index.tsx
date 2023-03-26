@@ -1,10 +1,7 @@
 import { LinkComponent } from '@/components/atoms/LinkComponent';
-import { useGuestCheckQuery } from '@/redux/auth/slice';
 import { NextPage } from 'next';
 
 const Index: NextPage = () => {
-  const { data } = useGuestCheckQuery();
-
   return (
     <>
       <div className='text-3xl font-bold underline'>This is about page.</div>

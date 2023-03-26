@@ -2,11 +2,11 @@ import { RegisterPlanComponent } from '@/components/organisms/RegisterPlanCompon
 import { RegisterTodoComponent } from '@/components/organisms/RegisterTodoComponent';
 import { ScheduleComponent } from '@/components/organisms/ScheduleComponent';
 import { TodoListComponent } from '@/components/organisms/TodoListComponent';
-import { AuthCheckComponent } from '@/components/utils/AuthCheckComponent';
+import { RedirectWithAuthCheckComponent } from '@/components/utils/RedirectWithAuthCheckComponent';
 
 const MainPage = () => {
   return (
-    <AuthCheckComponent checkLevel='login'>
+    <RedirectWithAuthCheckComponent checkLevel='onlyLogin'>
       <div className='flex h-full'>
         <div className='w-96 h-hull'>
           <RegisterPlanComponent />
@@ -17,7 +17,7 @@ const MainPage = () => {
           <ScheduleComponent />
         </div>
       </div>
-    </AuthCheckComponent>
+    </RedirectWithAuthCheckComponent>
   );
 };
 

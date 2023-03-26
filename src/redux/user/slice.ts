@@ -25,7 +25,7 @@ export type UpdateUserForm = {
 
 const userApi = dayduleApi.injectEndpoints({
   endpoints: (builder) => ({
-    read: builder.query<ReadUserResult, void>({
+    readUser: builder.query<ReadUserResult, void>({
       query: () => ({
         url: 'user/read',
         method: 'GET',
@@ -45,4 +45,4 @@ const userApi = dayduleApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useReadQuery, useUpdateUserMutation } = userApi;
+export const { useReadUserQuery, useUpdateUserMutation } = userApi;
