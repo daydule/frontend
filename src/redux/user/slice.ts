@@ -23,6 +23,17 @@ export type UpdateUserForm = {
   password: string;
 };
 
+export type UpdatePasswordResult = {
+  nickname: string;
+  email: string;
+};
+
+// TODO: nicknameだけを送るように修正（バックエンド修正後）
+export type UpdatePasswordForm = {
+  currentPassword: string;
+  newPassword: string;
+};
+
 const userApi = dayduleApi.injectEndpoints({
   endpoints: (builder) => ({
     readUser: builder.query<ReadUserResult, void>({
@@ -41,8 +52,17 @@ const userApi = dayduleApi.injectEndpoints({
       // FIXME: 再レンダリングされ、タブが切り替わってしまうため、タブが切り替わらないように修正する
       invalidatesTags: ['Auth'],
     }),
+    updatePassword: builder.mutation<UpdatePasswordResult, UpdatePasswordForm>({
+      query: (body) => ({
+        url: 'user/password/update',
+        method: 'POST',
+        body,
+      }),
+      // FIXME: 再レンダリングされ、タブが切り替わってしまうため、タブが切り替わらないように修正する
+      invalidatesTags: ['Auth'],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useReadUserQuery, useUpdateUserMutation } = userApi;
+export const { useReadUserQuery, useUpdateUserMutation, useUpdatePasswordMutation } = userApi;
