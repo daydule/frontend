@@ -15,7 +15,6 @@ export const TodoListComponent = () => {
       scheduleReadResult
         ? scheduleReadResult.todos
             .map((todo) => {
-              console.log(todo);
               return todo?.id;
             })
             .filter((id) => id !== null)
@@ -53,11 +52,7 @@ export const TodoListComponent = () => {
                     <Draggable key={todo?.id} draggableId={todo?.id.toString()} index={index}>
                       {(provided, snapshot) => (
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                          <TodoCardComponent
-                            todo={todo}
-                            isDragging={snapshot.isDragging}
-                            draggableStyle={provided.draggableProps.style}
-                          />
+                          <TodoCardComponent todo={todo} isDragging={snapshot.isDragging} />
                         </div>
                       )}
                     </Draggable>
