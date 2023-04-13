@@ -10,7 +10,9 @@ const LayoutComponent = (props: Props) => {
   return (
     <div className='bg-white w-full h-screen border border-white'>
       <HeaderComponent />
-      <div className='w-[calc(100%_-_2rem)] h-[calc(100%_-_9rem)] my-20 mx-4 border border-white'>{props.children}</div>
+      <div className='w-[calc(100%_-_2rem)] h-[calc(100%_-_7rem)] mt-20 mb-8 mx-4 border border-white'>
+        {props.children}
+      </div>
       <FooterComponent />
     </div>
   );

@@ -20,7 +20,7 @@ const HeaderComponent = () => {
   };
 
   return (
-    <div className='w-full h-20 fixed left-0 top-0 border-b border-white pl-8 flex items-center text-left text-3xl text-white bg-indigo-700'>
+    <div className='w-full h-20 fixed left-0 top-0 border-b shadow-xl pl-8 flex items-center text-left text-3xl text-white bg-indigo-700 z-10'>
       <div className='flex' onClick={() => router.push('/main')}>
         <IconContext.Provider value={{ size: '1.2em', className: 'text-white text-opacity-90' }}>
           <AiFillSchedule />
