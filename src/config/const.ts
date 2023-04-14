@@ -2,14 +2,16 @@ export const CONSTANT = {
   DEFAULT: {
     PLAN: {
       TITLE: '',
-      PROCESS_TIME: [30],
       PLAN_TYPE: {
         PLAN: 0,
         TODO: 1,
       },
       PRIORITY: 0,
-      REGISTER: {
+      REGISTER_PLAN: {
         PROCESS_TIME: 60,
+      },
+      REGISTER_TODO: {
+        PROCESS_TIME: [30],
       },
     },
     SCHEDULE: {

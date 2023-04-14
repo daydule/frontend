@@ -7,7 +7,7 @@ import SliderComponent from '../atoms/SliderComponent';
 
 export const RegisterTodoComponent = () => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
-  const [processTime, setProcessTime] = useState<number[]>(CONSTANT.DEFAULT.PLAN.PROCESS_TIME);
+  const [processTime, setProcessTime] = useState<number[]>(CONSTANT.DEFAULT.PLAN.REGISTER_TODO.PROCESS_TIME);
   const [createPlan] = useCreatePlanMutation();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
