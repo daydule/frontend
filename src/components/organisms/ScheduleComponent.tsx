@@ -62,7 +62,7 @@ export const ScheduleComponent = () => {
           ))}
 
           {scheduleReadResult?.schedule.plans.map((plan) => (
-            <PlanCardComponent plan={plan} start={start} minuteHeightPercent={minuteHeightPercent} />
+            <PlanCardComponent key={plan.id} plan={plan} start={start} minuteHeightPercent={minuteHeightPercent} />
           ))}
         </div>
       </div>

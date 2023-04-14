@@ -33,7 +33,6 @@ export const PlanCardComponent = (props: Props) => {
   };
   return (
     <div
-      key={props.plan.id}
       className='flex absolute left-[5%] w-4/5 bg-blue-400 shadow-lg rounded-lg px-4 border items-center text-md'
       style={style}
     >
