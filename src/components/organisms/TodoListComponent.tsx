@@ -46,10 +46,10 @@ export const TodoListComponent = () => {
             {(provided, snapshot) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
                 {todoOrder?.map((id, index) => {
-                  const todo = scheduleReadResult?.todos.filter((todo) => todo?.id === id)[0];
+                  const todo = scheduleReadResult?.todos.find((todo) => todo?.id === id);
                   if (!todo) return <Fragment key={'todoCard' + index}></Fragment>;
                   return (
-                    <Draggable key={todo?.id} draggableId={todo?.id.toString()} index={index}>
+                    <Draggable key={todo.id} draggableId={todo.id.toString()} index={index}>
                       {(provided, snapshot) => (
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                           <TodoCardComponent todo={todo} isDragging={snapshot.isDragging} />
