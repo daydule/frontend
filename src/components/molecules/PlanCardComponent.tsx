@@ -1,9 +1,7 @@
 import { timeString4digitsDiffMin } from '@/helpers/dateHelper';
-import { useDeletePlanMutation } from '@/redux/plan/slice';
 import { Plan } from '@/redux/plan/type';
-import React, { FormEvent } from 'react';
-import { ButtonWithIconComponent } from '@/components/atoms/ButtonWithIconComponent';
-import { MdOutlineDeleteForever } from 'react-icons/md';
+import React from 'react';
+import { DeletePlanButtonComponent } from '@/components/molecules/deletePlanButtonComponent';
 
 type Props = {
   plan: Plan;
@@ -12,19 +10,11 @@ type Props = {
 };
 
 export const PlanCardComponent = (props: Props) => {
-  const [deletePlan] = useDeletePlanMutation();
-
   const startHour = parseInt(props.plan.startTime.slice(0, 2), 10) - props.start;
   const startMinute = parseInt(props.plan.startTime.slice(-2), 10);
   const top = Math.round((startHour * 60 + startMinute) * props.minuteHeightPercent * 100) / 100;
   const processTime = timeString4digitsDiffMin(props.plan.startTime, props.plan.endTime);
   const height = processTime * props.minuteHeightPercent;
-
-  const handleDeleteSubmit = async (event: FormEvent<HTMLFormElement>, id: number) => {
-    // リロードが走らないように入れている
-    event.preventDefault();
-    deletePlan({ id });
-  };
 
   if (top > 100 || height <= 0) return <React.Fragment key={props.plan.id}></React.Fragment>;
   const style = {
@@ -40,13 +30,7 @@ export const PlanCardComponent = (props: Props) => {
       <div className='w-1/4'>{props.plan.startTime}</div>
       <div className='w-1/4'>{props.plan.endTime}</div>
       <div className='w-1/4'>
-        <form id='delete-plan-form' onSubmit={(event) => handleDeleteSubmit(event, props.plan.id)}>
-          <ButtonWithIconComponent
-            type='submit'
-            icon={<MdOutlineDeleteForever />}
-            size={processTime < 30 ? 1 : 1.5}
-          ></ButtonWithIconComponent>
-        </form>
+        <DeletePlanButtonComponent size={processTime < 30 ? 1 : 1.5} planId={props.plan.id} />
       </div>
     </div>
   );
