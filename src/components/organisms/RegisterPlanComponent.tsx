@@ -13,7 +13,7 @@ export const RegisterPlanComponent = () => {
   const remainder = minutes % 15;
   defaultStartDate.setMinutes(minutes + (15 - remainder));
   // 終了時間を開始時間から１時間後の時間に設定
-  const defaultProcessTime = 60;
+  const defaultProcessTime = CONSTANT.DEFAULT.PLAN.REGISTER.PROCESS_TIME;
   const defaultEndDate = new Date(defaultStartDate.getTime());
   defaultEndDate.setHours(defaultStartDate.getHours() + defaultProcessTime / 60);
 
