@@ -1,4 +1,4 @@
-import { Plan } from '@/redux/plan/type';
+import { Plan } from '@/redux/types';
 import { DeletePlanButtonComponent } from './deletePlanButtonComponent';
 
 type Props = {

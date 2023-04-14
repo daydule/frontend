@@ -1,5 +1,5 @@
 import { dayduleApi } from '@/redux/slice';
-import { Plan } from '@/redux/plan/type';
+import { Plan } from '@/redux/types';
 
 export type scheduleReadParams = {
   date: string;

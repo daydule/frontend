@@ -1,5 +1,5 @@
 import { timeString4digitsDiffMin } from '@/helpers/dateHelper';
-import { Plan } from '@/redux/plan/type';
+import { Plan } from '@/redux/types';
 import React from 'react';
 import { DeletePlanButtonComponent } from '@/components/molecules/deletePlanButtonComponent';
 
