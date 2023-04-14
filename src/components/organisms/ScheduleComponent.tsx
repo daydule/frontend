@@ -7,6 +7,8 @@ import { CONSTANT } from '@/config/const';
 export const ScheduleComponent = () => {
   const dateString = formatToYYYY_MM_DD(new Date());
   const { data: scheduleReadResult } = useReadScheduleQuery({ date: dateString });
+
+  // NOTE: スケジュールの開始、終了時間外の予定がある場合は、表示を拡大する
   const startTime = scheduleReadResult?.schedule.plans
     .map((plan) => plan.startTime)
     .reduce(
@@ -14,7 +16,6 @@ export const ScheduleComponent = () => {
         timeString4digitsDiffMin(startTime, currentStartTime) > 0 ? startTime : currentStartTime,
       CONSTANT.DEFAULT.SCHEDULE.START_TIME,
     );
-
   const endTime = scheduleReadResult?.schedule.plans
     .map((plan) => plan.endTime)
     .reduce(
