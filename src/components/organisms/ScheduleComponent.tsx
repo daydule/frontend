@@ -2,7 +2,7 @@ import { formatToYYYY_MM_DD, timeString4digitsDiffMin } from '@/helpers/dateHelp
 import { useReadScheduleQuery } from '@/redux/schedule/slice';
 import React from 'react';
 import { PlanCardComponent } from '../molecules/PlanCardComponent';
-import { Plan } from '@/redux/plan/type';
+import { CONSTANT } from '@/config/const';
 
 export const ScheduleComponent = () => {
   const dateString = formatToYYYY_MM_DD(new Date());
@@ -12,7 +12,7 @@ export const ScheduleComponent = () => {
     .reduce(
       (currentStartTime: string, startTime: string) =>
         timeString4digitsDiffMin(startTime, currentStartTime) > 0 ? startTime : currentStartTime,
-      '0900',
+      CONSTANT.DEFAULT.SCHEDULE.START_TIME,
     );
 
   const endTime = scheduleReadResult?.schedule.plans
@@ -20,7 +20,7 @@ export const ScheduleComponent = () => {
     .reduce(
       (currentEndTime: string, endTime: string) =>
         timeString4digitsDiffMin(endTime, currentEndTime) < 0 ? endTime : currentEndTime,
-      '1800',
+      CONSTANT.DEFAULT.SCHEDULE.END_TIME,
     );
 
   if (!startTime || !endTime) return <></>;
