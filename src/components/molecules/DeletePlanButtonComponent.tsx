@@ -18,7 +18,7 @@ export const DeletePlanButtonComponent = (props: Props) => {
   };
 
   return (
-    <form id='delete-todo-form' onSubmit={(event) => handleDeleteSubmit(event, props.planId)}>
+    <form id={`delete-plan-${props.planId}-form`} onSubmit={(event) => handleDeleteSubmit(event, props.planId)}>
       <ButtonWithIconComponent
         type='submit'
         icon={<MdOutlineDeleteForever />}
