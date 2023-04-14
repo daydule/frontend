@@ -6,15 +6,15 @@ import { DeletePlanButtonComponent } from '@/components/molecules/deletePlanButt
 type Props = {
   plan: Plan;
   start: number;
-  minuteHeightPercent: number;
+  oneMinuteHeightPercent: number;
 };
 
 export const PlanCardComponent = (props: Props) => {
   const startHour = parseInt(props.plan.startTime.slice(0, 2), 10) - props.start;
   const startMinute = parseInt(props.plan.startTime.slice(-2), 10);
-  const top = Math.round((startHour * 60 + startMinute) * props.minuteHeightPercent * 100) / 100;
+  const top = Math.round((startHour * 60 + startMinute) * props.oneMinuteHeightPercent * 100) / 100;
   const processTime = timeString4digitsDiffMin(props.plan.startTime, props.plan.endTime);
-  const height = processTime * props.minuteHeightPercent;
+  const height = processTime * props.oneMinuteHeightPercent;
 
   if (top > 100 || height <= 0) return <React.Fragment key={props.plan.id}></React.Fragment>;
   const style = {
