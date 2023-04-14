@@ -2,7 +2,7 @@ import { MouseEventHandler, ReactNode } from 'react';
 import { IconContext } from 'react-icons/lib';
 
 type Props = {
-  type?: 'button' | 'submit' | 'reset';
+  type: 'button' | 'submit' | 'reset';
   icon: ReactNode;
   size: number;
   extraClassName?: string;
