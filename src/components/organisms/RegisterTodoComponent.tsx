@@ -16,8 +16,8 @@ export const RegisterTodoComponent = () => {
     const data: CreateForm = {
       title: title,
       processTime: processTime[0],
-      priority: 1,
-      planType: 1,
+      planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO,
+      priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
     };
     try {
       await createPlan(data).unwrap();

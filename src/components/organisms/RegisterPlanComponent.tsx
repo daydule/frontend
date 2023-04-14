@@ -31,8 +31,8 @@ export const RegisterPlanComponent = () => {
       date: formatToYYYY_MM_DD(new Date()),
       startTime: formatToTimeString4digits(startTime),
       endTime: formatToTimeString4digits(endTime),
-      priority: 0,
-      planType: 0,
+      priority: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
+      planType: CONSTANT.DEFAULT.PLAN.PRIORITY,
     };
     try {
       await createPlan(data).unwrap();
