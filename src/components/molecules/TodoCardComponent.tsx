@@ -1,5 +1,5 @@
 import { Plan } from '@/redux/types';
-import { DeletePlanButtonComponent } from './deletePlanButtonComponent';
+import { DeletePlanButtonComponent } from '@/components/molecules/DeletePlanButtonComponent';
 
 type Props = {
   todo: Plan;

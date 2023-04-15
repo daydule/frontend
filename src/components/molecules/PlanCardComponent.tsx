@@ -1,7 +1,7 @@
 import { timeString4digitsDiffMin } from '@/helpers/dateHelper';
 import { Plan } from '@/redux/types';
 import React from 'react';
-import { DeletePlanButtonComponent } from '@/components/molecules/deletePlanButtonComponent';
+import { DeletePlanButtonComponent } from '@/components/molecules/DeletePlanButtonComponent';
 
 type Props = {
   plan: Plan;
