@@ -16,7 +16,7 @@ export const PlanCardComponent = (props: Props) => {
   const processTime = timeString4digitsDiffMin(props.plan.startTime, props.plan.endTime);
   const height = processTime * props.oneMinuteHeightPercent;
 
-  if (top > 100 || height <= 0) return <React.Fragment key={props.plan.id}></React.Fragment>;
+  if (top > 100 || height <= 0) return <></>;
   const style = {
     top: 'calc(' + top + '% + 1rem)',
     height: height + '%',
