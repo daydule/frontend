@@ -5,6 +5,10 @@ export type scheduleReadParams = {
   date: string;
 };
 
+export type scheduleCreateForm = {
+  date: string;
+};
+
 export type scheduleReadResult = {
   isError: boolean;
   schedule: {
@@ -17,6 +21,14 @@ export type scheduleReadResult = {
 
 const scheduleApi = dayduleApi.injectEndpoints({
   endpoints: (builder) => ({
+    createSchedule: builder.mutation<void, scheduleCreateForm>({
+      query: (body) => ({
+        url: `schedule/create`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Schedule'],
+    }),
     readSchedule: builder.query<scheduleReadResult, scheduleReadParams>({
       query: (scheduleReadParams) => ({
         url: `schedule/read/${scheduleReadParams.date}`,
@@ -28,4 +40,4 @@ const scheduleApi = dayduleApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useReadScheduleQuery } = scheduleApi;
+export const { useReadScheduleQuery, useCreateScheduleMutation } = scheduleApi;

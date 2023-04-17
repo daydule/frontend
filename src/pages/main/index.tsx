@@ -1,3 +1,4 @@
+import { CreateScheduleButtonComponent } from '@/components/molecules/CreateScheduleButtonComponent';
 import { RegisterPlanComponent } from '@/components/organisms/RegisterPlanComponent';
 import { RegisterTodoComponent } from '@/components/organisms/RegisterTodoComponent';
 import { ScheduleComponent } from '@/components/organisms/ScheduleComponent';
@@ -12,6 +13,7 @@ const MainPage = () => {
           <RegisterPlanComponent />
           <RegisterTodoComponent />
           <TodoListComponent />
+          <CreateScheduleButtonComponent />
         </div>
         <div className='w-[calc(100%_-_25rem)] h-full mx-4'>
           <ScheduleComponent />
