@@ -8,7 +8,8 @@ export type scheduleReadParams = {
 export type scheduleReadResult = {
   isError: boolean;
   schedule: {
-    isScheduled: boolean;
+    startTime: string;
+    endTime: string;
     plans: Plan[];
   };
   todos: Plan[];

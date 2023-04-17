@@ -14,14 +14,14 @@ export const ScheduleComponent = () => {
     .reduce(
       (currentStartTime: string, startTime: string) =>
         timeString4digitsDiffMin(startTime, currentStartTime) > 0 ? startTime : currentStartTime,
-      CONSTANT.DEFAULT.SCHEDULE.START_TIME,
+      scheduleReadResult.schedule.startTime,
     );
   const endTime = scheduleReadResult?.schedule.plans
     .map((plan) => plan.endTime)
     .reduce(
       (currentEndTime: string, endTime: string) =>
         timeString4digitsDiffMin(endTime, currentEndTime) < 0 ? endTime : currentEndTime,
-      CONSTANT.DEFAULT.SCHEDULE.END_TIME,
+      scheduleReadResult.schedule.endTime,
     );
 
   if (!startTime || !endTime) return <></>;
