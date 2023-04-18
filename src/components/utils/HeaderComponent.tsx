@@ -43,10 +43,14 @@ const HeaderComponent = () => {
       </div>
       {/* </デバック用> */}
 
-      {!isError ? (
+      {!isError && (
         <div className='mx-4 text-sm'>user: {readUserResult?.user?.nickname || readUserResult?.user?.email}</div>
-      ) : null}
-      {!isError ? <ButtonComponent onClick={onClickLogout}>ログアウト</ButtonComponent> : null}
+      )}
+      {!isError && (
+        <ButtonComponent onClick={onClickLogout} type={'button'}>
+          ログアウト
+        </ButtonComponent>
+      )}
     </div>
   );
 };
