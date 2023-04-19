@@ -34,7 +34,7 @@ const SliderComponent = (props: Props) => {
       />
       <div className='absolute top-2 left-0'>{props.min}</div>
       <div className='absolute top-2 right-0'>{props.max}</div>
-      <div className='mt-4'>
+      <div className='mt-1'>
         <span className='text-gray-700'>{props?.title + ' '}</span>
         <span className='text-gray-700 text-xl'>{props?.values[0]}</span>
         <span className='text-gray-700'>{props?.unit}</span>

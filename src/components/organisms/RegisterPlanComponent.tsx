@@ -13,12 +13,14 @@ export const RegisterPlanComponent = () => {
   const remainder = minutes % 15;
   defaultStartDate.setMinutes(minutes + (15 - remainder));
   // 終了時間を開始時間から１時間後の時間に設定
+  const defaultProcessTime = CONSTANT.DEFAULT.PLAN.REGISTER_PLAN.PROCESS_TIME;
   const defaultEndDate = new Date(defaultStartDate.getTime());
-  defaultEndDate.setHours(defaultStartDate.getHours() + 1);
+  defaultEndDate.setHours(defaultStartDate.getHours() + defaultProcessTime / 60);
 
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
   const [startTime, setStartTime] = useState<Date>(defaultStartDate);
   const [endTime, setEndTime] = useState<Date>(defaultEndDate);
+  const [processTime, setProcessTime] = useState<number>(defaultProcessTime);
   const [createPlan] = useCreatePlanMutation();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -29,8 +31,8 @@ export const RegisterPlanComponent = () => {
       date: formatToYYYY_MM_DD(new Date()),
       startTime: formatToTimeString4digits(startTime),
       endTime: formatToTimeString4digits(endTime),
-      priority: 0,
-      planType: 0,
+      priority: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
+      planType: CONSTANT.DEFAULT.PLAN.PRIORITY,
     };
     try {
       await createPlan(data).unwrap();
@@ -39,11 +41,39 @@ export const RegisterPlanComponent = () => {
       console.error(e);
     }
   };
+
+  // NOTE: 開始時間変更時に所要時間を保って終了時間も変更する
+  const onChangeStartTime = (newStartTime: Date) => {
+    const newEndTime = new Date(newStartTime.getTime());
+    newEndTime.setHours(newEndTime.getHours() + Math.floor(processTime / 60));
+    newEndTime.setMinutes(newEndTime.getMinutes() + (processTime % 60));
+    setEndTime(newEndTime);
+  };
+
+  /**
+   * NOTE:
+   * 終了時間が開始時間より後のままの場合は、
+   * 保持している所要時間だけ変更する
+   * 終了時間が開始時間と等しい もしくは 開始時間より前になった場合は、
+   * 所要時間を保って開始時間も変更する
+   */
+  const onChangeEndTime = (newEndTime: Date) => {
+    if (newEndTime.getTime() > startTime.getTime()) {
+      const newProcessTime = Math.floor(newEndTime.getTime() - startTime.getTime()) / (60 * 1000);
+      setProcessTime(newProcessTime);
+    } else {
+      const newStartTime = new Date(newEndTime.getTime());
+      newStartTime.setHours(newStartTime.getHours() - Math.floor(processTime / 60));
+      newStartTime.setMinutes(newStartTime.getMinutes() - (processTime % 60));
+      setStartTime(newStartTime);
+    }
+  };
+
   return (
     <div className='border border-gray-200 shadow-md rounded-md w-96 h-[calc(25%_-_1rem)] my-4 relative'>
       <div className='absolute top-3 left-3 text-xl'>予定</div>
-      <form id='register-plan-form' onSubmit={handleSubmit}>
-        <div className='mt-10 mx-auto w-3/5'>
+      <form className='mt-3' id='register-plan-form' onSubmit={handleSubmit}>
+        <div className='mx-auto w-3/5'>
           <SimpleInputComponent<string>
             id='title'
             name='title'
@@ -61,7 +91,8 @@ export const RegisterPlanComponent = () => {
               header='開始'
               value={startTime}
               setter={setStartTime}
-              extraClassName='h-4/5 pl-3 rounded-lg border-gray-400'
+              onChange={onChangeStartTime}
+              extraClassName='h-4/5 pl-3 rounded-lg border-gray-200'
             />
           </div>
           <div>〜</div>
@@ -72,11 +103,20 @@ export const RegisterPlanComponent = () => {
               header='終了'
               value={endTime}
               setter={setEndTime}
-              extraClassName='h-4/5 pl-3 rounded-lg border-gray-400'
+              onChange={onChangeEndTime}
+              extraClassName='h-4/5 pl-3 rounded-lg border-gray-200'
             />
           </div>
         </div>
-        <div className='absolute bottom-3 right-3 text-xl'>
+        <div className='absolute bottom-3 right-16 text-md'>
+          <ButtonComponent
+            extraClassName='bg-white hover:bg-gray-300 text-gray-500'
+            type='button'
+            children='その他のオプション'
+            onClick={() => {}}
+          />
+        </div>
+        <div className='absolute bottom-3 right-3 text-md'>
           <ButtonComponent type='submit' children='登録' />
         </div>
       </form>

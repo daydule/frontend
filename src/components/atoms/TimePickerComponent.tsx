@@ -9,13 +9,19 @@ type Props = {
   value: Date;
   extraClassName?: string | undefined;
   setter: React.Dispatch<React.SetStateAction<Date>>;
+  onChange?: (date: Date) => void;
 };
 
 export const TimePickerComponent = (props: Props) => {
+  const onChange = (date: Date) => {
+    props.setter(date);
+    props.onChange && props.onChange(date);
+  };
+
   return (
     <DatePicker
       selected={props.value}
-      onChange={(date: Date) => props.setter(date)}
+      onChange={onChange}
       showTimeSelect
       showTimeSelectOnly
       timeIntervals={15}
