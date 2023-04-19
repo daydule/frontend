@@ -1,4 +1,4 @@
-FROM node:18.12-alpine
+FROM node:18.15-alpine
 
 WORKDIR /daydule/
 
