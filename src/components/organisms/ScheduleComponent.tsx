@@ -1,6 +1,7 @@
 import { formatToYYYY_MM_DD, timeString4digitsDiffMin } from '@/helpers/dateHelper';
 import { useReadScheduleQuery } from '@/redux/schedule/slice';
 import React, { useEffect, useState } from 'react';
+
 import { PlanCardComponent } from '../molecules/PlanCardComponent';
 import { CONSTANT } from '@/config/const';
 
@@ -21,6 +22,7 @@ export const ScheduleComponent = () => {
 
   // NOTE: スケジュールの開始、終了時間外の予定がある場合は、表示を拡大する
   const startTime = scheduleReadResult.schedule.plans
+
     .map((plan) => plan.startTime)
     .reduce(
       (currentStartTime: string, startTime: string) =>
@@ -34,6 +36,8 @@ export const ScheduleComponent = () => {
         timeString4digitsDiffMin(endTime, currentEndTime) < 0 ? endTime : currentEndTime,
       scheduleReadResult.schedule.endTime,
     );
+
+  if (!startTime || !endTime) return <></>;
 
   const startTimeHour = parseInt(startTime.slice(0, 2), 10);
   const endTimeHour = parseInt(endTime.slice(0, 2), 10) + (parseInt(endTime.slice(-2), 10) > 0 ? 1 : 0);

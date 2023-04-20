@@ -6,7 +6,11 @@ services:
     environment:
       - WATCHPACK_POLLING=true
     volumes:
-      - ./:/daydule/
+      - ./:/daydule:cached
+      - node_modules:/daydule/node_modules
     ports:
       - '3001:3001'
     command: 'npm run dev'
+
+volumes:
+  node_modules:
