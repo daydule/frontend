@@ -10,7 +10,7 @@ export const NicknameSettingComponent = () => {
   const [userUpdate] = useUpdateUserMutation();
   const { data: readUserResult, isError } = useReadUserQuery();
 
-  const onClickUpdateNickname = async () => {
+  const handleClickUpdateNickname = async () => {
     // TODO: ニックネーム更新用のAPIを作成したら、直書きを修正
     const data = {
       nickname: nickname,
@@ -48,7 +48,7 @@ export const NicknameSettingComponent = () => {
         </div>
         <div className='flex ml-20 mt-20'>
           <div className='mr-6'>
-            <ButtonComponent type='button' children='ニックネーム変更' onClick={onClickUpdateNickname} />
+            <ButtonComponent type='button' children='ニックネーム変更' handleClick={handleClickUpdateNickname} />
           </div>
         </div>
       </form>

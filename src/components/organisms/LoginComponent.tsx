@@ -13,7 +13,7 @@ export const LoginComponent = () => {
   const [login] = useLoginMutation();
   const router = useRouter();
 
-  const onClickLogin = async () => {
+  const handleClickLogin = async () => {
     const data = {
       email: email,
       password: password,
@@ -68,7 +68,7 @@ export const LoginComponent = () => {
             />
           </div>
           <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
-            <ButtonComponent type='button' children='ログイン' onClick={onClickLogin} />
+            <ButtonComponent type='button' children='ログイン' handleClick={handleClickLogin} />
           </div>
         </form>
         <div>

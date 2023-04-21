@@ -10,7 +10,7 @@ const LoginPage: NextPage = () => {
         <LoginComponent />
         <div className='mt-6 text-center mx-auto xl:w-2/5 w-3/5'>
           {/* TODO: ゲスト利用のAPIが完了次第修正 */}
-          <ButtonComponent type='button' children='ゲストとして利用する' onClick={() => {}} />
+          <ButtonComponent type='button' children='ゲストとして利用する' handleClick={() => {}} />
         </div>
       </div>
     </RedirectToMainIfLoginComponent>

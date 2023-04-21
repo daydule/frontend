@@ -14,7 +14,7 @@ export const SignupComponent = () => {
   const [signup, { isLoading, isError, isSuccess, status }] = useSignupMutation();
   const router = useRouter();
 
-  const onClickSignup = async () => {
+  const handleClickSignup = async () => {
     const data = {
       email: email,
       password: password,
@@ -84,7 +84,7 @@ export const SignupComponent = () => {
             />
           </div>
           <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
-            <ButtonComponent type='button' children='サインアップ' onClick={onClickSignup} />
+            <ButtonComponent type='button' children='サインアップ' handleClick={handleClickSignup} />
           </div>
         </form>
         <div>

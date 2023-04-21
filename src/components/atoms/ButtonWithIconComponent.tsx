@@ -6,12 +6,12 @@ type Props = {
   icon: ReactNode;
   size: number;
   extraClassName?: string;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  handleClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
 export const ButtonWithIconComponent = (props: Props) => (
   <div className='relative'>
-    <button type={props.type} onClick={props.onClick}>
+    <button type={props.type} onClick={props.handleClick}>
       <IconContext.Provider
         value={{
           size: (props?.size ? props.size : 1.5) + 'rem',
