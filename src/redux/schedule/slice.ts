@@ -7,6 +7,7 @@ export type scheduleReadParams = {
 
 export type scheduleCreateForm = {
   date: string;
+  currentTime: string;
 };
 
 export type scheduleReadResult = {

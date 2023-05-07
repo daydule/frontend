@@ -11,7 +11,8 @@ export const CreateScheduleButtonComponent = () => {
     event.preventDefault();
     const now = new Date();
     const dateString = formatToYYYY_MM_DD(now);
-    await createSchedule({ date: dateString });
+    const currentTime = ('00' + now.getHours()).slice(-2) + ('00' + now.getMinutes()).slice(-2);
+    await createSchedule({ date: dateString, currentTime: currentTime });
   };
 
   return (

@@ -13,6 +13,7 @@ export const CONSTANT = {
       REGISTER_TODO: {
         PROCESS_TIME: [30],
       },
+      IS_REQUIRED_PLAN: true,
     },
     SCHEDULE: {
       START_TIME: '0900',
