@@ -33,6 +33,7 @@ export const RegisterPlanComponent = () => {
       endTime: formatToTimeString4digits(endTime),
       priority: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
       planType: CONSTANT.DEFAULT.PLAN.PRIORITY,
+      isRequiredPlan: CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN,
     };
     try {
       await createPlan(data).unwrap();

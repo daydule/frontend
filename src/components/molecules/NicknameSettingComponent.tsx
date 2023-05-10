@@ -25,7 +25,7 @@ export const NicknameSettingComponent = () => {
       }
       setNickname('');
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 

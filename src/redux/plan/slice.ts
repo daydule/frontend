@@ -8,6 +8,7 @@ export type CreateForm = {
   processTime?: number;
   priority: number;
   planType: number;
+  isRequiredPlan?: boolean;
 };
 
 export type UpdateForm = {
@@ -27,6 +28,10 @@ export type DeleteForm = {
 
 export type UpdateTodoPriorityForm = {
   ids: number[];
+};
+
+export type BackToListForm = {
+  date: string;
 };
 
 const planApi = dayduleApi.injectEndpoints({
@@ -63,9 +68,22 @@ const planApi = dayduleApi.injectEndpoints({
       }),
       invalidatesTags: ['Schedule'],
     }),
+    backToList: builder.mutation<void, BackToListForm>({
+      query: (body) => ({
+        url: `plan/backToList`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Schedule'],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useCreatePlanMutation, useUpdatePlanMutation, useDeletePlanMutation, useUpdateTodoPriorityMutation } =
-  planApi;
+export const {
+  useCreatePlanMutation,
+  useUpdatePlanMutation,
+  useDeletePlanMutation,
+  useUpdateTodoPriorityMutation,
+  useBackToListMutation,
+} = planApi;
