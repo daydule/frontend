@@ -46,7 +46,9 @@ const HeaderComponent = () => {
       {!isError ? (
         <div className='mx-4 text-sm'>user: {readUserResult?.user?.nickname || readUserResult?.user?.email}</div>
       ) : null}
-      {!isError ? <ButtonComponent onClick={onClickLogout}>ログアウト</ButtonComponent> : null}
+      {!isError ? (
+        <ButtonComponent onClick={onClickLogout} type={'button'} children={'ログアウト'}></ButtonComponent>
+      ) : null}
     </div>
   );
 };
