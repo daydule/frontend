@@ -48,7 +48,7 @@ export const RegisterTodoComponent = () => {
             extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'
             children='その他のオプション'
-            onClick={() => {}}
+            handleClick={() => {}}
           />
         </div>
         <div className='absolute bottom-3 right-3 text-md'>
