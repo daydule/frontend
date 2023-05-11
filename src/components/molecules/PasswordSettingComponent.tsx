@@ -24,7 +24,7 @@ export const PasswordSettingComponent = () => {
       setNewPassword('');
       setNewPasswordConfirmation('');
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
