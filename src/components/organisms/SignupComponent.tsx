@@ -2,7 +2,7 @@ import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { LinkComponent } from '../atoms/LinkComponent';
 import React, { useState } from 'react';
-import { useSignupMutation } from '@/redux/auth/slice';
+import { SignupForm, useSignupMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
 import { useRouter } from 'next/router';
@@ -11,13 +11,14 @@ export const SignupComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [signup, { isLoading, isError, isSuccess, status }] = useSignupMutation();
+  const [signup] = useSignupMutation();
   const router = useRouter();
 
   const onClickSignup = async () => {
-    const data = {
-      email: email,
-      password: password,
+    const data: SignupForm = {
+      email,
+      password,
+      passwordConfirmation,
     };
     try {
       if (password !== passwordConfirmation) {
