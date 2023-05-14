@@ -45,8 +45,8 @@ export const RegisterPlanComponent = () => {
       travelTime: travelTime[0],
       bufferTime: bufferTime[0],
       isRequiredPlan: isRequiredPlan,
-      priority: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
-      planType: CONSTANT.DEFAULT.PLAN.PRIORITY,
+      priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
+      planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
     };
     try {
       await createPlan(data).unwrap();
