@@ -3,6 +3,7 @@ import { dayduleApi } from '@/redux/slice';
 export type SignupForm = {
   email: string;
   password: string;
+  passwordConfirmation: string;
 };
 
 export type LoginForm = {
