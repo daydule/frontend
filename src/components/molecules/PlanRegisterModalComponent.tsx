@@ -23,10 +23,10 @@ type Props = {
   setContext: React.Dispatch<React.SetStateAction<string>>;
   place: string;
   setPlace: React.Dispatch<React.SetStateAction<string>>;
-  travelTime: number[];
-  setTravelTime: React.Dispatch<React.SetStateAction<number[]>>;
-  bufferTime: number[];
-  setBufferTime: React.Dispatch<React.SetStateAction<number[]>>;
+  // travelTime: number[];
+  // setTravelTime: React.Dispatch<React.SetStateAction<number[]>>;
+  // bufferTime: number[];
+  // setBufferTime: React.Dispatch<React.SetStateAction<number[]>>;
   isRequiredPlan: boolean;
   setIsRequiredPlan: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -119,7 +119,7 @@ export const PlanRegisterModalComponent = (props: Props) => {
                 setter={props.setPlace}
               />
             </div>
-            <div className='mt-8 mx-auto w-4/5'>
+            {/* <div className='mt-8 mx-auto w-4/5'>
               <SliderComponent
                 min={0}
                 max={120}
@@ -138,7 +138,7 @@ export const PlanRegisterModalComponent = (props: Props) => {
                 values={props.bufferTime}
                 setter={props.setBufferTime}
               />
-            </div>
+            </div> */}
             <div className='mt-8 mx-auto w-4/5'>
               <CheckBoxComponent
                 id='required-plan'

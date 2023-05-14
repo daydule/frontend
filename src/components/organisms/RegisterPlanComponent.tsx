@@ -24,8 +24,6 @@ export const RegisterPlanComponent = () => {
   const [processTime, setProcessTime] = useState<number>(defaultProcessTime);
   const [context, setContext] = useState<string>('');
   const [place, setPlace] = useState<string>('');
-  const [travelTime, setTravelTime] = useState<number[]>([0]);
-  const [bufferTime, setBufferTime] = useState<number[]>([0]);
   const [isRequiredPlan, setIsRequiredPlan] = useState<boolean>(true);
 
   const [createPlan] = useCreatePlanMutation();
@@ -42,8 +40,6 @@ export const RegisterPlanComponent = () => {
       endTime: formatToTimeString4digits(endTime),
       context: context === '' ? undefined : context,
       place: place === '' ? undefined : place,
-      travelTime: travelTime[0],
-      bufferTime: bufferTime[0],
       isRequiredPlan: isRequiredPlan,
       priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
@@ -159,10 +155,10 @@ export const RegisterPlanComponent = () => {
           setContext={setContext}
           place={place}
           setPlace={setPlace}
-          travelTime={travelTime}
-          setTravelTime={setTravelTime}
-          bufferTime={bufferTime}
-          setBufferTime={setBufferTime}
+          // travelTime={travelTime}
+          // setTravelTime={setTravelTime}
+          // bufferTime={bufferTime}
+          // setBufferTime={setBufferTime}
           isRequiredPlan={isRequiredPlan}
           setIsRequiredPlan={setIsRequiredPlan}
         />
