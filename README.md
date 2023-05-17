@@ -1,1 +1,3 @@
-README develop
+# daydule frontend
+
+This is daydule frontend.
