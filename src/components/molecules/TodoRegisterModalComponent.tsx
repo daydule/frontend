@@ -45,7 +45,7 @@ export const TodoRegisterModalComponent = (props: Props) => {
             <div className='mt-2 mx-auto w-4/5 flex items-center'>
               <div className='mt-8 mx-auto w-4/5'>
                 <SliderComponent
-                  min={0}
+                  min={15}
                   max={120}
                   title='所要時間'
                   unit='分'
