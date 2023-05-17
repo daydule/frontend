@@ -12,7 +12,7 @@ type Props<T> = {
 };
 
 export const SimpleInputComponent = <T extends string | number>(props: Props<T>) => {
-  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.setter(event.target.value as T);
   };
 
@@ -27,7 +27,7 @@ export const SimpleInputComponent = <T extends string | number>(props: Props<T>)
           props.extraClassName + ' ' + 'w-full border border-gray-200 shadow-md rounded-lg text-base block p-2.5 h-8'
         }
         placeholder={props.placeholder}
-        onChange={inputHandler}
+        onChange={handleChange}
       />
     </div>
   );

@@ -7,5 +7,5 @@
 
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
-  "cSpell.words": ["datepicker", "signup"]
+  "cSpell.words": ["datepicker", "headlessui", "heroicons", "signup"]
 }

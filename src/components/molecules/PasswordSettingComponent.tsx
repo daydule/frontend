@@ -12,7 +12,7 @@ export const PasswordSettingComponent = () => {
 
   const [updatePassword] = useUpdatePasswordMutation();
 
-  const onClickUpdatePassword = async () => {
+  const handleClickUpdatePassword = async () => {
     const data = {
       currentPassword: currentPassword,
       newPassword: newPassword,
@@ -72,7 +72,7 @@ export const PasswordSettingComponent = () => {
         </div>
         <div className='flex ml-20 mt-20'>
           <div className='mr-6'>
-            <ButtonComponent type='button' children='パスワード変更' onClick={onClickUpdatePassword} />
+            <ButtonComponent type='button' children='パスワード変更' handleClick={handleClickUpdatePassword} />
           </div>
         </div>
       </form>

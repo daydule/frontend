@@ -4,7 +4,7 @@ type Props = {
   type: 'button' | 'submit' | 'reset';
   children: ReactNode;
   extraClassName?: string;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  handleClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
 export const ButtonComponent = (props: Props) => (
@@ -14,7 +14,7 @@ export const ButtonComponent = (props: Props) => (
         props.extraClassName + ' ' + 'rounded-lg w-full bg-indigo-700 p-2 font-bold text-white hover:bg-blue-700'
       }
       type={props.type}
-      onClick={props.onClick}
+      onClick={props.handleClick}
     >
       {props.children}
     </button>

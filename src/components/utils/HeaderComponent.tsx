@@ -11,7 +11,7 @@ const HeaderComponent = () => {
   const { data: readUserResult, isError } = useReadUserQuery();
   const [logout] = useLogoutMutation();
 
-  const onClickLogout = async () => {
+  const handleClickLogout = async () => {
     try {
       await logout().unwrap();
     } catch (e) {
@@ -43,12 +43,14 @@ const HeaderComponent = () => {
       </div>
       {/* </デバック用> */}
 
-      {!isError ? (
+      {!isError && (
         <div className='mx-4 text-sm'>user: {readUserResult?.user?.nickname || readUserResult?.user?.email}</div>
-      ) : null}
-      {!isError ? (
-        <ButtonComponent onClick={onClickLogout} type={'button'} children={'ログアウト'}></ButtonComponent>
-      ) : null}
+      )}
+      {!isError && (
+        <ButtonComponent handleClick={handleClickLogout} type={'button'}>
+          ログアウト
+        </ButtonComponent>
+      )}
     </div>
   );
 };

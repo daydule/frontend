@@ -34,7 +34,11 @@ export const TodoListComponent = () => {
 
     const newTodoOrder = reorder(todoOrder, result.source.index, result.destination.index);
     setTodoOrder(newTodoOrder);
-    updateTodoPriority({ ids: newTodoOrder });
+    try {
+      updateTodoPriority({ ids: newTodoOrder });
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

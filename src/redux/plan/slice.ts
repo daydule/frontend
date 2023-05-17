@@ -5,6 +5,10 @@ export type CreateForm = {
   date?: string;
   startTime?: string;
   endTime?: string;
+  context?: string;
+  place?: string;
+  travelTime?: number;
+  bufferTime?: number;
   processTime?: number;
   priority: number;
   planType: number;

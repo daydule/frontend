@@ -5,6 +5,7 @@ import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TimePickerComponent } from '../atoms/TimePickerComponent';
+import { PlanRegisterModalComponent } from '../molecules/PlanRegisterModalComponent';
 
 export const RegisterPlanComponent = () => {
   // 開始時間を現在の時間から直後の15分刻みのキリのいい時間に設定
@@ -21,7 +22,13 @@ export const RegisterPlanComponent = () => {
   const [startTime, setStartTime] = useState<Date>(defaultStartDate);
   const [endTime, setEndTime] = useState<Date>(defaultEndDate);
   const [processTime, setProcessTime] = useState<number>(defaultProcessTime);
+  const [context, setContext] = useState<string>('');
+  const [place, setPlace] = useState<string>('');
+  const [isRequiredPlan, setIsRequiredPlan] = useState<boolean>(true);
+
   const [createPlan] = useCreatePlanMutation();
+
+  const [showsModal, setShowsModal] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // リロードが走らないように入れている
@@ -31,9 +38,11 @@ export const RegisterPlanComponent = () => {
       date: formatToYYYY_MM_DD(new Date()),
       startTime: formatToTimeString4digits(startTime),
       endTime: formatToTimeString4digits(endTime),
-      priority: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
-      planType: CONSTANT.DEFAULT.PLAN.PRIORITY,
-      isRequiredPlan: CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN,
+      context: context === '' ? undefined : context,
+      place: place === '' ? undefined : place,
+      isRequiredPlan: isRequiredPlan,
+      priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
+      planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
     };
     try {
       await createPlan(data).unwrap();
@@ -44,7 +53,7 @@ export const RegisterPlanComponent = () => {
   };
 
   // NOTE: 開始時間変更時に所要時間を保って終了時間も変更する
-  const onChangeStartTime = (newStartTime: Date) => {
+  const handleChangeStartTime = (newStartTime: Date) => {
     const newEndTime = new Date(newStartTime.getTime());
     newEndTime.setHours(newEndTime.getHours() + Math.floor(processTime / 60));
     newEndTime.setMinutes(newEndTime.getMinutes() + (processTime % 60));
@@ -58,7 +67,7 @@ export const RegisterPlanComponent = () => {
    * 終了時間が開始時間と等しい もしくは 開始時間より前になった場合は、
    * 所要時間を保って開始時間も変更する
    */
-  const onChangeEndTime = (newEndTime: Date) => {
+  const handleChangeEndTime = (newEndTime: Date) => {
     if (newEndTime.getTime() > startTime.getTime()) {
       const newProcessTime = Math.floor(newEndTime.getTime() - startTime.getTime()) / (60 * 1000);
       setProcessTime(newProcessTime);
@@ -68,6 +77,14 @@ export const RegisterPlanComponent = () => {
       newStartTime.setMinutes(newStartTime.getMinutes() - (processTime % 60));
       setStartTime(newStartTime);
     }
+  };
+
+  const handleClickOption = () => {
+    setShowsModal(true);
+  };
+
+  const handleClose = () => {
+    setShowsModal(false);
   };
 
   return (
@@ -92,7 +109,7 @@ export const RegisterPlanComponent = () => {
               header='開始'
               value={startTime}
               setter={setStartTime}
-              onChange={onChangeStartTime}
+              onChange={handleChangeStartTime}
               extraClassName='h-4/5 pl-3 rounded-lg border-gray-200'
             />
           </div>
@@ -104,7 +121,7 @@ export const RegisterPlanComponent = () => {
               header='終了'
               value={endTime}
               setter={setEndTime}
-              onChange={onChangeEndTime}
+              onChange={handleChangeEndTime}
               extraClassName='h-4/5 pl-3 rounded-lg border-gray-200'
             />
           </div>
@@ -114,13 +131,38 @@ export const RegisterPlanComponent = () => {
             extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'
             children='その他のオプション'
-            onClick={() => {}}
+            handleClick={handleClickOption}
           />
         </div>
         <div className='absolute bottom-3 right-3 text-md'>
           <ButtonComponent type='submit' children='登録' />
         </div>
       </form>
+      {showsModal && (
+        <PlanRegisterModalComponent
+          showsModal={showsModal}
+          handleClose={handleClose}
+          handleSubmit={handleSubmit}
+          title={title}
+          setTitle={setTitle}
+          startTime={startTime}
+          setStartTime={setStartTime}
+          onChangeStartTime={handleChangeStartTime}
+          endTime={endTime}
+          setEndTime={setEndTime}
+          onChangeEndTime={handleChangeEndTime}
+          context={context}
+          setContext={setContext}
+          place={place}
+          setPlace={setPlace}
+          // travelTime={travelTime}
+          // setTravelTime={setTravelTime}
+          // bufferTime={bufferTime}
+          // setBufferTime={setBufferTime}
+          isRequiredPlan={isRequiredPlan}
+          setIsRequiredPlan={setIsRequiredPlan}
+        />
+      )}
     </div>
   );
 };

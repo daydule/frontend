@@ -13,7 +13,7 @@ type Props<T> = {
 };
 
 export const InputWithIconComponent = <T extends string | number>(props: Props<T>) => {
-  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.setter(event.target.value as T);
   };
 
@@ -32,7 +32,7 @@ export const InputWithIconComponent = <T extends string | number>(props: Props<T
           value={props.value}
           className={props.extraClassName + ' ' + 'w-full border border-black text-base block pl-10 p-2.5 h-12'}
           placeholder={props.placeholder}
-          onChange={inputHandler}
+          onChange={handleChange}
         />
       </div>
     </>
