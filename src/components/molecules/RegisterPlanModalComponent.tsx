@@ -39,7 +39,7 @@ export const RegisterPlanModalComponent = (props: Props) => {
       endTime: formatToTimeString4digits(props.endTime),
       context: context === '' ? undefined : context,
       place: place === '' ? undefined : place,
-      isRequiredPlan: CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN,
+      isRequiredPlan: isRequiredPlan,
       priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
     };
