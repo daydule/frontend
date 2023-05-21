@@ -31,7 +31,7 @@ type Props = {
   setIsRequiredPlan: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const PlanRegisterModalComponent = (props: Props) => {
+export const RegisterPlanModalComponent = (props: Props) => {
   return (
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='予定'>
       <form

@@ -4,7 +4,7 @@ import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { FormEvent, SetStateAction, useState } from 'react';
 import { SimpleInputComponent } from '@/components/atoms/SimpleInputComponent';
 import SliderComponent from '@/components/atoms/SliderComponent';
-import { TodoRegisterModalComponent } from '@/components/molecules/TodoRegisterModalComponent';
+import { RegisterTodoModalComponent } from '@/components/molecules/RegisterTodoModalComponent';
 
 export const RegisterTodoComponent = () => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
@@ -73,7 +73,7 @@ export const RegisterTodoComponent = () => {
         </div>
       </form>
       {showsModal && (
-        <TodoRegisterModalComponent
+        <RegisterTodoModalComponent
           showsModal={showsModal}
           handleClose={handleClose}
           handleSubmit={handleSubmit}

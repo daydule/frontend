@@ -19,7 +19,7 @@ type Props = {
   setPlace: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const TodoRegisterModalComponent = (props: Props) => {
+export const RegisterTodoModalComponent = (props: Props) => {
   return (
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='TODO'>
       <form

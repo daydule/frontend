@@ -5,7 +5,7 @@ import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TimePickerComponent } from '../atoms/TimePickerComponent';
-import { PlanRegisterModalComponent } from '../molecules/PlanRegisterModalComponent';
+import { RegisterPlanModalComponent } from '../molecules/RegisterPlanModalComponent';
 
 export const RegisterPlanComponent = () => {
   // 開始時間を現在の時間から直後の15分刻みのキリのいい時間に設定
@@ -139,7 +139,7 @@ export const RegisterPlanComponent = () => {
         </div>
       </form>
       {showsModal && (
-        <PlanRegisterModalComponent
+        <RegisterPlanModalComponent
           showsModal={showsModal}
           handleClose={handleClose}
           handleSubmit={handleSubmit}
