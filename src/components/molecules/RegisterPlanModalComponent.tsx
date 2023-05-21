@@ -2,7 +2,6 @@ import { ModalComponent } from '@/components/atoms/ModalComponent';
 import { TimePickerComponent } from '../atoms/TimePickerComponent';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TextAreaComponent } from '../atoms/TextAreaComponent';
-import SliderComponent from '../atoms/SliderComponent';
 import { CheckBoxComponent } from '../atoms/CheckBoxComponent';
 import { ButtonComponent } from '../atoms/ButtonComponent';
 import { FormEvent } from 'react';
