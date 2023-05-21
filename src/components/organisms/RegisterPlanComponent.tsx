@@ -22,9 +22,9 @@ export const RegisterPlanComponent = () => {
   const [startTime, setStartTime] = useState<Date>(defaultStartDate);
   const [endTime, setEndTime] = useState<Date>(defaultEndDate);
   const [processTime, setProcessTime] = useState<number>(defaultProcessTime);
-  const [context, setContext] = useState<string>('');
-  const [place, setPlace] = useState<string>('');
-  const [isRequiredPlan, setIsRequiredPlan] = useState<boolean>(true);
+  const [context, setContext] = useState<string>(CONSTANT.DEFAULT.PLAN.CONTEXT);
+  const [place, setPlace] = useState<string>(CONSTANT.DEFAULT.PLAN.PLACE);
+  const [isRequiredPlan, setIsRequiredPlan] = useState<boolean>(CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN);
 
   const [createPlan] = useCreatePlanMutation();
 

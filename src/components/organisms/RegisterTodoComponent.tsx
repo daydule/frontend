@@ -9,8 +9,8 @@ import { RegisterTodoModalComponent } from '@/components/molecules/RegisterTodoM
 export const RegisterTodoComponent = () => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
   const [processTime, setProcessTime] = useState<number[]>(CONSTANT.DEFAULT.PLAN.REGISTER_TODO.PROCESS_TIME);
-  const [context, setContext] = useState<string>('');
-  const [place, setPlace] = useState<string>('');
+  const [context, setContext] = useState<string>(CONSTANT.DEFAULT.PLAN.CONTEXT);
+  const [place, setPlace] = useState<string>(CONSTANT.DEFAULT.PLAN.PLACE);
 
   const [createPlan] = useCreatePlanMutation();
 
