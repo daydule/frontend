@@ -16,7 +16,7 @@ export const TodoCardComponent = (props: Props) => {
     <div className={className}>
       <div className='text-center text-lg'>{props.todo.title}</div>
       <div className='text-center text-xl flex'>
-        <div>{props.todo.processTime}</div>
+        <div>{props.todo.processTime}分</div>
         <DeletePlanButtonComponent size={1.5} planId={props.todo.id} />
       </div>
     </div>
