@@ -50,7 +50,7 @@ const planApi = dayduleApi.injectEndpoints({
     }),
     updatePlan: builder.mutation<void, UpdateForm>({
       query: (body) => ({
-        url: `'plan/${body.id}/update`,
+        url: `plan/${body.id}/update`,
         method: 'POST',
         body,
       }),
