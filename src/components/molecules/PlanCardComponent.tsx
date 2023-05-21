@@ -1,7 +1,8 @@
 import { timeString4digitsDiffMin } from '@/helpers/dateHelper';
 import { Plan } from '@/redux/types';
-import React from 'react';
+import React, { useState } from 'react';
 import { DeletePlanButtonComponent } from '@/components/molecules/DeletePlanButtonComponent';
+import { UpdatePlanModalComponent } from '@/components/molecules/UpdatePlanModalComponent';
 
 type Props = {
   plan: Plan;
@@ -16,6 +17,16 @@ export const PlanCardComponent = (props: Props) => {
   const processTime = timeString4digitsDiffMin(props.plan.startTime, props.plan.endTime);
   const height = processTime * props.oneMinuteHeightPercent;
 
+  const [showsModal, setShowsModal] = useState<boolean>(false);
+
+  const handleClick = () => {
+    setShowsModal(true);
+  };
+
+  const handleClose = () => {
+    setShowsModal(false);
+  };
+
   if (top > 100 || height <= 0) return <></>;
   const style = {
     top: 'calc(' + top + '% + 1rem)',
@@ -23,8 +34,9 @@ export const PlanCardComponent = (props: Props) => {
   };
   return (
     <div
-      className='flex absolute left-[5%] w-4/5 bg-blue-400 shadow-lg rounded-lg px-4 border items-center text-md'
+      className='flex absolute left-[5%] w-4/5 bg-blue-400 shadow-lg rounded-lg px-4 border items-center text-md hover:left-0 hover:w-[85%] duration-500'
       style={style}
+      onClick={handleClick}
     >
       <div className='w-1/4'>{props.plan.title}</div>
       <div className='w-1/4'>{props.plan.startTime}</div>
@@ -32,6 +44,7 @@ export const PlanCardComponent = (props: Props) => {
       <div className='w-1/4'>
         <DeletePlanButtonComponent size={processTime < 30 ? 1 : 1.5} planId={props.plan.id} />
       </div>
+      {showsModal && <UpdatePlanModalComponent showsModal={showsModal} handleClose={handleClose} plan={props.plan} />}
     </div>
   );
 };
