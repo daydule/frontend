@@ -3,33 +3,48 @@ import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TextAreaComponent } from '../atoms/TextAreaComponent';
 import SliderComponent from '../atoms/SliderComponent';
 import { ButtonComponent } from '../atoms/ButtonComponent';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
+import { CONSTANT } from '@/config/const';
+import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 
 type Props = {
   showsModal: boolean;
   handleClose: () => void;
-  handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   processTime: number[];
   setProcessTime: React.Dispatch<React.SetStateAction<number[]>>;
-  context: string;
-  setContext: React.Dispatch<React.SetStateAction<string>>;
-  place: string;
-  setPlace: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const RegisterTodoModalComponent = (props: Props) => {
+  const [context, setContext] = useState<string>(CONSTANT.DEFAULT.PLAN.CONTEXT);
+  const [place, setPlace] = useState<string>(CONSTANT.DEFAULT.PLAN.PLACE);
+
+  const [createPlan] = useCreatePlanMutation();
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    // リロードが走らないように入れている
+    event.preventDefault();
+    const data: CreateForm = {
+      title: props.title,
+      processTime: props.processTime[0],
+      context: context === '' ? undefined : context,
+      place: place === '' ? undefined : place,
+      priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
+      planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO,
+    };
+    try {
+      await createPlan(data).unwrap();
+      props.setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
+      props.handleClose();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='TODO'>
-      <form
-        className='mt-3'
-        id='register-plan-detail-form'
-        onSubmit={(event: FormEvent<HTMLFormElement>) => {
-          props.handleSubmit(event);
-          props.handleClose();
-        }}
-      >
+      <form className='mt-3' id='register-plan-detail-form' onSubmit={handleSubmit}>
         <div className='w-full flex'>
           <div className='w-1/2'>
             <div className='mx-auto w-4/5'>
@@ -77,9 +92,9 @@ export const RegisterTodoModalComponent = (props: Props) => {
               <TextAreaComponent
                 id='plan-context'
                 name='plan-context'
-                value={props.context}
+                value={context}
                 extraClassName='min-h-[8rem]'
-                handleChange={(event) => props.setContext(event.target.value)}
+                handleChange={(event) => setContext(event.target.value)}
               />
             </div>
           </div>
@@ -90,8 +105,8 @@ export const RegisterTodoModalComponent = (props: Props) => {
                 name='place'
                 type='text'
                 placeholder='場所'
-                value={props.place}
-                setter={props.setPlace}
+                value={place}
+                setter={setPlace}
               />
             </div>
           </div>

@@ -4,12 +4,14 @@ import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TextAreaComponent } from '../atoms/TextAreaComponent';
 import { CheckBoxComponent } from '../atoms/CheckBoxComponent';
 import { ButtonComponent } from '../atoms/ButtonComponent';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
+import { CONSTANT } from '@/config/const';
+import { formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 
 type Props = {
   showsModal: boolean;
   handleClose: () => void;
-  handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   startTime: Date;
@@ -18,29 +20,41 @@ type Props = {
   endTime: Date;
   setEndTime: React.Dispatch<React.SetStateAction<Date>>;
   onChangeEndTime: (date: Date) => void;
-  context: string;
-  setContext: React.Dispatch<React.SetStateAction<string>>;
-  place: string;
-  setPlace: React.Dispatch<React.SetStateAction<string>>;
-  // travelTime: number[];
-  // setTravelTime: React.Dispatch<React.SetStateAction<number[]>>;
-  // bufferTime: number[];
-  // setBufferTime: React.Dispatch<React.SetStateAction<number[]>>;
-  isRequiredPlan: boolean;
-  setIsRequiredPlan: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const RegisterPlanModalComponent = (props: Props) => {
+  const [context, setContext] = useState<string>(CONSTANT.DEFAULT.PLAN.CONTEXT);
+  const [place, setPlace] = useState<string>(CONSTANT.DEFAULT.PLAN.PLACE);
+  const [isRequiredPlan, setIsRequiredPlan] = useState<boolean>(CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN);
+
+  const [createPlan] = useCreatePlanMutation();
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    // リロードが走らないように入れている
+    event.preventDefault();
+    const data: CreateForm = {
+      title: props.title,
+      date: formatToYYYY_MM_DD(new Date()),
+      startTime: formatToTimeString4digits(props.startTime),
+      endTime: formatToTimeString4digits(props.endTime),
+      context: context === '' ? undefined : context,
+      place: place === '' ? undefined : place,
+      isRequiredPlan: CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN,
+      priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
+      planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
+    };
+    try {
+      await createPlan(data).unwrap();
+      props.setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
+      props.handleClose();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='予定'>
-      <form
-        className='mt-3'
-        id='register-plan-detail-form'
-        onSubmit={(event: FormEvent<HTMLFormElement>) => {
-          props.handleSubmit(event);
-          props.handleClose();
-        }}
-      >
+      <form className='mt-3' id='register-plan-detail-form' onSubmit={handleSubmit}>
         <div className='w-full flex'>
           <div className='w-1/2'>
             <div className='mx-auto w-4/5'>
@@ -101,9 +115,9 @@ export const RegisterPlanModalComponent = (props: Props) => {
               <TextAreaComponent
                 id='plan-context'
                 name='plan-context'
-                value={props.context}
+                value={context}
                 extraClassName='min-h-[8rem]'
-                handleChange={(event) => props.setContext(event.target.value)}
+                handleChange={(event) => setContext(event.target.value)}
               />
             </div>
           </div>
@@ -114,37 +128,17 @@ export const RegisterPlanModalComponent = (props: Props) => {
                 name='place'
                 type='text'
                 placeholder='場所'
-                value={props.place}
-                setter={props.setPlace}
+                value={place}
+                setter={setPlace}
               />
             </div>
-            {/* <div className='mt-8 mx-auto w-4/5'>
-              <SliderComponent
-                min={0}
-                max={120}
-                title='移動時間'
-                unit='分'
-                values={props.travelTime}
-                setter={props.setTravelTime}
-              />
-            </div>
-            <div className='mt-8 mx-auto w-4/5'>
-              <SliderComponent
-                min={0}
-                max={120}
-                title='予備時間'
-                unit='分'
-                values={props.bufferTime}
-                setter={props.setBufferTime}
-              />
-            </div> */}
             <div className='mt-8 mx-auto w-4/5'>
               <CheckBoxComponent
                 id='required-plan'
                 name='required-plan'
                 title='この予定よりTODOを優先する'
-                value={!props.isRequiredPlan}
-                handleChange={() => props.setIsRequiredPlan(!props.isRequiredPlan)}
+                value={!isRequiredPlan}
+                handleChange={() => setIsRequiredPlan(!isRequiredPlan)}
               />
             </div>
           </div>

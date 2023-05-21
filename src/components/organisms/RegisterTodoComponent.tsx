@@ -1,7 +1,7 @@
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { CONSTANT } from '@/config/const';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
-import { FormEvent, SetStateAction, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '@/components/atoms/SimpleInputComponent';
 import SliderComponent from '@/components/atoms/SliderComponent';
 import { RegisterTodoModalComponent } from '@/components/molecules/RegisterTodoModalComponent';
@@ -9,8 +9,6 @@ import { RegisterTodoModalComponent } from '@/components/molecules/RegisterTodoM
 export const RegisterTodoComponent = () => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
   const [processTime, setProcessTime] = useState<number[]>(CONSTANT.DEFAULT.PLAN.REGISTER_TODO.PROCESS_TIME);
-  const [context, setContext] = useState<string>(CONSTANT.DEFAULT.PLAN.CONTEXT);
-  const [place, setPlace] = useState<string>(CONSTANT.DEFAULT.PLAN.PLACE);
 
   const [createPlan] = useCreatePlanMutation();
 
@@ -22,8 +20,6 @@ export const RegisterTodoComponent = () => {
     const data: CreateForm = {
       title: title,
       processTime: processTime[0],
-      context: context === '' ? undefined : context,
-      place: place === '' ? undefined : place,
       priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO,
     };
@@ -76,15 +72,10 @@ export const RegisterTodoComponent = () => {
         <RegisterTodoModalComponent
           showsModal={showsModal}
           handleClose={handleClose}
-          handleSubmit={handleSubmit}
           title={title}
           setTitle={setTitle}
           processTime={processTime}
           setProcessTime={setProcessTime}
-          context={context}
-          setContext={setContext}
-          place={place}
-          setPlace={setPlace}
         />
       )}
     </div>

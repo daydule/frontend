@@ -22,9 +22,6 @@ export const RegisterPlanComponent = () => {
   const [startTime, setStartTime] = useState<Date>(defaultStartDate);
   const [endTime, setEndTime] = useState<Date>(defaultEndDate);
   const [processTime, setProcessTime] = useState<number>(defaultProcessTime);
-  const [context, setContext] = useState<string>(CONSTANT.DEFAULT.PLAN.CONTEXT);
-  const [place, setPlace] = useState<string>(CONSTANT.DEFAULT.PLAN.PLACE);
-  const [isRequiredPlan, setIsRequiredPlan] = useState<boolean>(CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN);
 
   const [createPlan] = useCreatePlanMutation();
 
@@ -38,9 +35,7 @@ export const RegisterPlanComponent = () => {
       date: formatToYYYY_MM_DD(new Date()),
       startTime: formatToTimeString4digits(startTime),
       endTime: formatToTimeString4digits(endTime),
-      context: context === '' ? undefined : context,
-      place: place === '' ? undefined : place,
-      isRequiredPlan: isRequiredPlan,
+      isRequiredPlan: CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN,
       priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
     };
@@ -142,7 +137,6 @@ export const RegisterPlanComponent = () => {
         <RegisterPlanModalComponent
           showsModal={showsModal}
           handleClose={handleClose}
-          handleSubmit={handleSubmit}
           title={title}
           setTitle={setTitle}
           startTime={startTime}
@@ -151,16 +145,6 @@ export const RegisterPlanComponent = () => {
           endTime={endTime}
           setEndTime={setEndTime}
           onChangeEndTime={handleChangeEndTime}
-          context={context}
-          setContext={setContext}
-          place={place}
-          setPlace={setPlace}
-          // travelTime={travelTime}
-          // setTravelTime={setTravelTime}
-          // bufferTime={bufferTime}
-          // setBufferTime={setBufferTime}
-          isRequiredPlan={isRequiredPlan}
-          setIsRequiredPlan={setIsRequiredPlan}
         />
       )}
     </div>
