@@ -12,7 +12,7 @@ export const DeletePlanButtonComponent = (props: Props) => {
   const [deletePlan] = useDeletePlanMutation();
 
   const handleDeleteSubmit = async (event: FormEvent<HTMLFormElement>, id: number) => {
-    // リロードが走らないように入れている
+    // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
     deletePlan({ id });
   };

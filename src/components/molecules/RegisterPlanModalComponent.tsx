@@ -30,7 +30,7 @@ export const RegisterPlanModalComponent = (props: Props) => {
   const [createPlan] = useCreatePlanMutation();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // リロードが走らないように入れている
+    // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
     const data: CreateForm = {
       title: props.title,

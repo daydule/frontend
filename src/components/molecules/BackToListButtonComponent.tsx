@@ -7,7 +7,7 @@ export const BackToListButtonComponent = () => {
   const [backToList] = useBackToListMutation();
 
   const handleCreateSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // リロードが走らないように入れている
+    // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
     const now = new Date();
     await backToList({ date: formatToYYYY_MM_DD(now) });

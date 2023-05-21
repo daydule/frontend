@@ -15,7 +15,7 @@ export const RegisterTodoComponent = () => {
   const [showsModal, setShowsModal] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // リロードが走らないように入れている
+    // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
     const data: CreateForm = {
       title: title,
