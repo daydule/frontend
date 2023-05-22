@@ -16,3 +16,6 @@ export const timeString4digitsDiffMin = (startTime: string, endTime: string) => 
   const diffMinute = parseInt(endTime.slice(-2), 10) - parseInt(startTime.slice(-2), 10);
   return diffHour * 60 + diffMinute;
 };
+
+export const formatToTime = (TimeString4digits: string) =>
+  TimeString4digits.slice(0, 2) + ':' + TimeString4digits.slice(2);
