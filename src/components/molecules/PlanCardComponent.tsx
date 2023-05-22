@@ -1,4 +1,4 @@
-import { timeString4digitsDiffMin } from '@/helpers/dateHelper';
+import { formatToTime, timeString4digitsDiffMin } from '@/helpers/dateHelper';
 import { Plan } from '@/redux/types';
 import React, { useState } from 'react';
 import { DeletePlanButtonComponent } from '@/components/molecules/DeletePlanButtonComponent';
@@ -38,9 +38,10 @@ export const PlanCardComponent = (props: Props) => {
       style={style}
       onClick={handleClick}
     >
-      <div className='w-1/4'>{props.plan.title}</div>
-      <div className='w-1/4'>{props.plan.startTime}</div>
-      <div className='w-1/4'>{props.plan.endTime}</div>
+      <div className='w-3/4 flex'>
+        <div className='w-1/3 max-w-1/3 overflow-hidden whitespace-nowrap text-ellipsis'>{props.plan.title}</div>
+        {formatToTime(props.plan.startTime)} 〜 {formatToTime(props.plan.endTime)}
+      </div>
       <div className='w-1/4'>
         <DeletePlanButtonComponent size={processTime < 30 ? 1 : 1.5} planId={props.plan.id} />
       </div>
