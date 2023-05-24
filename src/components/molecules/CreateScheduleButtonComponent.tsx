@@ -7,7 +7,7 @@ export const CreateScheduleButtonComponent = () => {
   const [createSchedule] = useCreateScheduleMutation();
 
   const handleCreateSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // リロードが走らないように入れている
+    // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
     const now = new Date();
     const dateString = formatToYYYY_MM_DD(now);

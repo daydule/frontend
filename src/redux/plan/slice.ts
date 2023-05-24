@@ -21,9 +21,14 @@ export type UpdateForm = {
   date?: string;
   startTime?: string;
   endTime?: string;
+  context?: string;
+  place?: string;
+  travelTime?: number;
+  bufferTime?: number;
   processTime?: number;
   priority: number;
   planType: number;
+  isRequiredPlan?: boolean;
 };
 
 export type DeleteForm = {
@@ -50,7 +55,7 @@ const planApi = dayduleApi.injectEndpoints({
     }),
     updatePlan: builder.mutation<void, UpdateForm>({
       query: (body) => ({
-        url: `'plan/${body.id}/update`,
+        url: `plan/${body.id}/update`,
         method: 'POST',
         body,
       }),
