@@ -13,6 +13,8 @@ export const CONSTANT = {
       REGISTER_TODO: {
         PROCESS_TIME: [30],
       },
+      CONTEXT: '',
+      PLACE: '',
       IS_REQUIRED_PLAN: true,
     },
     SCHEDULE: {

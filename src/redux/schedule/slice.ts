@@ -10,6 +10,12 @@ export type scheduleCreateForm = {
   currentTime: string;
 };
 
+export type scheduleRecordUpdateForm = {
+  date: string;
+  startTime: string;
+  endTime: string;
+};
+
 export type scheduleReadResult = {
   isError: boolean;
   schedule: {
@@ -37,8 +43,16 @@ const scheduleApi = dayduleApi.injectEndpoints({
       }),
       providesTags: ['Schedule'],
     }),
+    updateScheduleRecord: builder.mutation<void, scheduleRecordUpdateForm>({
+      query: (body) => ({
+        url: `schedule/${body.date}/update`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Schedule'],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useReadScheduleQuery, useCreateScheduleMutation } = scheduleApi;
+export const { useReadScheduleQuery, useCreateScheduleMutation, useUpdateScheduleRecordMutation } = scheduleApi;

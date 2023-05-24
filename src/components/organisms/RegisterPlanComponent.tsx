@@ -5,7 +5,7 @@ import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TimePickerComponent } from '../atoms/TimePickerComponent';
-import { PlanRegisterModalComponent } from '../molecules/PlanRegisterModalComponent';
+import { RegisterPlanModalComponent } from '../molecules/RegisterPlanModalComponent';
 
 export const RegisterPlanComponent = () => {
   // 開始時間を現在の時間から直後の15分刻みのキリのいい時間に設定
@@ -22,25 +22,20 @@ export const RegisterPlanComponent = () => {
   const [startTime, setStartTime] = useState<Date>(defaultStartDate);
   const [endTime, setEndTime] = useState<Date>(defaultEndDate);
   const [processTime, setProcessTime] = useState<number>(defaultProcessTime);
-  const [context, setContext] = useState<string>('');
-  const [place, setPlace] = useState<string>('');
-  const [isRequiredPlan, setIsRequiredPlan] = useState<boolean>(true);
 
   const [createPlan] = useCreatePlanMutation();
 
   const [showsModal, setShowsModal] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // リロードが走らないように入れている
+    // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
     const data: CreateForm = {
       title: title,
       date: formatToYYYY_MM_DD(new Date()),
       startTime: formatToTimeString4digits(startTime),
       endTime: formatToTimeString4digits(endTime),
-      context: context === '' ? undefined : context,
-      place: place === '' ? undefined : place,
-      isRequiredPlan: isRequiredPlan,
+      isRequiredPlan: CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN,
       priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
     };
@@ -139,10 +134,9 @@ export const RegisterPlanComponent = () => {
         </div>
       </form>
       {showsModal && (
-        <PlanRegisterModalComponent
+        <RegisterPlanModalComponent
           showsModal={showsModal}
           handleClose={handleClose}
-          handleSubmit={handleSubmit}
           title={title}
           setTitle={setTitle}
           startTime={startTime}
@@ -151,16 +145,6 @@ export const RegisterPlanComponent = () => {
           endTime={endTime}
           setEndTime={setEndTime}
           onChangeEndTime={handleChangeEndTime}
-          context={context}
-          setContext={setContext}
-          place={place}
-          setPlace={setPlace}
-          // travelTime={travelTime}
-          // setTravelTime={setTravelTime}
-          // bufferTime={bufferTime}
-          // setBufferTime={setBufferTime}
-          isRequiredPlan={isRequiredPlan}
-          setIsRequiredPlan={setIsRequiredPlan}
         />
       )}
     </div>

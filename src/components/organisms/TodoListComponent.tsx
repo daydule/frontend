@@ -4,6 +4,7 @@ import { TodoCardComponent } from '@/components/molecules/TodoCardComponent';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useUpdateTodoPriorityMutation } from '@/redux/plan/slice';
 import { Fragment, useEffect, useState } from 'react';
+import { CreateScheduleButtonComponent } from '../molecules/CreateScheduleButtonComponent';
 
 export const TodoListComponent = () => {
   const { data: scheduleReadResult } = useReadScheduleQuery({ date: formatToYYYY_MM_DD(new Date()) });
@@ -42,9 +43,12 @@ export const TodoListComponent = () => {
   };
 
   return (
-    <div className='border border-gray-200 shadow-md rounded-md w-96 h-[calc(40%_-_2rem)] my-4 relative'>
+    <div className='border border-gray-200 shadow-md rounded-md w-96 h-[calc(50%_-_2rem)] my-4 relative'>
       <div className='absolute top-3 left-3 text-xl px-2 rounded-lg bg-opacity-50 bg-white'>TODO一覧</div>
-      <div className='overflow-auto h-full pt-12'>
+      <div className='absolute bottom-3 right-6 z-10'>
+        <CreateScheduleButtonComponent />
+      </div>
+      <div className='overflow-auto h-full pt-12 pb-16 z-0'>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId='todoList'>
             {(provided, snapshot) => (

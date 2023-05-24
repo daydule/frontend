@@ -1,29 +1,25 @@
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { CONSTANT } from '@/config/const';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
-import { FormEvent, SetStateAction, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '@/components/atoms/SimpleInputComponent';
 import SliderComponent from '@/components/atoms/SliderComponent';
-import { TodoRegisterModalComponent } from '@/components/molecules/TodoRegisterModalComponent';
+import { RegisterTodoModalComponent } from '@/components/molecules/RegisterTodoModalComponent';
 
 export const RegisterTodoComponent = () => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
   const [processTime, setProcessTime] = useState<number[]>(CONSTANT.DEFAULT.PLAN.REGISTER_TODO.PROCESS_TIME);
-  const [context, setContext] = useState<string>('');
-  const [place, setPlace] = useState<string>('');
 
   const [createPlan] = useCreatePlanMutation();
 
   const [showsModal, setShowsModal] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // リロードが走らないように入れている
+    // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
     const data: CreateForm = {
       title: title,
       processTime: processTime[0],
-      context: context === '' ? undefined : context,
-      place: place === '' ? undefined : place,
       priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO,
     };
@@ -73,18 +69,13 @@ export const RegisterTodoComponent = () => {
         </div>
       </form>
       {showsModal && (
-        <TodoRegisterModalComponent
+        <RegisterTodoModalComponent
           showsModal={showsModal}
           handleClose={handleClose}
-          handleSubmit={handleSubmit}
           title={title}
           setTitle={setTitle}
           processTime={processTime}
           setProcessTime={setProcessTime}
-          context={context}
-          setContext={setContext}
-          place={place}
-          setPlace={setPlace}
         />
       )}
     </div>
