@@ -23,10 +23,10 @@ export const ModalComponent = (props: ModalProps) => {
         </span>
         <Dialog.Panel className='inline-block w-full max-w-2xl text-left align-middle transform bg-white shadow-xl rounded-2xl relative'>
           <div className='flex p-4 w-full bg-indigo-700 rounded-t-2xl relative'>
-            <Dialog.Title as='div' className='w-[95%] text-2xl font-medium leading-6 text-gray-900'>
+            <Dialog.Title as='div' className='w-[95%] text-2xl font-medium leading-6 text-white'>
               {props.title}
             </Dialog.Title>
-            <button className='left-0 hover:text-gray-700' onClick={handleCloseModal}>
+            <button className='left-0 text-white hover:text-gray-300' onClick={handleCloseModal}>
               <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='w-6 h-6'>
                 <path
                   fillRule='evenodd'
