@@ -1,35 +1,51 @@
 import { ModalComponent } from '@/components/atoms/ModalComponent';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TextAreaComponent } from '../atoms/TextAreaComponent';
-import SliderComponent from '../atoms/SliderComponent';
 import { ButtonComponent } from '../atoms/ButtonComponent';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
+import { CONSTANT } from '@/config/const';
+import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
+import { Plan } from '@/redux/types';
+import SliderComponent from '../atoms/SliderComponent';
 
 type Props = {
   showsModal: boolean;
   handleClose: () => void;
-  handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  title: string;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
-  processTime: number[];
-  setProcessTime: React.Dispatch<React.SetStateAction<number[]>>;
-  context: string;
-  setContext: React.Dispatch<React.SetStateAction<string>>;
-  place: string;
-  setPlace: React.Dispatch<React.SetStateAction<string>>;
+  todo: Plan;
 };
 
-export const TodoRegisterModalComponent = (props: Props) => {
+export const UpdateTodoModalComponent = (props: Props) => {
+  const [title, setTitle] = useState<string>(props.todo.title);
+  const [processTime, setProcessTime] = useState<number[]>([props.todo.processTime]);
+  const [context, setContext] = useState<string>(props.todo.context);
+  const [place, setPlace] = useState<string>(props.todo.place);
+
+  const [updatePlan] = useUpdatePlanMutation();
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    // これを入れているのは、リロードが走らないようにするため
+    event.preventDefault();
+    const data: UpdateForm = {
+      id: Number(props.todo.id),
+      title: title,
+      processTime: processTime[0],
+      context: context === null ? undefined : context,
+      place: place === null ? undefined : place,
+      priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
+      planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO,
+    };
+    try {
+      await updatePlan(data).unwrap();
+      props.handleClose();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='TODO'>
-      <form
-        className='mt-3'
-        id='register-plan-detail-form'
-        onSubmit={(event: FormEvent<HTMLFormElement>) => {
-          props.handleSubmit(event);
-          props.handleClose();
-        }}
-      >
+      <form className='mt-3' id='register-plan-detail-form' onSubmit={handleSubmit}>
         <div className='w-full flex'>
           <div className='w-1/2'>
             <div className='mx-auto w-4/5'>
@@ -38,8 +54,8 @@ export const TodoRegisterModalComponent = (props: Props) => {
                 name='title'
                 type='text'
                 placeholder='タイトル'
-                value={props.title}
-                setter={props.setTitle}
+                value={title}
+                setter={setTitle}
               />
             </div>
             <div className='mt-2 mx-auto w-4/5 flex items-center'>
@@ -49,8 +65,8 @@ export const TodoRegisterModalComponent = (props: Props) => {
                   max={120}
                   title='所要時間'
                   unit='分'
-                  values={props.processTime}
-                  setter={props.setProcessTime}
+                  values={processTime}
+                  setter={setProcessTime}
                 />
               </div>
             </div>
@@ -77,9 +93,9 @@ export const TodoRegisterModalComponent = (props: Props) => {
               <TextAreaComponent
                 id='plan-context'
                 name='plan-context'
-                value={props.context}
+                value={context}
                 extraClassName='min-h-[8rem]'
-                handleChange={(event) => props.setContext(event.target.value)}
+                handleChange={(event) => setContext(event.target.value)}
               />
             </div>
           </div>
@@ -90,14 +106,14 @@ export const TodoRegisterModalComponent = (props: Props) => {
                 name='place'
                 type='text'
                 placeholder='場所'
-                value={props.place}
-                setter={props.setPlace}
+                value={place}
+                setter={setPlace}
               />
             </div>
           </div>
         </div>
         <div className='mt-2 ml-auto text-md w-1/6'>
-          <ButtonComponent type='submit' children='登録' />
+          <ButtonComponent type='submit' children='更新' />
         </div>
       </form>
     </ModalComponent>

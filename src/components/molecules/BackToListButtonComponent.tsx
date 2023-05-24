@@ -7,7 +7,7 @@ export const BackToListButtonComponent = () => {
   const [backToList] = useBackToListMutation();
 
   const handleCreateSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // リロードが走らないように入れている
+    // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
     const now = new Date();
     await backToList({ date: formatToYYYY_MM_DD(now) });
@@ -15,7 +15,7 @@ export const BackToListButtonComponent = () => {
 
   return (
     <form id={`back-to-list-form`} onSubmit={handleCreateSubmit}>
-      <ButtonComponent type='submit' children={'back to list'} />
+      <ButtonComponent type='submit' children='スケジュール内のTODOをTODO一覧に戻す' />
     </form>
   );
 };

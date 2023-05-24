@@ -3,7 +3,7 @@ export type Plan = {
   userId: number;
   title: string;
   context: string;
-  date: Date;
+  date: string;
   startTime: string;
   endTime: string;
   processTime: number;
