@@ -1,10 +1,12 @@
-import { AiFillSchedule } from 'react-icons/ai';
+import { RiAccountCircleFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons/lib';
 import { useLogoutMutation } from '@/redux/auth/slice';
-import { ButtonComponent } from '../atoms/ButtonComponent';
-import { LinkComponent } from '../atoms/LinkComponent';
 import { useReadUserQuery } from '@/redux/user/slice';
 import { useRouter } from 'next/router';
+import { AiFillCaretDown, AiFillSchedule } from 'react-icons/ai';
+import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/index.css';
+import { ButtonComponent } from '../atoms/ButtonComponent';
 
 const HeaderComponent = () => {
   const router = useRouter();
@@ -20,37 +22,40 @@ const HeaderComponent = () => {
   };
 
   return (
-    <div className='w-full h-20 fixed left-0 top-0 border-b shadow-xl pl-8 flex items-center text-left text-3xl text-white bg-indigo-700 z-10'>
-      <div className='flex' onClick={() => router.push('/main')}>
+    <div className='w-full h-20 fixed left-0 top-0 border-b shadow-xl px-8 flex items-center text-left text-3xl text-white bg-indigo-700 z-10'>
+      <div className='my-0 ml-0 mr-auto flex' onClick={() => router.push('/main')}>
         <IconContext.Provider value={{ size: '1.2em', className: 'text-white text-opacity-90' }}>
           <AiFillSchedule />
           <img src='/logo.png' className='ml-3' />
         </IconContext.Provider>
       </div>
 
-      {/* <デバック用> */}
-      <div className='mx-2 text-sm'>
-        <LinkComponent href={'/auth/login'} text='/auth/login' />
+      <div className='my-0 ml-auto mr-0 flex'>
+        {!isError && (
+          <div className='mx-4 pt-1 text-lg'>
+            ユーザネーム : {readUserResult?.user?.nickname || readUserResult?.user?.email}
+          </div>
+        )}
+        {!isError && (
+          <Menu
+            menuButton={
+              <MenuButton>
+                <div className='flex'>
+                  {' '}
+                  <IconContext.Provider value={{ size: '1.2em', className: 'text-white text-opacity-90' }}>
+                    <RiAccountCircleFill />
+                  </IconContext.Provider>
+                  <IconContext.Provider value={{ size: '0.5em', className: 'mt-3 text-white text-opacity-90' }}>
+                    <AiFillCaretDown />
+                  </IconContext.Provider>
+                </div>
+              </MenuButton>
+            }
+          >
+            <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>
+          </Menu>
+        )}
       </div>
-      <div className='mx-2 text-sm'>
-        <LinkComponent href={'/auth/signup'} text='/auth/signup' />
-      </div>
-      <div className='mx-2 text-sm'>
-        <LinkComponent href={'/main'} text='/main' />
-      </div>
-      <div className='mx-2 text-sm'>
-        <LinkComponent href={'/individualSettings'} text='/individualSettings' />
-      </div>
-      {/* </デバック用> */}
-
-      {!isError && (
-        <div className='mx-4 text-sm'>user: {readUserResult?.user?.nickname || readUserResult?.user?.email}</div>
-      )}
-      {!isError && (
-        <ButtonComponent handleClick={handleClickLogout} type={'button'}>
-          ログアウト
-        </ButtonComponent>
-      )}
     </div>
   );
 };
