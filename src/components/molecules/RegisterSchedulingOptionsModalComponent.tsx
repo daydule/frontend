@@ -48,7 +48,7 @@ export const RegisterSchedulingOptionsModalComponent = (props: Props) => {
   return (
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='TODOを予定にする際のオプション'>
       <form className='mt-3' id='register-scheduling-options-form' onSubmit={handleSubmit}>
-        <div className='ml-8'>予定を入れていい範囲</div>
+        <div className='ml-8'>作業する時間帯</div>
         <div className='mt-2 mx-auto w-4/5 flex items-center'>
           <div className='mr-2 w-5/6'>
             <TimePickerComponent
