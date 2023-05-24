@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { PlanCardComponent } from '../molecules/PlanCardComponent';
 import { CONSTANT } from '@/config/const';
+import { BackToListButtonComponent } from '../molecules/BackToListButtonComponent';
 
 export const ScheduleComponent = () => {
   const [now, setNow] = useState<Date>(new Date());
@@ -50,6 +51,11 @@ export const ScheduleComponent = () => {
   return (
     <div className='border border-gray-200 shadow-md rounded-md w-full min-w-fit h-[calc(100%_-_2rem)] my-4 relative'>
       <div className='absolute top-3 left-3 text-xl'>スケジュール</div>
+      {scheduleReadResult.schedule.plans.some((plan) => plan.planType === CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO) && (
+        <div className='absolute top-3 right-3 text-xl'>
+          <BackToListButtonComponent />
+        </div>
+      )}
       <div className='flex h-[calc(100%_-_3rem)] min-w-fit w-full mt-12 relative'>
         {nowTopPercent >= 0 && nowTopPercent <= 92 && (
           <div

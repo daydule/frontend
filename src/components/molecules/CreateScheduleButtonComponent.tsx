@@ -1,7 +1,8 @@
-import { FormEvent } from 'react';
-import { ButtonComponent } from '@/components//atoms/ButtonComponent';
+import { FormEvent, useState } from 'react';
 import { useCreateScheduleMutation } from '@/redux/schedule/slice';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { ButtonWithOptionComponent } from '@/components/atoms/ButtonWithOptionComponent';
+import { RegisterSchedulingOptionsModalComponent } from './RegisterSchedulingOptionsModalComponent';
 
 export const CreateScheduleButtonComponent = () => {
   const [createSchedule] = useCreateScheduleMutation();
@@ -14,10 +15,28 @@ export const CreateScheduleButtonComponent = () => {
     const currentTime = ('00' + now.getHours()).slice(-2) + ('00' + now.getMinutes()).slice(-2);
     await createSchedule({ date: dateString, currentTime: currentTime });
   };
+  const [showsModal, setShowsModal] = useState<boolean>(false);
+
+  const handleClickOption = () => {
+    setShowsModal(true);
+  };
+
+  const handleClose = () => {
+    setShowsModal(false);
+  };
 
   return (
-    <form id={`create-schedule-form`} onSubmit={handleCreateSubmit}>
-      <ButtonComponent type='submit' children={'TODOを予定に入れる'} />
-    </form>
+    <>
+      <form id={`create-schedule-form`} onSubmit={handleCreateSubmit}>
+        <ButtonWithOptionComponent
+          typeForMainButton='submit'
+          children={'TODOを予定にする'}
+          extraClassName='w-52'
+          typeForOptionButton={'button'}
+          handleClickOption={handleClickOption}
+        />
+      </form>
+      {showsModal && <RegisterSchedulingOptionsModalComponent showsModal={showsModal} handleClose={handleClose} />}
+    </>
   );
 };

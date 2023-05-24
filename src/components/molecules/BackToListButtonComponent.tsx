@@ -15,7 +15,7 @@ export const BackToListButtonComponent = () => {
 
   return (
     <form id={`back-to-list-form`} onSubmit={handleCreateSubmit}>
-      <ButtonComponent type='submit' children={'back to list'} />
+      <ButtonComponent type='submit' children='スケジュール内のTODOをTODO一覧に戻す' />
     </form>
   );
 };
