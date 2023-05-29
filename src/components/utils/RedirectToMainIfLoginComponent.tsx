@@ -7,10 +7,12 @@ type Props = {
 
 export const RedirectToMainIfLoginComponent = (props: Props) => {
   const router = useRouter();
-  const { isFetching, isError } = useReadUserQuery();
+  const { data: readUserResult, isFetching, isError } = useReadUserQuery();
 
   if (!isFetching) {
-    if (isError) {
+    console.log(readUserResult?.user.isGuest);
+    console.log(isError);
+    if (isError || readUserResult?.user.isGuest) {
       return props.children;
     } else {
       router.replace('/main');

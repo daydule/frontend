@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import { AiFillCaretDown, AiFillSchedule } from 'react-icons/ai';
 import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
-import { ButtonComponent } from '../atoms/ButtonComponent';
 
 const HeaderComponent = () => {
   const router = useRouter();
@@ -19,6 +18,10 @@ const HeaderComponent = () => {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleRedirectSignup = () => {
+    router.push('/auth/signup');
   };
 
   return (
@@ -52,7 +55,8 @@ const HeaderComponent = () => {
               </MenuButton>
             }
           >
-            <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>
+            {readUserResult?.user?.isGuest && <MenuItem onClick={handleRedirectSignup}>本登録</MenuItem>}
+            {!readUserResult?.user?.isGuest && <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>}
           </Menu>
         )}
       </div>
