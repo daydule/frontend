@@ -10,8 +10,6 @@ export const RedirectToMainIfLoginComponent = (props: Props) => {
   const { data: readUserResult, isFetching, isError } = useReadUserQuery();
 
   if (!isFetching) {
-    console.log(readUserResult?.user.isGuest);
-    console.log(isError);
     if (isError || readUserResult?.user.isGuest) {
       return props.children;
     } else {
