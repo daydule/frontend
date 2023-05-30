@@ -1,5 +1,6 @@
 import { useReadUserQuery } from '@/redux/user/slice';
 import { useRouter } from 'next/router';
+import { LoadingComponent } from '@/components/atoms/LoadingComponent';
 
 type Props = {
   children: JSX.Element;
@@ -16,5 +17,5 @@ export const RedirectToMainIfLoginComponent = (props: Props) => {
       router.replace('/main');
     }
   }
-  return <></>;
+  return <LoadingComponent />;
 };

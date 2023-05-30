@@ -5,6 +5,8 @@ import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautif
 import { useUpdateTodoPriorityMutation } from '@/redux/plan/slice';
 import { Fragment, useEffect, useState } from 'react';
 import { CreateScheduleButtonComponent } from '../molecules/CreateScheduleButtonComponent';
+import { IconContext } from 'react-icons';
+import { TbArrowBigUpLines } from 'react-icons/tb';
 
 export const TodoListComponent = () => {
   const { data: scheduleReadResult } = useReadScheduleQuery({ date: formatToYYYY_MM_DD(new Date()) });
@@ -48,7 +50,17 @@ export const TodoListComponent = () => {
       <div className='absolute bottom-3 right-6 z-10'>
         <CreateScheduleButtonComponent />
       </div>
-      <div className='overflow-auto h-full pt-12 pb-16 z-0'>
+      <div className='absolute inset-0 flex justify-center items-center z-0'>
+        <IconContext.Provider
+          value={{
+            size: '18rem',
+            className: 'text-gray-300 inset-0 z-0',
+          }}
+        >
+          <TbArrowBigUpLines />
+        </IconContext.Provider>
+      </div>
+      <div className='absolute inset-0 overflow-auto h-full pt-12 pb-16 z-0'>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId='todoList'>
             {(provided, snapshot) => (

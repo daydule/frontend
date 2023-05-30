@@ -34,7 +34,7 @@ export const PlanCardComponent = (props: Props) => {
   };
   return (
     <div
-      className='flex absolute left-[5%] w-4/5 bg-blue-400 shadow-lg rounded-lg px-4 border items-center text-md cursor-pointer hover:left-0 hover:w-[85%] duration-500'
+      className='flex absolute left-[5%] w-4/5 bg-blue-400 rounded-lg px-4 border items-center text-md cursor-pointer hover:bg-blue-500 duration-500'
       style={style}
       onClick={handleClick}
     >
