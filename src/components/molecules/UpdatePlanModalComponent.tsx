@@ -23,7 +23,7 @@ export const UpdatePlanModalComponent = (props: Props) => {
   const defaultEndDate = formatToDate(props.plan.endTime);
   const [endTime, setEndTime] = useState<Date>(defaultEndDate);
   const defaultProcessTime = Math.floor(defaultEndDate.getTime() - defaultStartDate.getTime()) / (60 * 1000);
-  const [processTime, setProcessTime] = useState<number>(defaultProcessTime);
+  const [hiddenProcessTime, setHiddenProcessTime] = useState<number>(defaultProcessTime);
   const [context, setContext] = useState<string>(props.plan.context);
   const [place, setPlace] = useState<string>(props.plan.place);
   const [isRequiredPlan, setIsRequiredPlan] = useState<boolean>(props.plan.isRequiredPlan);
@@ -56,8 +56,8 @@ export const UpdatePlanModalComponent = (props: Props) => {
   // NOTE: 開始時間変更時に所要時間を保って終了時間も変更する
   const handleChangeStartTime = (newStartTime: Date) => {
     const newEndTime = new Date(newStartTime.getTime());
-    newEndTime.setHours(newEndTime.getHours() + Math.floor(processTime / 60));
-    newEndTime.setMinutes(newEndTime.getMinutes() + (processTime % 60));
+    newEndTime.setHours(newEndTime.getHours() + Math.floor(hiddenProcessTime / 60));
+    newEndTime.setMinutes(newEndTime.getMinutes() + (hiddenProcessTime % 60));
     setEndTime(newEndTime);
   };
 
@@ -71,11 +71,11 @@ export const UpdatePlanModalComponent = (props: Props) => {
   const handleChangeEndTime = (newEndTime: Date) => {
     if (newEndTime.getTime() > startTime.getTime()) {
       const newProcessTime = Math.floor(newEndTime.getTime() - startTime.getTime()) / (60 * 1000);
-      setProcessTime(newProcessTime);
+      setHiddenProcessTime(newProcessTime);
     } else {
       const newStartTime = new Date(newEndTime.getTime());
-      newStartTime.setHours(newStartTime.getHours() - Math.floor(processTime / 60));
-      newStartTime.setMinutes(newStartTime.getMinutes() - (processTime % 60));
+      newStartTime.setHours(newStartTime.getHours() - Math.floor(hiddenProcessTime / 60));
+      newStartTime.setMinutes(newStartTime.getMinutes() - (hiddenProcessTime % 60));
       setStartTime(newStartTime);
     }
   };
