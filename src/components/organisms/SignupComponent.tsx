@@ -2,10 +2,11 @@ import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { LinkComponent } from '../atoms/LinkComponent';
 import React, { useState } from 'react';
-import { SignupForm, useSignupMutation } from '@/redux/auth/slice';
+import { SignupForm, useLogoutMutation, useSignupMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
 import { useRouter } from 'next/router';
+import { useReadUserQuery } from '@/redux/user/slice';
 
 export const SignupComponent = () => {
   const [email, setEmail] = useState('');
@@ -13,6 +14,7 @@ export const SignupComponent = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [signup] = useSignupMutation();
   const router = useRouter();
+  const { data: readUserResult, isError } = useReadUserQuery();
 
   const handleClickSignup = async () => {
     const data: SignupForm = {
@@ -26,7 +28,11 @@ export const SignupComponent = () => {
       }
 
       await signup(data).unwrap();
-      router.replace('/auth/login');
+      if (isError || !readUserResult?.user.isGuest) {
+        router.replace('/auth/login');
+      } else {
+        router.replace('/main');
+      }
     } catch (e) {
       const signupErrorDisplay = document.getElementById('signup-error-display');
       const errorMessage = document.getElementById('signup-error-message');
@@ -84,16 +90,18 @@ export const SignupComponent = () => {
               setter={setPasswordConfirmation}
             />
           </div>
-          <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
+          <div className='mt-6 mb-4 text-center mx-auto xl:w-1/5 w-2/5'>
             <ButtonComponent type='button' children='サインアップ' handleClick={handleClickSignup} />
           </div>
         </form>
-        <div>
-          <p className='my-4 text-center text-sm'>
-            ログインは
-            <LinkComponent href='/auth/login' text='こちら' />
-          </p>
-        </div>
+        {(isError || !readUserResult?.user.isGuest) && (
+          <div>
+            <p className='my-4 text-center text-sm'>
+              ログインは
+              <LinkComponent href='/auth/login' text='こちら' />
+            </p>
+          </div>
+        )}
       </div>
     </>
   );

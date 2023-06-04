@@ -22,4 +22,5 @@ export const CONSTANT = {
       END_TIME: '1800',
     },
   },
+  GUEST_NAME: 'ゲスト',
 };

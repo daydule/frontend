@@ -4,9 +4,9 @@ import { useLogoutMutation } from '@/redux/auth/slice';
 import { useReadUserQuery } from '@/redux/user/slice';
 import { useRouter } from 'next/router';
 import { AiFillCaretDown, AiFillSchedule } from 'react-icons/ai';
-import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
+import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
-import { ButtonComponent } from '../atoms/ButtonComponent';
+import { CONSTANT } from '@/config/const';
 
 const HeaderComponent = () => {
   const router = useRouter();
@@ -21,6 +21,18 @@ const HeaderComponent = () => {
     }
   };
 
+  const handleRenderSignup = () => {
+    router.push('/auth/signup');
+  };
+
+  const getNickName = () => {
+    if (readUserResult?.user?.isGuest) {
+      return CONSTANT.GUEST_NAME;
+    }
+
+    return readUserResult?.user?.nickname || readUserResult?.user?.email;
+  };
+
   return (
     <div className='w-full h-20 fixed left-0 top-0 border-b shadow-xl px-8 flex items-center text-left text-3xl text-white bg-indigo-700 z-10'>
       <div className='my-0 ml-0 mr-auto flex' onClick={() => router.push('/main')}>
@@ -31,11 +43,7 @@ const HeaderComponent = () => {
       </div>
 
       <div className='my-0 ml-auto mr-0 flex'>
-        {!isError && (
-          <div className='mx-4 pt-1 text-lg'>
-            ユーザネーム : {readUserResult?.user?.nickname || readUserResult?.user?.email}
-          </div>
-        )}
+        {!isError && <div className='mx-4 pt-1 text-lg'>ユーザネーム : {getNickName()}</div>}
         {!isError && (
           <Menu
             menuButton={
@@ -52,7 +60,8 @@ const HeaderComponent = () => {
               </MenuButton>
             }
           >
-            <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>
+            {readUserResult?.user?.isGuest && <MenuItem onClick={handleRenderSignup}>本登録</MenuItem>}
+            {!readUserResult?.user?.isGuest && <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>}
           </Menu>
         )}
       </div>
