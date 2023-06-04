@@ -4,8 +4,9 @@ import { useLogoutMutation } from '@/redux/auth/slice';
 import { useReadUserQuery } from '@/redux/user/slice';
 import { useRouter } from 'next/router';
 import { AiFillCaretDown, AiFillSchedule } from 'react-icons/ai';
-import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
+import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
+import { CONSTANT } from '@/config/const';
 
 const HeaderComponent = () => {
   const router = useRouter();
@@ -20,8 +21,16 @@ const HeaderComponent = () => {
     }
   };
 
-  const handleRedirectSignup = () => {
+  const handleRenderSignup = () => {
     router.push('/auth/signup');
+  };
+
+  const getNickName = () => {
+    if (readUserResult?.user?.isGuest) {
+      return CONSTANT.GUEST_NAME;
+    }
+
+    return readUserResult?.user?.nickname || readUserResult?.user?.email;
   };
 
   return (
@@ -34,11 +43,7 @@ const HeaderComponent = () => {
       </div>
 
       <div className='my-0 ml-auto mr-0 flex'>
-        {!isError && (
-          <div className='mx-4 pt-1 text-lg'>
-            ユーザネーム : {readUserResult?.user?.nickname || readUserResult?.user?.email}
-          </div>
-        )}
+        {!isError && <div className='mx-4 pt-1 text-lg'>ユーザネーム : {getNickName()}</div>}
         {!isError && (
           <Menu
             menuButton={
@@ -55,7 +60,7 @@ const HeaderComponent = () => {
               </MenuButton>
             }
           >
-            {readUserResult?.user?.isGuest && <MenuItem onClick={handleRedirectSignup}>本登録</MenuItem>}
+            {readUserResult?.user?.isGuest && <MenuItem onClick={handleRenderSignup}>本登録</MenuItem>}
             {!readUserResult?.user?.isGuest && <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>}
           </Menu>
         )}

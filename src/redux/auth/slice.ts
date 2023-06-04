@@ -19,6 +19,7 @@ const authApi = dayduleApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Auth'],
     }),
     login: builder.mutation<void, LoginForm>({
       query: (body) => ({
