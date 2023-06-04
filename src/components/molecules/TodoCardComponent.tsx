@@ -12,7 +12,7 @@ export const TodoCardComponent = (props: Props) => {
   const className =
     (props.isDragging ? 'w-full' : 'w-[calc(100%_-_2rem)] mx-4') +
     ' ' +
-    'h-16 px-4 my-2 rounded-md bg-indigo-300 shadow-lg text-white flex justify-between items-center hover:w-[calc(100%_-_1rem)] hover:ml-0 duration-300';
+    'h-16 px-4 my-2 rounded-md bg-indigo-300 bg-opacity-80 shadow-lg text-white flex justify-between items-center hover:bg-indigo-400 duration-300';
 
   const [showsModal, setShowsModal] = useState<boolean>(false);
 

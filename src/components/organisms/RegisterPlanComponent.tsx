@@ -21,7 +21,7 @@ export const RegisterPlanComponent = () => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
   const [startTime, setStartTime] = useState<Date>(defaultStartDate);
   const [endTime, setEndTime] = useState<Date>(defaultEndDate);
-  const [processTime, setProcessTime] = useState<number>(defaultProcessTime);
+  const [hiddenProcessTime, setHiddenProcessTime] = useState<number>(defaultProcessTime);
 
   const [createPlan] = useCreatePlanMutation();
 
@@ -50,8 +50,8 @@ export const RegisterPlanComponent = () => {
   // NOTE: 開始時間変更時に所要時間を保って終了時間も変更する
   const handleChangeStartTime = (newStartTime: Date) => {
     const newEndTime = new Date(newStartTime.getTime());
-    newEndTime.setHours(newEndTime.getHours() + Math.floor(processTime / 60));
-    newEndTime.setMinutes(newEndTime.getMinutes() + (processTime % 60));
+    newEndTime.setHours(newEndTime.getHours() + Math.floor(hiddenProcessTime / 60));
+    newEndTime.setMinutes(newEndTime.getMinutes() + (hiddenProcessTime % 60));
     setEndTime(newEndTime);
   };
 
@@ -65,11 +65,11 @@ export const RegisterPlanComponent = () => {
   const handleChangeEndTime = (newEndTime: Date) => {
     if (newEndTime.getTime() > startTime.getTime()) {
       const newProcessTime = Math.floor(newEndTime.getTime() - startTime.getTime()) / (60 * 1000);
-      setProcessTime(newProcessTime);
+      setHiddenProcessTime(newProcessTime);
     } else {
       const newStartTime = new Date(newEndTime.getTime());
-      newStartTime.setHours(newStartTime.getHours() - Math.floor(processTime / 60));
-      newStartTime.setMinutes(newStartTime.getMinutes() - (processTime % 60));
+      newStartTime.setHours(newStartTime.getHours() - Math.floor(hiddenProcessTime / 60));
+      newStartTime.setMinutes(newStartTime.getMinutes() - (hiddenProcessTime % 60));
       setStartTime(newStartTime);
     }
   };

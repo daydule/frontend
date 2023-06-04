@@ -20,13 +20,14 @@ export const TimePickerComponent = (props: Props) => {
 
   return (
     <DatePicker
+      timeFormat={'HH:mm'}
       selected={props.value}
       onChange={onChange}
       showTimeSelect
       showTimeSelectOnly
       timeIntervals={15}
       timeCaption={props.header}
-      dateFormat='hh:mm aa'
+      dateFormat='HH:mm'
       className={props.extraClassName + ' ' + 'w-full border border-gray-200 shadow-md text-base block p-1 h-12'}
     />
   );
