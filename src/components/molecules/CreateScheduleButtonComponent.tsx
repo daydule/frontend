@@ -15,6 +15,7 @@ export const CreateScheduleButtonComponent = () => {
     const currentTime = ('00' + now.getHours()).slice(-2) + ('00' + now.getMinutes()).slice(-2);
     try {
       await createSchedule({ date: dateString, currentTime: currentTime });
+      console.log('test');
     } catch (e) {
       console.log(e);
     }
