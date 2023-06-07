@@ -3,6 +3,7 @@ import { Plan } from '@/redux/types';
 import React, { useState } from 'react';
 import { DeletePlanButtonComponent } from '@/components/molecules/DeletePlanButtonComponent';
 import { UpdatePlanModalComponent } from '@/components/molecules/UpdatePlanModalComponent';
+import { CONSTANT } from '@/config/const';
 
 type Props = {
   plan: Plan;
@@ -32,18 +33,26 @@ export const PlanCardComponent = (props: Props) => {
     top: 'calc(' + top + '% + 1rem)',
     height: height + '%',
   };
+
+  const isTodoBefore = props.plan.planType === CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO;
+  const bgColor = isTodoBefore ? 'bg-indigo-300 bg-opacity-80' : 'bg-blue-400 hover:bg-blue-500';
+
   return (
     <div
-      className='flex absolute left-[5%] w-4/5 bg-blue-400 rounded-lg px-4 border items-center text-md cursor-pointer hover:bg-blue-500 duration-500'
+      className={
+        'flex absolute left-[5%] w-4/5 rounded-lg px-4 border items-center text-md cursor-pointer duration-500' +
+        ' ' +
+        bgColor
+      }
       style={style}
-      onClick={handleClick}
+      onClick={isTodoBefore ? () => {} : handleClick}
     >
       <div className='w-3/4 flex'>
         <div className='w-1/3 max-w-1/3 overflow-hidden whitespace-nowrap text-ellipsis'>{props.plan.title}</div>
         {formatToTime(props.plan.startTime)} 〜 {formatToTime(props.plan.endTime)}
       </div>
       <div className='w-1/4'>
-        <DeletePlanButtonComponent size={processTime < 30 ? 1 : 1.5} planId={props.plan.id} />
+        {!isTodoBefore && <DeletePlanButtonComponent size={processTime < 30 ? 1 : 1.5} planId={props.plan.id} />}
       </div>
       {showsModal && <UpdatePlanModalComponent showsModal={showsModal} handleClose={handleClose} plan={props.plan} />}
     </div>
