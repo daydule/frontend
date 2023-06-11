@@ -21,7 +21,7 @@ export const MarkdownContentsComponent = (props: Props) => {
   }, [props]);
 
   return (
-    <div className='prose prose-invert prose-xl'>
+    <div className='prose prose-xl mx-auto my-12'>
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={{ code: CodeBlockComponent }}>
         {markdownContents}
       </ReactMarkdown>
