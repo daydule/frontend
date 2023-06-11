@@ -19,6 +19,7 @@ const authApi = dayduleApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Auth'],
     }),
     login: builder.mutation<void, LoginForm>({
       query: (body) => ({
@@ -35,8 +36,15 @@ const authApi = dayduleApi.injectEndpoints({
       }),
       invalidatesTags: ['Auth', 'Schedule'],
     }),
+    guestLogin: builder.mutation<void, void>({
+      query: (body) => ({
+        url: 'guest/signup',
+        method: 'POST',
+      }),
+      invalidatesTags: ['Auth', 'Schedule'],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useSignupMutation, useLoginMutation, useLogoutMutation } = authApi;
+export const { useSignupMutation, useLoginMutation, useLogoutMutation, useGuestLoginMutation } = authApi;
