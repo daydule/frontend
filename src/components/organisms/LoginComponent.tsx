@@ -54,6 +54,7 @@ export const LoginComponent = () => {
               placeholder='メールアドレス'
               icon={<AiOutlineMail />}
               setter={setEmail}
+              handleClickLogin={handleClickLogin}
             />
           </div>
           <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
@@ -65,6 +66,7 @@ export const LoginComponent = () => {
               placeholder='パスワード'
               icon={<RiLock2Line />}
               setter={setPassword}
+              handleClickLogin={handleClickLogin}
             />
           </div>
           <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>

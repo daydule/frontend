@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { IconContext } from 'react-icons/lib';
 
 type Props<T> = {
@@ -10,11 +10,18 @@ type Props<T> = {
   icon: ReactNode;
   extraClassName?: string | undefined;
   setter: React.Dispatch<React.SetStateAction<T>>;
+  handleClickLogin: () => void;
 };
 
 export const InputWithIconComponent = <T extends string | number>(props: Props<T>) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.setter(event.target.value as T);
+  };
+  const handleEnterLogin = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // 予測変換時に押されるEnter及びEnter以外のキーが押された場合は何もしない
+    if (e.nativeEvent.isComposing || e.key !== 'Enter') return;
+
+    props.handleClickLogin();
   };
 
   return (
@@ -33,6 +40,7 @@ export const InputWithIconComponent = <T extends string | number>(props: Props<T
           className={props.extraClassName + ' ' + 'w-full border border-black text-base block pl-10 p-2.5 h-12'}
           placeholder={props.placeholder}
           onChange={handleChange}
+          onKeyDown={handleEnterLogin}
         />
       </div>
     </>
