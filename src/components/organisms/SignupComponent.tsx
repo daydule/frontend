@@ -66,6 +66,7 @@ export const SignupComponent = () => {
               placeholder='メールアドレス'
               icon={<AiOutlineMail />}
               setter={setEmail}
+              handleSubmit={handleClickSignup}
             />
           </div>
           <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
@@ -77,6 +78,7 @@ export const SignupComponent = () => {
               placeholder='パスワード'
               icon={<RiLock2Line />}
               setter={setPassword}
+              handleSubmit={handleClickSignup}
             />
           </div>
           <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
@@ -88,6 +90,7 @@ export const SignupComponent = () => {
               placeholder='パスワード再入力'
               icon={<RiLock2Line />}
               setter={setPasswordConfirmation}
+              handleSubmit={handleClickSignup}
             />
           </div>
           <div className='mt-6 mb-4 text-center mx-auto xl:w-1/5 w-2/5'>

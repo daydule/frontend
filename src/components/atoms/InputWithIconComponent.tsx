@@ -10,7 +10,7 @@ type Props<T> = {
   icon: ReactNode;
   extraClassName?: string | undefined;
   setter: React.Dispatch<React.SetStateAction<T>>;
-  handleClickLogin: () => void;
+  handleSubmit: () => void;
 };
 
 export const InputWithIconComponent = <T extends string | number>(props: Props<T>) => {
@@ -21,7 +21,7 @@ export const InputWithIconComponent = <T extends string | number>(props: Props<T
     // 予測変換時に押されるEnter及びEnter以外のキーが押された場合は何もしない
     if (e.nativeEvent.isComposing || e.key !== 'Enter') return;
 
-    props.handleClickLogin();
+    props.handleSubmit();
   };
 
   return (
