@@ -12,6 +12,7 @@ const HeaderComponent = () => {
   const router = useRouter();
   const { data: readUserResult, isError } = useReadUserQuery();
   const [logout] = useLogoutMutation();
+  const isAboutPage = router.pathname === '/about';
 
   const handleClickLogout = async () => {
     try {
@@ -35,16 +36,26 @@ const HeaderComponent = () => {
 
   return (
     <div className='w-full h-20 fixed left-0 top-0 border-b shadow-xl px-8 flex items-center text-left text-3xl text-white bg-indigo-700 z-10'>
-      <div className='my-0 ml-0 mr-auto flex' onClick={() => router.push('/main')}>
+      <div className='my-0 ml-0 mr-5 flex' onClick={() => router.push('/main')}>
         <IconContext.Provider value={{ size: '1.2em', className: 'text-white text-opacity-90' }}>
           <AiFillSchedule />
           <img src='/logo.png' className='ml-3' />
         </IconContext.Provider>
       </div>
+      {isAboutPage && (
+        <div className='mr-auto text-base cursor-pointer' onClick={() => router.push('/auth/login')}>
+          ログイン画面へ
+        </div>
+      )}
+      {!isAboutPage && (
+        <div className='mr-auto text-base cursor-pointer' onClick={() => router.push('/about')}>
+          このアプリについて
+        </div>
+      )}
 
       <div className='my-0 ml-auto mr-0 flex'>
-        {!isError && <div className='mx-4 pt-1 text-lg'>ユーザネーム : {getNickName()}</div>}
-        {!isError && (
+        {!isError && !isAboutPage && <div className='mx-4 pt-1 text-lg'>ユーザネーム : {getNickName()}</div>}
+        {!isError && !isAboutPage && (
           <Menu
             menuButton={
               <MenuButton>
