@@ -1,7 +1,7 @@
 import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { LinkComponent } from '../atoms/LinkComponent';
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useLoginMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
@@ -13,7 +13,10 @@ export const LoginComponent = () => {
   const [login] = useLoginMutation();
   const router = useRouter();
 
-  const handleClickLogin = async () => {
+  const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
+    // これを入れているのは、リロードが走らないようにするため
+    event.preventDefault();
+
     const data = {
       email: email,
       password: password,
@@ -44,7 +47,7 @@ export const LoginComponent = () => {
           <span id='login-error-message' className='block sm:inline'></span>
         </div>
 
-        <form id='login-form'>
+        <form id='login-form' onSubmit={handleLogin}>
           <div className='mt-12 mx-auto xl:w-3/5 w-4/5'>
             <InputWithIconComponent<string>
               id='email'
@@ -68,7 +71,7 @@ export const LoginComponent = () => {
             />
           </div>
           <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
-            <ButtonComponent type='button' children='ログイン' handleClick={handleClickLogin} />
+            <ButtonComponent type='submit' children='ログイン' />
           </div>
         </form>
         <div>
