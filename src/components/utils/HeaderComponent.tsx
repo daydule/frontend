@@ -7,12 +7,14 @@ import { AiFillCaretDown, AiFillSchedule } from 'react-icons/ai';
 import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import { CONSTANT } from '@/config/const';
+import Link from 'next/link';
 
 const HeaderComponent = () => {
   const router = useRouter();
   const { data: readUserResult, isError } = useReadUserQuery();
   const [logout] = useLogoutMutation();
   const isAboutPage = router.pathname === '/about';
+  const isMainPage = router.pathname === '/main';
 
   const handleClickLogout = async () => {
     try {
@@ -43,16 +45,25 @@ const HeaderComponent = () => {
         </IconContext.Provider>
       </div>
       {isAboutPage && (
-        <div className='mr-auto text-base cursor-pointer' onClick={() => router.push('/auth/login')}>
+        <div className='ml-5 text-base cursor-pointer' onClick={() => router.push('/auth/login')}>
           ログイン画面へ
         </div>
       )}
       {!isAboutPage && (
-        <div className='mr-auto text-base cursor-pointer' onClick={() => router.push('/about')}>
+        <div className='ml-5 text-base cursor-pointer' onClick={() => router.push('/about')}>
           このアプリについて
         </div>
       )}
-
+      {isMainPage && (
+        <Link
+          className='ml-5 text-base cursor-pointer'
+          href='https://forms.gle/DA55AYirvSCcw3DX9'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          フィードバック
+        </Link>
+      )}
       <div className='my-0 ml-auto mr-0 flex'>
         {!isError && !isAboutPage && <div className='mx-4 pt-1 text-lg'>ユーザネーム : {getNickName()}</div>}
         {!isError && !isAboutPage && (
