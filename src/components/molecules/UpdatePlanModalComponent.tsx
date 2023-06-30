@@ -9,6 +9,7 @@ import { CONSTANT } from '@/config/const';
 import { formatToDate, formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
 import { Plan } from '@/redux/types';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 type Props = {
   showsModal: boolean;
@@ -46,8 +47,10 @@ export const UpdatePlanModalComponent = (props: Props) => {
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
     };
     try {
-      await updatePlan(data).unwrap();
-      props.handleClose();
+      await updatePlan(data)
+        .unwrap()
+        .then(() => props.handleClose())
+        .catch(errorHandler);
     } catch (e) {
       console.error(e);
     }

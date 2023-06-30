@@ -4,6 +4,7 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { useUpdatePasswordMutation } from '@/redux/user/slice';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const PasswordSettingComponent = () => {
   const [currentPassword, setCurrentPassword] = useState<string>('');
@@ -18,11 +19,14 @@ export const PasswordSettingComponent = () => {
       newPassword: newPassword,
     };
     try {
-      await updatePassword(data).unwrap();
-
-      setCurrentPassword('');
-      setNewPassword('');
-      setNewPasswordConfirmation('');
+      await updatePassword(data)
+        .unwrap()
+        .then(() => {
+          setCurrentPassword('');
+          setNewPassword('');
+          setNewPasswordConfirmation('');
+        })
+        .catch(errorHandler);
     } catch (e) {
       console.error(e);
     }

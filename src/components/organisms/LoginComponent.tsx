@@ -6,6 +6,7 @@ import { useLoginMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
 import { useRouter } from 'next/router';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const LoginComponent = () => {
   const [email, setEmail] = useState('');
@@ -22,16 +23,14 @@ export const LoginComponent = () => {
       password: password,
     };
     try {
-      await login(data).unwrap();
-      router.replace('/main');
+      await login(data)
+        .unwrap()
+        .then(() => {
+          router.replace('/main');
+        })
+        .catch(errorHandler);
     } catch (e) {
-      const loginErrorDisplay = document.getElementById('login-error-display');
-      const errorMessage = document.getElementById('login-error-message');
-      if (loginErrorDisplay && errorMessage) {
-        loginErrorDisplay.classList.remove('hidden');
-        // TODO: エラーメッセージは後で修正
-        errorMessage.innerHTML = 'ログインエラー';
-      }
+      console.error(e);
     }
   };
 
@@ -79,10 +78,10 @@ export const LoginComponent = () => {
             サインアップは
             <LinkComponent href='/auth/signup' text='こちら' />
           </p>
-          <p className='mt-2 mb-4 text-center text-sm'>
+          {/* <p className='mt-2 mb-4 text-center text-sm'>
             パスワードを忘れた方は
             <LinkComponent href='/auth/resetPassword/sendResetPasswordMail' text='こちら' />
-          </p>
+          </p> */}
         </div>
       </div>
     </>

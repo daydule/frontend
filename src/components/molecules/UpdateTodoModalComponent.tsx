@@ -8,6 +8,7 @@ import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
 import { Plan } from '@/redux/types';
 import SliderComponent from '../atoms/SliderComponent';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 type Props = {
   showsModal: boolean;
@@ -36,8 +37,10 @@ export const UpdateTodoModalComponent = (props: Props) => {
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO,
     };
     try {
-      await updatePlan(data).unwrap();
-      props.handleClose();
+      await updatePlan(data)
+        .unwrap()
+        .then(() => props.handleClose())
+        .catch(errorHandler);
     } catch (e) {
       console.error(e);
     }
