@@ -44,7 +44,7 @@ const HeaderComponent = () => {
       </div>
       {isAboutPage && (
         <div className='mr-auto text-base cursor-pointer' onClick={() => router.push('/auth/login')}>
-          ログイン画面へ
+          &lt; 戻る
         </div>
       )}
       {!isAboutPage && (
