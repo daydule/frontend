@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import { MESSAGE } from '@/constant/validation';
 
 type InputData = {
   email?: string;
@@ -24,19 +25,19 @@ const createSchema = (schemaData: SchemaData): void => {
       const emailSchema = z.string().email();
 
       validationSuccess = emailSchema.safeParse(schemaData.data.email).success;
-      if (!validationSuccess) schemaData.result.email = '正しいメールアドレスを入力してください';
+      if (!validationSuccess) schemaData.result.email = MESSAGE.EMAIL;
 
       break;
     case 'password':
       const passwordSchema = z.string().min(1);
 
       validationSuccess = passwordSchema.safeParse(schemaData.data.password).success;
-      if (!validationSuccess) schemaData.result.password = 'パスワードを入力してください';
+      if (!validationSuccess) schemaData.result.password = MESSAGE.PASSWORD;
 
       break;
     case 'passwordConfirmation':
       if (schemaData.data.password !== schemaData.data.passwordConfirmation)
-        schemaData.result.passwordConfirmation = 'パスワードが一致していません';
+        schemaData.result.passwordConfirmation = MESSAGE.PASSWORDCONFIRMATION;
   }
 };
 

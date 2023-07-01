@@ -5,7 +5,7 @@ import { TextAreaComponent } from '../atoms/TextAreaComponent';
 import { CheckBoxComponent } from '../atoms/CheckBoxComponent';
 import { ButtonComponent } from '../atoms/ButtonComponent';
 import { FormEvent, useState } from 'react';
-import { CONSTANT } from '@/config/const';
+import { CONSTANT } from '@/constant/default';
 import { formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
