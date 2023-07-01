@@ -7,13 +7,13 @@ import { useLoginMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
 import { useRouter } from 'next/router';
-import { formValidation, validationResult } from '@/helpers/validationHelper';
+import { formValidation, ValidationResult } from '@/helpers/validationHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const LoginComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [validation, setVaridation] = useState<validationResult>({ invalid: false });
+  const [validation, setVaridation] = useState<ValidationResult>({ invalid: false });
   const [login] = useLoginMutation();
   const router = useRouter();
 

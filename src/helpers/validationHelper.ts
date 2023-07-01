@@ -1,54 +1,54 @@
 import * as z from 'zod';
 
-type inputData = {
+type InputData = {
   email?: string;
   password?: string;
   passwordConfirmation?: string;
 };
 
-export type validationResult = inputData & {
+export type ValidationResult = InputData & {
   invalid: boolean;
 };
 
-type schemaData = {
+type SchemaData = {
   schema: string;
-  data: string;
-  result: validationResult;
+  data: InputData;
+  result: ValidationResult;
 };
 
-const createSchema = (schemaData: schemaData): void => {
+const createSchema = (schemaData: SchemaData): void => {
   let validationSuccess: boolean = true;
 
   switch (schemaData.schema) {
     case 'email':
-      const emailShema = z.string().email({ message: 'Invalid email address' });
+      const emailSchema = z.string().email();
 
-      validationSuccess = emailShema.safeParse(schemaData.data).success;
+      validationSuccess = emailSchema.safeParse(schemaData.data.email).success;
       if (!validationSuccess) schemaData.result.email = '正しいメールアドレスを入力してください';
 
       break;
     case 'password':
-      const passwordShema = z.string().min(1);
+      const passwordSchema = z.string().min(1);
 
-      validationSuccess = passwordShema.safeParse(schemaData.data).success;
+      validationSuccess = passwordSchema.safeParse(schemaData.data.password).success;
       if (!validationSuccess) schemaData.result.password = 'パスワードを入力してください';
 
       break;
     case 'passwordConfirmation':
-      if (schemaData.result.password === schemaData.result.passwordConfirmation)
-        schemaData.result.password = 'パスワードが一致していません';
+      if (schemaData.data.password !== schemaData.data.passwordConfirmation)
+        schemaData.result.passwordConfirmation = 'パスワードが一致していません';
   }
 };
 
-export const formValidation = (inputData: inputData) => {
-  const validationResult: validationResult = {
+export const formValidation = (inputData: InputData) => {
+  const validationResult: ValidationResult = {
     invalid: false,
   };
 
   for (const [key, value] of Object.entries(inputData)) {
     createSchema({
       schema: key,
-      data: value,
+      data: inputData,
       result: validationResult,
     });
   }

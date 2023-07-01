@@ -7,14 +7,14 @@ import { SignupForm, useSignupMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
 import { useRouter } from 'next/router';
-import { formValidation, validationResult } from '@/helpers/validationHelper';
+import { formValidation, ValidationResult } from '@/helpers/validationHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const SignupComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [validation, setVaridation] = useState<validationResult>({ invalid: false });
+  const [validation, setVaridation] = useState<ValidationResult>({ invalid: false });
   const [signup] = useSignupMutation();
   const router = useRouter();
 
@@ -38,6 +38,7 @@ export const SignupComponent = () => {
       } catch (e) {
         console.error(e);
       }
+    }
 
     setVaridation(validationResult);
   };
@@ -89,7 +90,12 @@ export const SignupComponent = () => {
           <div className='mx-auto xl:w-3/5 w-4/5'>
             {validation.password && <AlertComponent text={validation.password} />}
           </div>
-          <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
+          <div
+            className={
+              'mt-6 mx-auto xl:w-3/5 w-4/5' +
+              (validation.passwordConfirmation ? ' border-2 border-solid border-red-600' : '')
+            }
+          >
             <InputWithIconComponent<string>
               id='password-confirmation'
               name='password-confirmation'
@@ -99,6 +105,9 @@ export const SignupComponent = () => {
               icon={<RiLock2Line />}
               setter={setPasswordConfirmation}
             />
+          </div>
+          <div className='mx-auto xl:w-3/5 w-4/5'>
+            {validation.passwordConfirmation && <AlertComponent text={validation.passwordConfirmation} />}
           </div>
           <div className='mt-6 mb-4 text-center mx-auto xl:w-1/5 w-2/5'>
             <ButtonComponent type='submit' children='サインアップ' />
