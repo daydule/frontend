@@ -7,8 +7,8 @@ import { SignupForm, useSignupMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
 import { useRouter } from 'next/router';
-import { useReadUserQuery } from '@/redux/user/slice';
 import { formValidation, validationResult } from '@/helpers/validationHelper';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const SignupComponent = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +17,6 @@ export const SignupComponent = () => {
   const [validation, setVaridation] = useState<validationResult>({ invalid: false });
   const [signup] = useSignupMutation();
   const router = useRouter();
-  const { data: readUserResult, isError } = useReadUserQuery();
 
   const handleSignup = async (event: FormEvent<HTMLFormElement>) => {
     // これを入れているのは、リロードが走らないようにするため
@@ -32,22 +31,13 @@ export const SignupComponent = () => {
 
     if (!validationResult.invalid) {
       try {
-        await signup(data).unwrap();
-        if (isError || !readUserResult?.user.isGuest) {
-          router.replace('/auth/login');
-        } else {
-          router.replace('/main');
-        }
+        await signup(data)
+          .unwrap()
+          .then(() => router.replace('/main'))
+          .catch(errorHandler);
       } catch (e) {
-        const signupErrorDisplay = document.getElementById('signup-error-display');
-        const errorMessage = document.getElementById('signup-error-message');
-        if (signupErrorDisplay && errorMessage) {
-          signupErrorDisplay.classList.remove('hidden');
-          // TODO: エラーメッセージは後で修正
-          errorMessage.innerHTML = 'サインアップエラー';
-        }
+        console.error(e);
       }
-    }
 
     setVaridation(validationResult);
   };
@@ -114,14 +104,12 @@ export const SignupComponent = () => {
             <ButtonComponent type='submit' children='サインアップ' />
           </div>
         </form>
-        {(isError || !readUserResult?.user.isGuest) && (
-          <div>
-            <p className='my-4 text-center text-sm'>
-              ログインは
-              <LinkComponent href='/auth/login' text='こちら' />
-            </p>
-          </div>
-        )}
+        <div>
+          <p className='my-4 text-center text-sm'>
+            ログインは
+            <LinkComponent href='/auth/login' text='こちら' />
+          </p>
+        </div>
       </div>
     </>
   );

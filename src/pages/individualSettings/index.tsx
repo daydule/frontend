@@ -1,4 +1,4 @@
-import { RedirectWithAuthCheckComponent } from '@/components/utils/RedirectWithAuthCheckComponent';
+import { RedirectWithAuthCheckComponent } from '@/components/molecules/RedirectWithAuthCheckComponent';
 import { NextPage } from 'next';
 import { IndividualSettingComponent } from '@/components/organisms/IndividualSettingComponent';
 

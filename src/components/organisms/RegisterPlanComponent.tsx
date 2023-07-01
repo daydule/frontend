@@ -6,6 +6,7 @@ import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TimePickerComponent } from '../atoms/TimePickerComponent';
 import { RegisterPlanModalComponent } from '../molecules/RegisterPlanModalComponent';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const RegisterPlanComponent = () => {
   // 開始時間を現在の時間から直後の15分刻みのキリのいい時間に設定
@@ -40,8 +41,10 @@ export const RegisterPlanComponent = () => {
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
     };
     try {
-      await createPlan(data).unwrap();
-      setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
+      await createPlan(data)
+        .unwrap()
+        .then(() => setTitle(CONSTANT.DEFAULT.PLAN.TITLE))
+        .catch(errorHandler);
     } catch (e) {
       console.error(e);
     }

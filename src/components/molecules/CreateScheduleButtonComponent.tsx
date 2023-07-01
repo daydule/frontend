@@ -3,6 +3,7 @@ import { useCreateScheduleMutation } from '@/redux/schedule/slice';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { ButtonWithOptionComponent } from '@/components/atoms/ButtonWithOptionComponent';
 import { RegisterSchedulingOptionsModalComponent } from './RegisterSchedulingOptionsModalComponent';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const CreateScheduleButtonComponent = () => {
   const [createSchedule] = useCreateScheduleMutation();
@@ -14,7 +15,7 @@ export const CreateScheduleButtonComponent = () => {
     const dateString = formatToYYYY_MM_DD(now);
     const currentTime = ('00' + now.getHours()).slice(-2) + ('00' + now.getMinutes()).slice(-2);
     try {
-      await createSchedule({ date: dateString, currentTime: currentTime });
+      await createSchedule({ date: dateString, currentTime: currentTime }).unwrap().catch(errorHandler);
     } catch (e) {
       console.log(e);
     }

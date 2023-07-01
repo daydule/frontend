@@ -2,7 +2,7 @@ import { RegisterPlanComponent } from '@/components/organisms/RegisterPlanCompon
 import { RegisterTodoComponent } from '@/components/organisms/RegisterTodoComponent';
 import { ScheduleComponent } from '@/components/organisms/ScheduleComponent';
 import { TodoListComponent } from '@/components/organisms/TodoListComponent';
-import { RedirectWithAuthCheckComponent } from '@/components/utils/RedirectWithAuthCheckComponent';
+import { RedirectWithAuthCheckComponent } from '@/components/molecules/RedirectWithAuthCheckComponent';
 
 const MainPage = () => {
   return (
