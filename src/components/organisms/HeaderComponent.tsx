@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { AiFillCaretDown, AiFillSchedule } from 'react-icons/ai';
 import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
-import { CONSTANT } from '@/config/const';
+import { CONSTANT } from '@/constant/default';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const HeaderComponent = () => {

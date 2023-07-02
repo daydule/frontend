@@ -2,17 +2,19 @@ import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { LinkComponent } from '../atoms/LinkComponent';
 import React, { FormEvent, useState } from 'react';
+import { AlertComponent } from '@/components/atoms/AlertComponent';
 import { SignupForm, useSignupMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
 import { useRouter } from 'next/router';
-import { toastr } from 'react-redux-toastr';
+import { formValidation, ValidationResult } from '@/helpers/validationHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const SignupComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [validation, setVaridation] = useState<ValidationResult>({ invalid: false });
   const [signup] = useSignupMutation();
   const router = useRouter();
 
@@ -20,19 +22,25 @@ export const SignupComponent = () => {
     // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
 
-    const input: SignupForm = {
+    const data: SignupForm = {
       email,
       password,
       passwordConfirmation,
     };
-    try {
-      await signup(input)
-        .unwrap()
-        .then(() => router.replace('/main'))
-        .catch(errorHandler);
-    } catch (e) {
-      console.error(e);
+    const validationResult = formValidation(data);
+
+    if (!validationResult.invalid) {
+      try {
+        await signup(data)
+          .unwrap()
+          .then(() => router.replace('/main'))
+          .catch(errorHandler);
+      } catch (e) {
+        console.error(e);
+      }
     }
+
+    setVaridation(validationResult);
   };
 
   return (
@@ -48,7 +56,11 @@ export const SignupComponent = () => {
         </div>
 
         <form id='signup-form' onSubmit={handleSignup}>
-          <div className='mt-12 mx-auto xl:w-3/5 w-4/5'>
+          <div
+            className={
+              'mt-12 mx-auto xl:w-3/5 w-4/5' + (validation.email ? ' border-2 border-solid border-red-600' : '')
+            }
+          >
             <InputWithIconComponent<string>
               id='email'
               name='email'
@@ -59,7 +71,12 @@ export const SignupComponent = () => {
               setter={setEmail}
             />
           </div>
-          <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
+          <div className='mx-auto xl:w-3/5 w-4/5'>{validation.email && <AlertComponent text={validation.email} />}</div>
+          <div
+            className={
+              'mt-6 mx-auto xl:w-3/5 w-4/5' + (validation.password ? ' border-2 border-solid border-red-600' : '')
+            }
+          >
             <InputWithIconComponent<string>
               id='password'
               name='password'
@@ -70,7 +87,15 @@ export const SignupComponent = () => {
               setter={setPassword}
             />
           </div>
-          <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
+          <div className='mx-auto xl:w-3/5 w-4/5'>
+            {validation.password && <AlertComponent text={validation.password} />}
+          </div>
+          <div
+            className={
+              'mt-6 mx-auto xl:w-3/5 w-4/5' +
+              (validation.passwordConfirmation ? ' border-2 border-solid border-red-600' : '')
+            }
+          >
             <InputWithIconComponent<string>
               id='password-confirmation'
               name='password-confirmation'
@@ -80,6 +105,9 @@ export const SignupComponent = () => {
               icon={<RiLock2Line />}
               setter={setPasswordConfirmation}
             />
+          </div>
+          <div className='mx-auto xl:w-3/5 w-4/5'>
+            {validation.passwordConfirmation && <AlertComponent text={validation.passwordConfirmation} />}
           </div>
           <div className='mt-6 mb-4 text-center mx-auto xl:w-1/5 w-2/5'>
             <ButtonComponent type='submit' children='サインアップ' />

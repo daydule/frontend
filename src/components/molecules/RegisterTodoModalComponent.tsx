@@ -4,7 +4,7 @@ import { TextAreaComponent } from '../atoms/TextAreaComponent';
 import SliderComponent from '../atoms/SliderComponent';
 import { ButtonComponent } from '../atoms/ButtonComponent';
 import { FormEvent, useState } from 'react';
-import { CONSTANT } from '@/config/const';
+import { CONSTANT } from '@/constant/default';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 

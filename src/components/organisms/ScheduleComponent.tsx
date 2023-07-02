@@ -3,7 +3,7 @@ import { useReadScheduleQuery } from '@/redux/schedule/slice';
 import React, { useEffect, useState } from 'react';
 
 import { PlanCardComponent } from '../molecules/PlanCardComponent';
-import { CONSTANT } from '@/config/const';
+import { CONSTANT } from '@/constant/default';
 import { BackToListButtonComponent } from '../molecules/BackToListButtonComponent';
 
 export const ScheduleComponent = () => {

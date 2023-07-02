@@ -1,5 +1,5 @@
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
-import { CONSTANT } from '@/config/const';
+import { CONSTANT } from '@/constant/default';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '@/components/atoms/SimpleInputComponent';

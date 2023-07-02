@@ -1,16 +1,19 @@
 import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
+import { AlertComponent } from '@/components/atoms/AlertComponent';
 import { LinkComponent } from '../atoms/LinkComponent';
 import React, { FormEvent, useState } from 'react';
 import { useLoginMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
 import { useRouter } from 'next/router';
+import { formValidation, ValidationResult } from '@/helpers/validationHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const LoginComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [validation, setVaridation] = useState<ValidationResult>({ invalid: false });
   const [login] = useLoginMutation();
   const router = useRouter();
 
@@ -19,19 +22,25 @@ export const LoginComponent = () => {
     event.preventDefault();
 
     const data = {
-      email: email,
-      password: password,
+      email,
+      password,
     };
-    try {
-      await login(data)
-        .unwrap()
-        .then(() => {
-          router.replace('/main');
-        })
-        .catch(errorHandler);
-    } catch (e) {
-      console.error(e);
+    const validationResult = formValidation(data);
+
+    if (!validationResult.invalid) {
+      try {
+        await login(data)
+          .unwrap()
+          .then(() => {
+            router.replace('/main');
+          })
+          .catch(errorHandler);
+      } catch (e) {
+        console.error(e);
+      }
     }
+
+    setVaridation(validationResult);
   };
 
   return (
@@ -47,7 +56,11 @@ export const LoginComponent = () => {
         </div>
 
         <form id='login-form' onSubmit={handleLogin}>
-          <div className='mt-12 mx-auto xl:w-3/5 w-4/5'>
+          <div
+            className={
+              'mt-12 mx-auto xl:w-3/5 w-4/5' + (validation.email ? ' border-2 border-solid border-red-600' : '')
+            }
+          >
             <InputWithIconComponent<string>
               id='email'
               name='email'
@@ -58,7 +71,12 @@ export const LoginComponent = () => {
               setter={setEmail}
             />
           </div>
-          <div className='mt-6 mx-auto xl:w-3/5 w-4/5'>
+          <div className='mx-auto xl:w-3/5 w-4/5'>{validation.email && <AlertComponent text={validation.email} />}</div>
+          <div
+            className={
+              'mt-6 mx-auto xl:w-3/5 w-4/5' + (validation.password ? ' border-2 border-solid border-red-600' : '')
+            }
+          >
             <InputWithIconComponent<string>
               id='password'
               name='password'
@@ -68,6 +86,9 @@ export const LoginComponent = () => {
               icon={<RiLock2Line />}
               setter={setPassword}
             />
+          </div>
+          <div className='mx-auto xl:w-3/5 w-4/5'>
+            {validation.password && <AlertComponent text={validation.password} />}
           </div>
           <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
             <ButtonComponent type='submit' children='ログイン' />
