@@ -5,9 +5,10 @@ import { TextAreaComponent } from '../atoms/TextAreaComponent';
 import { CheckBoxComponent } from '../atoms/CheckBoxComponent';
 import { ButtonComponent } from '../atoms/ButtonComponent';
 import { FormEvent, useState } from 'react';
-import { CONSTANT } from '@/config/const';
+import { CONSTANT } from '@/constant/default';
 import { formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 type Props = {
   showsModal: boolean;
@@ -44,9 +45,13 @@ export const RegisterPlanModalComponent = (props: Props) => {
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
     };
     try {
-      await createPlan(data).unwrap();
-      props.setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
-      props.handleClose();
+      await createPlan(data)
+        .unwrap()
+        .then(() => {
+          props.setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
+          props.handleClose();
+        })
+        .catch(errorHandler);
     } catch (e) {
       console.error(e);
     }

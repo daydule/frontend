@@ -1,10 +1,11 @@
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
-import { CONSTANT } from '@/config/const';
+import { CONSTANT } from '@/constant/default';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '@/components/atoms/SimpleInputComponent';
 import SliderComponent from '@/components/atoms/SliderComponent';
 import { RegisterTodoModalComponent } from '@/components/molecules/RegisterTodoModalComponent';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const RegisterTodoComponent = () => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
@@ -24,8 +25,10 @@ export const RegisterTodoComponent = () => {
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO,
     };
     try {
-      await createPlan(data).unwrap();
-      setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
+      await createPlan(data)
+        .unwrap()
+        .then(() => setTitle(CONSTANT.DEFAULT.PLAN.TITLE))
+        .catch(errorHandler);
     } catch (e) {
       console.error(e);
     }

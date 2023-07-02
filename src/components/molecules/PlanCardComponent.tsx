@@ -3,7 +3,7 @@ import { Plan } from '@/redux/types';
 import React, { useState } from 'react';
 import { DeletePlanButtonComponent } from '@/components/molecules/DeletePlanButtonComponent';
 import { UpdatePlanModalComponent } from '@/components/molecules/UpdatePlanModalComponent';
-import { CONSTANT } from '@/config/const';
+import { CONSTANT } from '@/constant/default';
 
 type Props = {
   plan: Plan;
