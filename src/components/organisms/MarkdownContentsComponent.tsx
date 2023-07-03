@@ -5,25 +5,14 @@ import remarkGfm from 'remark-gfm';
 import CodeBlockComponent from '@/components/organisms/CodeBlockComponent';
 
 type Props = {
-  fineName: string;
+  markDownContents: string;
 };
 
 export const MarkdownContentsComponent = (props: Props) => {
-  const [markdownContents, setMarkdownContents] = useState('');
-
-  useEffect(() => {
-    const fetchMarkdown = async () => {
-      const md = await fetch('/markdownContents/' + props.fineName);
-      const text = await md.text();
-      setMarkdownContents(text);
-    };
-    fetchMarkdown();
-  }, [props]);
-
   return (
     <div className='prose prose-xl mx-auto my-12'>
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={{ code: CodeBlockComponent }}>
-        {markdownContents}
+        {props.markDownContents}
       </ReactMarkdown>
     </div>
   );
