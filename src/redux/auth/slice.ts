@@ -1,5 +1,11 @@
 import { dayduleApi } from '@/redux/slice';
 
+export type ErrorResponse = {
+  isError: boolean;
+  errorId: string;
+  errorMessage: string | string[];
+};
+
 export type SignupForm = {
   email: string;
   password: string;
@@ -37,7 +43,7 @@ const authApi = dayduleApi.injectEndpoints({
       invalidatesTags: ['Auth', 'Schedule'],
     }),
     guestLogin: builder.mutation<void, void>({
-      query: (body) => ({
+      query: () => ({
         url: 'guest/signup',
         method: 'POST',
       }),

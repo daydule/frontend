@@ -4,8 +4,9 @@ import { TextAreaComponent } from '../atoms/TextAreaComponent';
 import SliderComponent from '../atoms/SliderComponent';
 import { ButtonComponent } from '../atoms/ButtonComponent';
 import { FormEvent, useState } from 'react';
-import { CONSTANT } from '@/config/const';
+import { CONSTANT } from '@/constant/default';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 type Props = {
   showsModal: boolean;
@@ -34,9 +35,13 @@ export const RegisterTodoModalComponent = (props: Props) => {
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO,
     };
     try {
-      await createPlan(data).unwrap();
-      props.setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
-      props.handleClose();
+      await createPlan(data)
+        .unwrap()
+        .then(() => {
+          props.handleClose();
+          props.setTitle(CONSTANT.DEFAULT.PLAN.TITLE);
+        })
+        .catch(errorHandler);
     } catch (e) {
       console.error(e);
     }

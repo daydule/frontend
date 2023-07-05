@@ -6,10 +6,11 @@ import { useRouter } from 'next/router';
 import { AiFillCaretDown, AiFillSchedule } from 'react-icons/ai';
 import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
-import { CONSTANT } from '@/config/const';
+import { CONSTANT } from '@/constant/default';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 import Link from 'next/link';
 
-const HeaderComponent = () => {
+export const HeaderComponent = () => {
   const router = useRouter();
   const { data: readUserResult, isError } = useReadUserQuery();
   const [logout] = useLogoutMutation();
@@ -18,7 +19,7 @@ const HeaderComponent = () => {
 
   const handleClickLogout = async () => {
     try {
-      await logout().unwrap();
+      await logout().unwrap().catch(errorHandler);
     } catch (e) {
       console.error(e);
     }
@@ -71,7 +72,6 @@ const HeaderComponent = () => {
             menuButton={
               <MenuButton>
                 <div className='flex'>
-                  {' '}
                   <IconContext.Provider value={{ size: '1.2em', className: 'text-white text-opacity-90' }}>
                     <RiAccountCircleFill />
                   </IconContext.Provider>
@@ -90,5 +90,3 @@ const HeaderComponent = () => {
     </div>
   );
 };
-
-export default HeaderComponent;

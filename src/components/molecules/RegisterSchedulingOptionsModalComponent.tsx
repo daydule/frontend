@@ -12,6 +12,7 @@ import {
   useReadScheduleQuery,
   useUpdateScheduleRecordMutation,
 } from '@/redux/schedule/slice';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 type Props = {
   showsModal: boolean;
@@ -38,8 +39,10 @@ export const RegisterSchedulingOptionsModalComponent = (props: Props) => {
       endTime: formatToTimeString4digits(endTime),
     };
     try {
-      await updateScheduleRecord(data);
-      props.handleClose();
+      await updateScheduleRecord(data)
+        .unwrap()
+        .then(() => props.handleClose())
+        .catch(errorHandler);
     } catch (e) {
       console.error(e);
     }

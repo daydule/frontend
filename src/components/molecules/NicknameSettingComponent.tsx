@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import 'react-tabs/style/react-tabs.css';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { useReadUserQuery, useUpdateUserMutation } from '@/redux/user/slice';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const NicknameSettingComponent = () => {
   const [nickname, setNickname] = useState<string>('');
@@ -18,9 +19,9 @@ export const NicknameSettingComponent = () => {
       password: 'DDpw7777',
     };
     try {
-      const result = await userUpdate(data).unwrap();
+      const result = await userUpdate(data).unwrap().catch(errorHandler);
       const nicknameInput = document.getElementById('nickname');
-      if (nicknameInput) {
+      if (result && nicknameInput) {
         nicknameInput.setAttribute('placeholder', result.user.nickname);
       }
       setNickname('');
