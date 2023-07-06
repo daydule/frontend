@@ -2,6 +2,9 @@ import { FormEvent } from 'react';
 import { ButtonComponent } from '@/components//atoms/ButtonComponent';
 import { useBackToListMutation } from '@/redux/plan/slice';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { ErrorResponse } from '@/redux/auth/slice';
+import { toastr } from 'react-redux-toastr';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const BackToListButtonComponent = () => {
   const [backToList] = useBackToListMutation();
@@ -10,7 +13,13 @@ export const BackToListButtonComponent = () => {
     // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
     const now = new Date();
-    await backToList({ date: formatToYYYY_MM_DD(now) });
+    try {
+      await backToList({ date: formatToYYYY_MM_DD(now) })
+        .unwrap()
+        .catch(errorHandler);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
