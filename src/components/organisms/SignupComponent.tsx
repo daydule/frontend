@@ -1,7 +1,7 @@
 import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { LinkComponent } from '../atoms/LinkComponent';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useRef } from 'react';
 import { AlertComponent } from '@/components/atoms/AlertComponent';
 import { SignupForm, useSignupMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
@@ -11,10 +11,10 @@ import { formValidation, ValidationResult } from '@/helpers/validationHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const SignupComponent = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [validation, setVaridation] = useState<ValidationResult>({ invalid: false });
+  const inputEmailRef = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
+  const inputPasswordConfirmationRef = useRef<HTMLInputElement>(null);
   const [signup] = useSignupMutation();
   const router = useRouter();
 
@@ -23,10 +23,21 @@ export const SignupComponent = () => {
     event.preventDefault();
 
     const data: SignupForm = {
-      email,
-      password,
-      passwordConfirmation,
+      email: '',
+      password: '',
+      passwordConfirmation: '',
     };
+
+    if (inputEmailRef.current?.value !== undefined && inputEmailRef.current.value !== null)
+      data.email = inputEmailRef.current.value;
+    if (inputPasswordRef.current?.value !== undefined && inputPasswordRef.current.value !== null)
+      data.password = inputPasswordRef.current.value;
+    if (
+      inputPasswordConfirmationRef.current?.value !== undefined &&
+      inputPasswordConfirmationRef.current.value !== null
+    )
+      data.passwordConfirmation = inputPasswordConfirmationRef.current.value;
+
     const validationResult = formValidation(data);
 
     if (!validationResult.invalid) {
@@ -61,14 +72,13 @@ export const SignupComponent = () => {
               'mt-12 mx-auto xl:w-3/5 w-4/5' + (validation.email ? ' border-2 border-solid border-red-600' : '')
             }
           >
-            <InputWithIconComponent<string>
+            <InputWithIconComponent
               id='email'
               name='email'
               type='text'
-              value={email}
               placeholder='メールアドレス'
               icon={<AiOutlineMail />}
-              setter={setEmail}
+              customRef={inputEmailRef}
             />
           </div>
           <div className='mx-auto xl:w-3/5 w-4/5'>{validation.email && <AlertComponent text={validation.email} />}</div>
@@ -77,14 +87,13 @@ export const SignupComponent = () => {
               'mt-6 mx-auto xl:w-3/5 w-4/5' + (validation.password ? ' border-2 border-solid border-red-600' : '')
             }
           >
-            <InputWithIconComponent<string>
+            <InputWithIconComponent
               id='password'
               name='password'
               type='password'
-              value={password}
               placeholder='パスワード'
               icon={<RiLock2Line />}
-              setter={setPassword}
+              customRef={inputPasswordRef}
             />
           </div>
           <div className='mx-auto xl:w-3/5 w-4/5'>
@@ -96,14 +105,13 @@ export const SignupComponent = () => {
               (validation.passwordConfirmation ? ' border-2 border-solid border-red-600' : '')
             }
           >
-            <InputWithIconComponent<string>
+            <InputWithIconComponent
               id='password-confirmation'
               name='password-confirmation'
               type='password'
-              value={passwordConfirmation}
               placeholder='パスワード再入力'
               icon={<RiLock2Line />}
-              setter={setPasswordConfirmation}
+              customRef={inputPasswordConfirmationRef}
             />
           </div>
           <div className='mx-auto xl:w-3/5 w-4/5'>

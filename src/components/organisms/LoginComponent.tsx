@@ -2,7 +2,7 @@ import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { AlertComponent } from '@/components/atoms/AlertComponent';
 import { LinkComponent } from '../atoms/LinkComponent';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useRef } from 'react';
 import { useLoginMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
@@ -11,20 +11,26 @@ import { formValidation, ValidationResult } from '@/helpers/validationHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 export const LoginComponent = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [validation, setVaridation] = useState<ValidationResult>({ invalid: false });
   const [login] = useLoginMutation();
   const router = useRouter();
+  const inputEmailRef = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
 
     const data = {
-      email,
-      password,
+      email: '',
+      password: '',
     };
+
+    if (inputEmailRef.current?.value !== undefined && inputEmailRef.current.value !== null)
+      data.email = inputEmailRef.current.value;
+    if (inputPasswordRef.current?.value !== undefined && inputPasswordRef.current.value !== null)
+      data.password = inputPasswordRef.current.value;
+
     const validationResult = formValidation(data);
 
     if (!validationResult.invalid) {
@@ -61,14 +67,13 @@ export const LoginComponent = () => {
               'mt-12 mx-auto xl:w-3/5 w-4/5' + (validation.email ? ' border-2 border-solid border-red-600' : '')
             }
           >
-            <InputWithIconComponent<string>
+            <InputWithIconComponent
               id='email'
               name='email'
               type='text'
-              value={email}
               placeholder='メールアドレス'
               icon={<AiOutlineMail />}
-              setter={setEmail}
+              customRef={inputEmailRef}
             />
           </div>
           <div className='mx-auto xl:w-3/5 w-4/5'>{validation.email && <AlertComponent text={validation.email} />}</div>
@@ -77,14 +82,13 @@ export const LoginComponent = () => {
               'mt-6 mx-auto xl:w-3/5 w-4/5' + (validation.password ? ' border-2 border-solid border-red-600' : '')
             }
           >
-            <InputWithIconComponent<string>
+            <InputWithIconComponent
               id='password'
               name='password'
               type='password'
-              value={password}
               placeholder='パスワード'
               icon={<RiLock2Line />}
-              setter={setPassword}
+              customRef={inputPasswordRef}
             />
           </div>
           <div className='mx-auto xl:w-3/5 w-4/5'>
