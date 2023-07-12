@@ -8,7 +8,6 @@ import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import { CONSTANT } from '@/constant/default';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
-import Link from 'next/link';
 
 export const HeaderComponent = () => {
   const router = useRouter();
@@ -27,6 +26,10 @@ export const HeaderComponent = () => {
 
   const handleRenderSignup = () => {
     router.push('/auth/signup');
+  };
+
+  const handleClickFeedback = () => {
+    window.open('https://forms.gle/DA55AYirvSCcw3DX9');
   };
 
   const getNickName = () => {
@@ -55,16 +58,6 @@ export const HeaderComponent = () => {
           このアプリについて
         </div>
       )}
-      {isMainPage && (
-        <Link
-          className='ml-5 text-base cursor-pointer'
-          href='https://forms.gle/DA55AYirvSCcw3DX9'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          フィードバック
-        </Link>
-      )}
       <div className='my-0 ml-auto mr-0 flex'>
         {!isError && !isAboutPage && <div className='mx-4 pt-1 text-lg'>ユーザネーム : {getNickName()}</div>}
         {!isError && !isAboutPage && (
@@ -83,6 +76,7 @@ export const HeaderComponent = () => {
             }
           >
             {readUserResult?.user?.isGuest && <MenuItem onClick={handleRenderSignup}>本登録</MenuItem>}
+            {!readUserResult?.user?.isGuest && <MenuItem onClick={handleClickFeedback}>フィードバック</MenuItem>}
             {!readUserResult?.user?.isGuest && <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>}
           </Menu>
         )}
