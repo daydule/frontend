@@ -8,7 +8,6 @@ import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import { CONSTANT } from '@/constant/default';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
-import AboutPage from '@/pages/about';
 
 export const HeaderComponent = () => {
   const router = useRouter();
