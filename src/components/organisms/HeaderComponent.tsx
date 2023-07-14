@@ -8,6 +8,7 @@ import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import { CONSTANT } from '@/constant/default';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
+import AboutPage from '@/pages/about';
 
 export const HeaderComponent = () => {
   const router = useRouter();
@@ -55,8 +56,8 @@ export const HeaderComponent = () => {
       )}
 
       <div className='my-0 ml-auto mr-0 flex'>
-        {!isError && !isAboutPage && <div className='mx-4 pt-1 text-lg'>ユーザネーム : {getNickName()}</div>}
-        {!isError && !isAboutPage && (
+        {!isError && <div className='mx-4 pt-1 text-lg'>ユーザネーム : {getNickName()}</div>}
+        {!isError && (
           <Menu
             menuButton={
               <MenuButton>
