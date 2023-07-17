@@ -76,6 +76,7 @@ export const HeaderComponent = () => {
             }
           >
             {readUserResult?.user?.isGuest && <MenuItem onClick={handleRenderSignup}>本登録</MenuItem>}
+            {readUserResult?.user?.isGuest && <MenuItem onClick={handleClickLogout}>ログイン</MenuItem>}
             {!readUserResult?.user?.isGuest && <MenuItem onClick={handleClickFeedback}>フィードバック</MenuItem>}
             {!readUserResult?.user?.isGuest && <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>}
           </Menu>
