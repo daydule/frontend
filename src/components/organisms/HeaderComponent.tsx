@@ -14,6 +14,7 @@ export const HeaderComponent = () => {
   const { data: readUserResult, isError } = useReadUserQuery();
   const [logout] = useLogoutMutation();
   const isAboutPage = router.pathname === '/about';
+  const isMainPage = router.pathname === '/main';
 
   const handleClickLogout = async () => {
     try {
@@ -25,6 +26,10 @@ export const HeaderComponent = () => {
 
   const handleRenderSignup = () => {
     router.push('/auth/signup');
+  };
+
+  const handleClickFeedback = () => {
+    window.open('https://forms.gle/DA55AYirvSCcw3DX9');
   };
 
   const getNickName = () => {
@@ -44,16 +49,15 @@ export const HeaderComponent = () => {
         </IconContext.Provider>
       </div>
       {isAboutPage && (
-        <div className='mr-auto text-base cursor-pointer' onClick={() => router.push('/auth/login')}>
+        <div className='ml-5 text-base cursor-pointer' onClick={() => router.push('/auth/login')}>
           ログイン画面へ
         </div>
       )}
       {!isAboutPage && (
-        <div className='mr-auto text-base cursor-pointer' onClick={() => router.push('/about')}>
+        <div className='ml-5 text-base cursor-pointer' onClick={() => router.push('/about')}>
           このアプリについて
         </div>
       )}
-
       <div className='my-0 ml-auto mr-0 flex'>
         {!isError && !isAboutPage && <div className='mx-4 pt-1 text-lg'>ユーザネーム : {getNickName()}</div>}
         {!isError && !isAboutPage && (
@@ -72,6 +76,7 @@ export const HeaderComponent = () => {
             }
           >
             {readUserResult?.user?.isGuest && <MenuItem onClick={handleRenderSignup}>本登録</MenuItem>}
+            {!readUserResult?.user?.isGuest && <MenuItem onClick={handleClickFeedback}>フィードバック</MenuItem>}
             {!readUserResult?.user?.isGuest && <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>}
           </Menu>
         )}
