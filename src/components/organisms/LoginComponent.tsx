@@ -71,10 +71,14 @@ export const LoginComponent = () => {
               setter={setEmail}
             />
           </div>
-          <div className='mx-auto xl:w-3/5 w-4/5'>{validation.email && <AlertComponent text={validation.email} />}</div>
+          <div className={'mx-auto xl:w-3/5 w-4/5' + (validation.email ? ' h-6' : '')}>
+            {validation.email && <AlertComponent text={validation.email} />}
+          </div>
           <div
             className={
-              'mt-6 mx-auto xl:w-3/5 w-4/5' + (validation.password ? ' border-2 border-solid border-red-600' : '')
+              'mx-auto xl:w-3/5 w-4/5' +
+              (validation.password ? ' border-2 border-solid border-red-600' : '') +
+              (validation.email ? '' : ' mt-6')
             }
           >
             <InputWithIconComponent<string>
@@ -87,10 +91,10 @@ export const LoginComponent = () => {
               setter={setPassword}
             />
           </div>
-          <div className='mx-auto xl:w-3/5 w-4/5'>
+          <div className={'mx-auto xl:w-3/5 w-4/5 ' + (validation.password ? ' h-6' : '')}>
             {validation.password && <AlertComponent text={validation.password} />}
           </div>
-          <div className='mt-6 text-center mx-auto xl:w-1/5 w-2/5'>
+          <div className={'text-center mx-auto xl:w-1/5 w-2/5 ' + (validation.password ? '' : ' mt-6')}>
             <ButtonComponent type='submit' children='ログイン' />
           </div>
         </form>
