@@ -1,14 +1,14 @@
-import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
-import { ButtonComponent } from '@/components/atoms/ButtonComponent';
-import { LinkComponent } from '../atoms/LinkComponent';
+import { useRouter } from 'next/router';
 import React, { FormEvent, useState, useRef } from 'react';
-import { AlertComponent } from '@/components/atoms/AlertComponent';
-import { SignupForm, useSignupMutation } from '@/redux/auth/slice';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
-import { useRouter } from 'next/router';
-import { formValidation, ValidationResult } from '@/helpers/validationHelper';
+import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
+import { LinkComponent } from '../atoms/LinkComponent';
+import { AlertComponent } from '@/components/atoms/AlertComponent';
+import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
+import { formValidation, ValidationResult } from '@/helpers/validationHelper';
+import { SignupForm, useSignupMutation } from '@/redux/auth/slice';
 
 export const SignupComponent = () => {
   const [validation, setVaridation] = useState<ValidationResult>({ invalid: false });
@@ -23,20 +23,10 @@ export const SignupComponent = () => {
     event.preventDefault();
 
     const data: SignupForm = {
-      email: '',
-      password: '',
-      passwordConfirmation: '',
+      email: inputEmailRef.current?.value ?? '',
+      password: inputPasswordRef.current?.value ?? '',
+      passwordConfirmation: inputPasswordConfirmationRef.current?.value ?? '',
     };
-
-    if (inputEmailRef.current?.value !== undefined && inputEmailRef.current.value !== null)
-      data.email = inputEmailRef.current.value;
-    if (inputPasswordRef.current?.value !== undefined && inputPasswordRef.current.value !== null)
-      data.password = inputPasswordRef.current.value;
-    if (
-      inputPasswordConfirmationRef.current?.value !== undefined &&
-      inputPasswordConfirmationRef.current.value !== null
-    )
-      data.passwordConfirmation = inputPasswordConfirmationRef.current.value;
 
     const validationResult = formValidation(data);
 
@@ -57,10 +47,10 @@ export const SignupComponent = () => {
   return (
     <>
       <div className='border border-black'>
-        <h2 className='text-center text-2xl my-6'>サインアップ</h2>
+        <h2 className='my-6 text-center text-2xl'>サインアップ</h2>
         <div
           id='signup-error-display'
-          className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mx-auto xl:w-3/5 w-4/5 hidden'
+          className='relative mx-auto hidden w-4/5 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700 xl:w-3/5'
           role='alert'
         >
           <span id='signup-error-message' className='block sm:inline'></span>
@@ -81,7 +71,7 @@ export const SignupComponent = () => {
               customRef={inputEmailRef}
             />
           </div>
-          <div className='mx-auto xl:w-3/5 w-4/5'>{validation.email && <AlertComponent text={validation.email} />}</div>
+          <div className='mx-auto w-4/5 xl:w-3/5'>{validation.email && <AlertComponent text={validation.email} />}</div>
           <div
             className={
               'mt-6 mx-auto xl:w-3/5 w-4/5' + (validation.password ? ' border-2 border-solid border-red-600' : '')
@@ -96,7 +86,7 @@ export const SignupComponent = () => {
               customRef={inputPasswordRef}
             />
           </div>
-          <div className='mx-auto xl:w-3/5 w-4/5'>
+          <div className='mx-auto w-4/5 xl:w-3/5'>
             {validation.password && <AlertComponent text={validation.password} />}
           </div>
           <div
@@ -114,10 +104,10 @@ export const SignupComponent = () => {
               customRef={inputPasswordConfirmationRef}
             />
           </div>
-          <div className='mx-auto xl:w-3/5 w-4/5'>
+          <div className='mx-auto w-4/5 xl:w-3/5'>
             {validation.passwordConfirmation && <AlertComponent text={validation.passwordConfirmation} />}
           </div>
-          <div className='mt-6 mb-4 text-center mx-auto xl:w-1/5 w-2/5'>
+          <div className='mx-auto mb-4 mt-6 w-2/5 text-center xl:w-1/5'>
             <ButtonComponent type='submit' children='サインアップ' />
           </div>
         </form>
