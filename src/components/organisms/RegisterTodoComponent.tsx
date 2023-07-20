@@ -7,7 +7,10 @@ import SliderComponent from '@/components/atoms/SliderComponent';
 import { RegisterTodoModalComponent } from '@/components/molecules/RegisterTodoModalComponent';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 
-export const RegisterTodoComponent = () => {
+type Props = {
+  handleToggleArea: () => void;
+};
+export const RegisterTodoComponent = (props: Props) => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
   const [processTime, setProcessTime] = useState<number[]>(CONSTANT.DEFAULT.PLAN.REGISTER_TODO.PROCESS_TIME);
 
@@ -43,10 +46,9 @@ export const RegisterTodoComponent = () => {
   };
 
   return (
-    <div className='border border-gray-200 shadow-md rounded-md w-96 h-[calc(25%_-_1rem)] my-4 relative'>
-      <div className='absolute top-3 left-3 text-xl'>TODO</div>
-      <form className='mt-3' id='register-todo-form' onSubmit={handleSubmit}>
-        <div className='mx-auto w-3/5'>
+    <div className='w-96 h-[calc(100%_-_1rem)] my-4 relative'>
+      <form className='mt-5' id='register-todo-form' onSubmit={handleSubmit}>
+        <div className='ml-9 pt-1 w-3/5'>
           <SimpleInputComponent<string>
             id='title'
             name='title'
@@ -56,19 +58,27 @@ export const RegisterTodoComponent = () => {
             setter={setTitle}
           />
         </div>
-        <div className='mt-4 mx-auto w-3/5'>
+        <div className='mt-4 ml-9 w-3/5'>
           <SliderComponent min={15} max={120} title='所要時間' unit='分' values={processTime} setter={setProcessTime} />
         </div>
-        <div className='absolute bottom-3 right-16 text-md'>
+        <div className='absolute top-0 right-12 text-md'>
+          <ButtonComponent type='submit' children='登録' />
+        </div>
+        <div className='absolute top-12 right-12 text-md'>
           <ButtonComponent
             extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'
-            children='その他のオプション'
+            children='詳細'
             handleClick={handleClickOption}
           />
         </div>
-        <div className='absolute bottom-3 right-3 text-md'>
-          <ButtonComponent type='submit' children='登録' />
+        <div className='absolute inset-x-0 bottom-3  mx-auto w-2/4 text-sm'>
+          <ButtonComponent
+            extraClassName='bg-white hover:bg-gray-300 text-gray-500'
+            type='button'
+            children='閉じる'
+            handleClick={props.handleToggleArea}
+          />
         </div>
       </form>
       {showsModal && (

@@ -10,7 +10,6 @@ const MainPage = () => {
       <div className='flex h-full'>
         <div className='w-96 h-hull'>
           <RegisterPlanComponent />
-          <RegisterTodoComponent />
           <TodoListComponent />
         </div>
         <div className='w-[calc(100%_-_25rem)] h-full mx-4'>

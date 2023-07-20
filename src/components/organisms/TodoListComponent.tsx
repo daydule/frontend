@@ -7,11 +7,14 @@ import { Fragment, useEffect, useState } from 'react';
 import { CreateScheduleButtonComponent } from '../molecules/CreateScheduleButtonComponent';
 import { IconContext } from 'react-icons';
 import { TbArrowBigUpLines } from 'react-icons/tb';
+import { RegisterTodoComponent } from './RegisterTodoComponent';
+import { ButtonComponent } from '../atoms/ButtonComponent';
 
 export const TodoListComponent = () => {
   const { data: scheduleReadResult } = useReadScheduleQuery({ date: formatToYYYY_MM_DD(new Date()) });
   const [updateTodoPriority] = useUpdateTodoPriorityMutation();
   const [todoOrder, setTodoOrder] = useState<number[]>([]);
+  const [isExpand, setIsExpand] = useState<boolean>(false);
 
   useEffect(() => {
     setTodoOrder(
@@ -24,6 +27,11 @@ export const TodoListComponent = () => {
         : todoOrder,
     );
   }, [scheduleReadResult]);
+
+  const handleToggleTodoArea = () => {
+    console.log('toggleButtonClicked!');
+    setIsExpand((prevState: boolean) => !prevState);
+  };
 
   const reorder = (list: number[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
@@ -45,12 +53,26 @@ export const TodoListComponent = () => {
   };
 
   return (
-    <div className='border border-gray-200 shadow-md rounded-md w-96 h-[calc(50%_-_2rem)] my-4 relative'>
+    <div className='border border-gray-200 shadow-md rounded-md w-96 h-[calc(75%_-_2rem)] my-4 relative'>
       <div className='absolute top-3 left-3 text-xl px-2 rounded-lg bg-opacity-50 bg-white'>TODO一覧</div>
       <div className='absolute bottom-3 right-6 z-10'>
         <CreateScheduleButtonComponent />
       </div>
-      <div className='absolute inset-0 flex justify-center items-center z-0'>
+      {isExpand ? (
+        <div className='absolute top-9 left-0 h-[calc(35%_-_1rem)] w-full z-10'>
+          <RegisterTodoComponent handleToggleArea={handleToggleTodoArea} />
+        </div>
+      ) : (
+        <div className='absolute top-12 left-6 h-[calc(10%_-_1rem)] z-10'>
+          <ButtonComponent
+            extraClassName='bg-white hover:bg-gray-300 text-gray-500'
+            type='button'
+            children='+ 課題を作成'
+            handleClick={handleToggleTodoArea}
+          />
+        </div>
+      )}
+      <div className={'absolute inset-0 flex justify-center items-center z-0' + (isExpand ? ' pt-24' : '')}>
         <IconContext.Provider
           value={{
             size: '18rem',
@@ -60,7 +82,12 @@ export const TodoListComponent = () => {
           <TbArrowBigUpLines />
         </IconContext.Provider>
       </div>
-      <div className='absolute inset-0 overflow-auto h-full pt-12 pb-16 z-0'>
+      <div
+        className={
+          'absolute inset-x-0 overflow-auto z-0' +
+          (isExpand ? ' top-52 bottom-10  h-[calc(55%_-_2rem)]' : ' top-24 inset-y-0  h-[70%]')
+        }
+      >
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId='todoList'>
             {(provided, snapshot) => (
