@@ -72,7 +72,7 @@ export const RegisterTodoComponent = (props: Props) => {
             handleClick={handleClickOption}
           />
         </div>
-        <div className='absolute inset-x-0 bottom-3  mx-auto w-2/4 text-sm'>
+        <div className='absolute inset-x-0 top-28  mx-auto w-2/4 text-sm'>
           <ButtonComponent
             extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'

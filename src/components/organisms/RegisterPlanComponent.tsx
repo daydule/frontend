@@ -128,7 +128,7 @@ export const RegisterPlanComponent = () => {
           <ButtonComponent
             extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'
-            children='その他のオプション'
+            children='詳細'
             handleClick={handleClickOption}
           />
         </div>

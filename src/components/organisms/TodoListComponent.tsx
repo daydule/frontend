@@ -63,16 +63,16 @@ export const TodoListComponent = () => {
           <RegisterTodoComponent handleToggleArea={handleToggleTodoArea} />
         </div>
       ) : (
-        <div className='absolute top-12 left-6 h-[calc(10%_-_1rem)] z-10'>
+        <div className='absolute top-12 h-[calc(10%_-_1rem)] inset-x-0 mx-auto w-[calc(100%_-_2rem)] z-10'>
           <ButtonComponent
             extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'
-            children='+ 課題を作成'
+            children='+ TODO登録'
             handleClick={handleToggleTodoArea}
           />
         </div>
       )}
-      <div className={'absolute inset-0 flex justify-center items-center z-0' + (isExpand ? ' pt-24' : '')}>
+      <div className={'absolute inset-0 flex justify-center items-center z-0' + (isExpand ? ' pt-28' : '')}>
         <IconContext.Provider
           value={{
             size: '18rem',
