@@ -29,7 +29,6 @@ export const TodoListComponent = () => {
   }, [scheduleReadResult]);
 
   const handleToggleTodoArea = () => {
-    console.log('toggleButtonClicked!');
     setIsExpand((prevState: boolean) => !prevState);
   };
 
