@@ -22,6 +22,7 @@ export const RegisterTodoComponent = () => {
       title: title,
       processTime: processTime[0],
       priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
+      isRequiredPlan: CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN,
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO,
     };
     try {
