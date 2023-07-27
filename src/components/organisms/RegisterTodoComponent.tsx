@@ -46,9 +46,9 @@ export const RegisterTodoComponent = (props: Props) => {
   };
 
   return (
-    <div className='w-96 h-[calc(100%_-_1rem)] my-4 relative'>
+    <div className='border-2 border-indigo-700 rounded-md w-[calc(100%_-_2rem)] h-[calc(100%_-_1rem)] mx-auto my-4 relative'>
       <form className='mt-5' id='register-todo-form' onSubmit={handleSubmit}>
-        <div className='ml-9 pt-1 w-3/5'>
+        <div className='inset-x-0 mx-auto w-4/5'>
           <SimpleInputComponent<string>
             id='title'
             name='title'
@@ -58,26 +58,15 @@ export const RegisterTodoComponent = (props: Props) => {
             setter={setTitle}
           />
         </div>
-        <div className='mt-4 ml-9 w-3/5'>
+        <div className='mt-4 inset-x-0 mx-auto w-4/5'>
           <SliderComponent min={15} max={120} title='所要時間' unit='分' values={processTime} setter={setProcessTime} />
         </div>
-        <div className='absolute top-0 right-12 text-md'>
-          <ButtonComponent type='submit' children='登録' />
-        </div>
-        <div className='absolute top-12 right-12 text-md'>
+        <div className='absolute bottom-2.5 inset-x-0 mx-auto w-4/5'>
           <ButtonComponent
             extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'
-            children='詳細'
+            children='その他のオプション'
             handleClick={handleClickOption}
-          />
-        </div>
-        <div className='absolute inset-x-0 top-28  mx-auto w-2/4 text-sm'>
-          <ButtonComponent
-            extraClassName='bg-white hover:bg-gray-300 text-gray-500'
-            type='button'
-            children='閉じる'
-            handleClick={props.handleToggleArea}
           />
         </div>
       </form>

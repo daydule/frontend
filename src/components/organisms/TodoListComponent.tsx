@@ -3,12 +3,35 @@ import { useReadScheduleQuery } from '@/redux/schedule/slice';
 import { TodoCardComponent } from '@/components/molecules/TodoCardComponent';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useUpdateTodoPriorityMutation } from '@/redux/plan/slice';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useRef } from 'react';
 import { CreateScheduleButtonComponent } from '../molecules/CreateScheduleButtonComponent';
 import { IconContext } from 'react-icons';
 import { TbArrowBigUpLines } from 'react-icons/tb';
 import { RegisterTodoComponent } from './RegisterTodoComponent';
 import { ButtonComponent } from '../atoms/ButtonComponent';
+
+type Props = {
+  children: React.ReactNode;
+  onOutsideClick: () => void;
+};
+
+const OutsideClickHandler = ({ children, onOutsideClick }: Props) => {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        onOutsideClick();
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onOutsideClick]);
+
+  return <div ref={wrapperRef}>{children}</div>;
+};
 
 export const TodoListComponent = () => {
   const { data: scheduleReadResult } = useReadScheduleQuery({ date: formatToYYYY_MM_DD(new Date()) });
@@ -58,9 +81,11 @@ export const TodoListComponent = () => {
         <CreateScheduleButtonComponent />
       </div>
       {isExpand ? (
-        <div className='absolute top-9 left-0 h-[calc(35%_-_1rem)] w-full z-10'>
-          <RegisterTodoComponent handleToggleArea={handleToggleTodoArea} />
-        </div>
+        <OutsideClickHandler onOutsideClick={handleToggleTodoArea}>
+          <div className='absolute top-9 inset-0 h-48 z-10'>
+            <RegisterTodoComponent handleToggleArea={handleToggleTodoArea} />
+          </div>
+        </OutsideClickHandler>
       ) : (
         <div className='absolute top-12 h-[calc(10%_-_1rem)] inset-x-0 mx-auto w-[calc(100%_-_2rem)] z-10'>
           <ButtonComponent
@@ -71,7 +96,7 @@ export const TodoListComponent = () => {
           />
         </div>
       )}
-      <div className={'absolute inset-0 flex justify-center items-center z-0' + (isExpand ? ' pt-28' : '')}>
+      <div className={'absolute inset-0 flex justify-center items-center z-0' + (isExpand ? ' top-64' : '')}>
         <IconContext.Provider
           value={{
             size: '18rem',
@@ -84,7 +109,7 @@ export const TodoListComponent = () => {
       <div
         className={
           'absolute inset-x-0 overflow-auto z-0' +
-          (isExpand ? ' top-52 bottom-10  h-[calc(55%_-_2rem)]' : ' top-24 inset-y-0  h-[70%]')
+          (isExpand ? ' top-60 bottom-10  h-[calc(55%_-_2rem)]' : ' top-24 inset-y-0  h-[70%]')
         }
       >
         <DragDropContext onDragEnd={onDragEnd}>

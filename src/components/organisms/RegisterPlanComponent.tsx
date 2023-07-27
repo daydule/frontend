@@ -124,15 +124,15 @@ export const RegisterPlanComponent = () => {
             />
           </div>
         </div>
-        <div className='absolute bottom-3 right-16 text-md'>
+        <div className='absolute bottom-3 left-3'>
           <ButtonComponent
             extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'
-            children='詳細'
+            children='その他のオプション'
             handleClick={handleClickOption}
           />
         </div>
-        <div className='absolute bottom-3 right-3 text-md'>
+        <div className='absolute bottom-3 right-3'>
           <ButtonComponent type='submit' children='登録' />
         </div>
       </form>
