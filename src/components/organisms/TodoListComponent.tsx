@@ -37,6 +37,7 @@ export const TodoListComponent = () => {
   const { data: scheduleReadResult } = useReadScheduleQuery({ date: formatToYYYY_MM_DD(new Date()) });
   const [updateTodoPriority] = useUpdateTodoPriorityMutation();
   const [todoOrder, setTodoOrder] = useState<number[]>([]);
+  const [showsModal, setShowsModal] = useState<boolean>(false);
   const [isExpand, setIsExpand] = useState<boolean>(false);
 
   useEffect(() => {
@@ -51,8 +52,12 @@ export const TodoListComponent = () => {
     );
   }, [scheduleReadResult]);
 
+  const handleShowsModal = (showsTodoModal: boolean) => {
+    setShowsModal(showsTodoModal);
+  };
+
   const handleToggleTodoArea = () => {
-    setIsExpand((prevState: boolean) => !prevState);
+    !showsModal && setIsExpand((prevState: boolean) => !prevState);
   };
 
   const reorder = (list: number[], startIndex: number, endIndex: number) => {
@@ -83,7 +88,11 @@ export const TodoListComponent = () => {
       {isExpand ? (
         <OutsideClickHandler onOutsideClick={handleToggleTodoArea}>
           <div className='absolute top-9 inset-0 h-48 z-10'>
-            <RegisterTodoComponent handleToggleArea={handleToggleTodoArea} />
+            <RegisterTodoComponent
+              showsModal={showsModal}
+              handleShowsModal={handleShowsModal}
+              handleToggleArea={handleToggleTodoArea}
+            />
           </div>
         </OutsideClickHandler>
       ) : (

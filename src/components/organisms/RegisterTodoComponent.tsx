@@ -8,6 +8,8 @@ import { RegisterTodoModalComponent } from '@/components/molecules/RegisterTodoM
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 type Props = {
+  showsModal: boolean;
+  handleShowsModal: (showsModal: boolean) => void;
   handleToggleArea: () => void;
 };
 export const RegisterTodoComponent = (props: Props) => {
@@ -15,8 +17,6 @@ export const RegisterTodoComponent = (props: Props) => {
   const [processTime, setProcessTime] = useState<number[]>(CONSTANT.DEFAULT.PLAN.REGISTER_TODO.PROCESS_TIME);
 
   const [createPlan] = useCreatePlanMutation();
-
-  const [showsModal, setShowsModal] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // これを入れているのは、リロードが走らないようにするため
@@ -38,11 +38,11 @@ export const RegisterTodoComponent = (props: Props) => {
   };
 
   const handleClickOption = () => {
-    setShowsModal(true);
+    props.handleShowsModal(true);
   };
 
   const handleClose = () => {
-    setShowsModal(false);
+    props.handleShowsModal(false);
   };
 
   return (
@@ -70,9 +70,9 @@ export const RegisterTodoComponent = (props: Props) => {
           />
         </div>
       </form>
-      {showsModal && (
+      {props.showsModal && (
         <RegisterTodoModalComponent
-          showsModal={showsModal}
+          showsModal={props.showsModal}
           handleClose={handleClose}
           title={title}
           setTitle={setTitle}
