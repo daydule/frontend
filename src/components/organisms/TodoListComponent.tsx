@@ -88,11 +88,7 @@ export const TodoListComponent = () => {
       {isExpand ? (
         <OutsideClickHandler onOutsideClick={handleToggleTodoArea}>
           <div className='absolute top-9 inset-0 h-48 z-10'>
-            <RegisterTodoComponent
-              showsModal={showsModal}
-              handleShowsModal={handleShowsModal}
-              handleToggleArea={handleToggleTodoArea}
-            />
+            <RegisterTodoComponent showsModal={showsModal} handleShowsModal={handleShowsModal} />
           </div>
         </OutsideClickHandler>
       ) : (

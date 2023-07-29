@@ -10,7 +10,6 @@ import { errorHandler } from '@/helpers/errorHandlerHelper';
 type Props = {
   showsModal: boolean;
   handleShowsModal: (showsModal: boolean) => void;
-  handleToggleArea: () => void;
 };
 export const RegisterTodoComponent = (props: Props) => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
