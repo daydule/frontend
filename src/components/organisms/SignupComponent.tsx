@@ -71,10 +71,14 @@ export const SignupComponent = () => {
               customRef={inputEmailRef}
             />
           </div>
-          <div className='mx-auto w-4/5 xl:w-3/5'>{validation.email && <AlertComponent text={validation.email} />}</div>
+          <div className={'mx-auto xl:w-3/5 w-4/5' + (validation.email ? ' h-6' : '')}>
+            {validation.email && <AlertComponent text={validation.email} />}
+          </div>
           <div
             className={
-              'mt-6 mx-auto xl:w-3/5 w-4/5' + (validation.password ? ' border-2 border-solid border-red-600' : '')
+              'mx-auto xl:w-3/5 w-4/5' +
+              (validation.password ? ' border-2 border-solid border-red-600' : '') +
+              (validation.email ? '' : ' mt-6')
             }
           >
             <InputWithIconComponent
@@ -86,13 +90,14 @@ export const SignupComponent = () => {
               customRef={inputPasswordRef}
             />
           </div>
-          <div className='mx-auto w-4/5 xl:w-3/5'>
+          <div className={'mx-auto xl:w-3/5 w-4/5' + (validation.password ? ' h-6' : '')}>
             {validation.password && <AlertComponent text={validation.password} />}
           </div>
           <div
             className={
-              'mt-6 mx-auto xl:w-3/5 w-4/5' +
-              (validation.passwordConfirmation ? ' border-2 border-solid border-red-600' : '')
+              'mx-auto xl:w-3/5 w-4/5 ' +
+              (validation.passwordConfirmation ? 'border-2 border-solid border-red-600' : '') +
+              (validation.password ? '' : ' mt-6')
             }
           >
             <InputWithIconComponent
@@ -104,10 +109,10 @@ export const SignupComponent = () => {
               customRef={inputPasswordConfirmationRef}
             />
           </div>
-          <div className='mx-auto w-4/5 xl:w-3/5'>
+          <div className={'mx-auto xl:w-3/5 w-4/5 ' + (validation.passwordConfirmation ? 'h-6' : '')}>
             {validation.passwordConfirmation && <AlertComponent text={validation.passwordConfirmation} />}
           </div>
-          <div className='mx-auto mb-4 mt-6 w-2/5 text-center xl:w-1/5'>
+          <div className={'mb-4 text-center mx-auto xl:w-1/5 w-2/5' + (validation.passwordConfirmation ? '' : ' mt-6')}>
             <ButtonComponent type='submit' children='サインアップ' />
           </div>
         </form>
