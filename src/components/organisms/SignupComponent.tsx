@@ -1,20 +1,20 @@
-import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
-import { ButtonComponent } from '@/components/atoms/ButtonComponent';
-import { LinkComponent } from '../atoms/LinkComponent';
-import React, { FormEvent, useState } from 'react';
-import { AlertComponent } from '@/components/atoms/AlertComponent';
-import { SignupForm, useSignupMutation } from '@/redux/auth/slice';
+import { useRouter } from 'next/router';
+import React, { FormEvent, useState, useRef } from 'react';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLock2Line } from 'react-icons/ri';
-import { useRouter } from 'next/router';
-import { formValidation, ValidationResult } from '@/helpers/validationHelper';
+import { InputWithIconComponent } from '../atoms/InputWithIconComponent';
+import { LinkComponent } from '../atoms/LinkComponent';
+import { AlertComponent } from '@/components/atoms/AlertComponent';
+import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
+import { formValidation, ValidationResult } from '@/helpers/validationHelper';
+import { SignupForm, useSignupMutation } from '@/redux/auth/slice';
 
 export const SignupComponent = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [validation, setVaridation] = useState<ValidationResult>({ invalid: false });
+  const inputEmailRef = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
+  const inputPasswordConfirmationRef = useRef<HTMLInputElement>(null);
   const [signup] = useSignupMutation();
   const router = useRouter();
 
@@ -23,10 +23,11 @@ export const SignupComponent = () => {
     event.preventDefault();
 
     const data: SignupForm = {
-      email,
-      password,
-      passwordConfirmation,
+      email: inputEmailRef.current?.value ?? '',
+      password: inputPasswordRef.current?.value ?? '',
+      passwordConfirmation: inputPasswordConfirmationRef.current?.value ?? '',
     };
+
     const validationResult = formValidation(data);
 
     if (!validationResult.invalid) {
@@ -46,10 +47,10 @@ export const SignupComponent = () => {
   return (
     <>
       <div className='border border-black'>
-        <h2 className='text-center text-2xl my-6'>サインアップ</h2>
+        <h2 className='my-6 text-center text-2xl'>サインアップ</h2>
         <div
           id='signup-error-display'
-          className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mx-auto xl:w-3/5 w-4/5 hidden'
+          className='relative mx-auto hidden w-4/5 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700 xl:w-3/5'
           role='alert'
         >
           <span id='signup-error-message' className='block sm:inline'></span>
@@ -61,14 +62,13 @@ export const SignupComponent = () => {
               'mt-12 mx-auto xl:w-3/5 w-4/5' + (validation.email ? ' border-2 border-solid border-red-600' : '')
             }
           >
-            <InputWithIconComponent<string>
+            <InputWithIconComponent
               id='email'
               name='email'
               type='text'
-              value={email}
               placeholder='メールアドレス'
               icon={<AiOutlineMail />}
-              setter={setEmail}
+              customRef={inputEmailRef}
             />
           </div>
           <div className={'mx-auto xl:w-3/5 w-4/5' + (validation.email ? ' h-6' : '')}>
@@ -81,14 +81,13 @@ export const SignupComponent = () => {
               (validation.email ? '' : ' mt-6')
             }
           >
-            <InputWithIconComponent<string>
+            <InputWithIconComponent
               id='password'
               name='password'
               type='password'
-              value={password}
               placeholder='パスワード'
               icon={<RiLock2Line />}
-              setter={setPassword}
+              customRef={inputPasswordRef}
             />
           </div>
           <div className={'mx-auto xl:w-3/5 w-4/5' + (validation.password ? ' h-6' : '')}>
@@ -101,14 +100,13 @@ export const SignupComponent = () => {
               (validation.password ? '' : ' mt-6')
             }
           >
-            <InputWithIconComponent<string>
+            <InputWithIconComponent
               id='password-confirmation'
               name='password-confirmation'
               type='password'
-              value={passwordConfirmation}
               placeholder='パスワード再入力'
               icon={<RiLock2Line />}
-              setter={setPasswordConfirmation}
+              customRef={inputPasswordConfirmationRef}
             />
           </div>
           <div className={'mx-auto xl:w-3/5 w-4/5 ' + (validation.passwordConfirmation ? 'h-6' : '')}>

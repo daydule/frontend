@@ -1,22 +1,17 @@
-import { ReactNode } from 'react';
+import { ReactNode, RefObject } from 'react';
 import { IconContext } from 'react-icons/lib';
 
-type Props<T> = {
+type Props = {
   id: string;
   name: string;
   type?: 'text' | 'password' | 'number' | undefined;
-  value: T;
   placeholder?: string;
   icon: ReactNode;
   extraClassName?: string | undefined;
-  setter: React.Dispatch<React.SetStateAction<T>>;
+  customRef: RefObject<HTMLInputElement>;
 };
 
-export const InputWithIconComponent = <T extends string | number>(props: Props<T>) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.setter(event.target.value as T);
-  };
-
+export const InputWithIconComponent = (props: Props) => {
   return (
     <>
       <div className='relative'>
@@ -29,10 +24,9 @@ export const InputWithIconComponent = <T extends string | number>(props: Props<T
           id={props.id}
           name={props.name}
           type={props.type}
-          value={props.value}
           className={props.extraClassName + ' ' + 'w-full border border-black text-base block pl-10 p-2.5 h-12'}
           placeholder={props.placeholder}
-          onChange={handleChange}
+          ref={props.customRef}
         />
       </div>
     </>
