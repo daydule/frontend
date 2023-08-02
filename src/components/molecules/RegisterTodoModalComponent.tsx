@@ -32,6 +32,7 @@ export const RegisterTodoModalComponent = (props: Props) => {
       context: context === '' ? undefined : context,
       place: place === '' ? undefined : place,
       priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
+      isRequiredPlan: CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN,
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO,
     };
     try {
