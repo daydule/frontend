@@ -1,7 +1,7 @@
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { CONSTANT } from '@/constant/default';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useRef, useEffect } from 'react';
 import { SimpleInputComponent } from '@/components/atoms/SimpleInputComponent';
 import SliderComponent from '@/components/atoms/SliderComponent';
 import { RegisterTodoModalComponent } from '@/components/molecules/RegisterTodoModalComponent';
@@ -14,8 +14,17 @@ type Props = {
 export const RegisterTodoComponent = (props: Props) => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
   const [processTime, setProcessTime] = useState<number[]>(CONSTANT.DEFAULT.PLAN.REGISTER_TODO.PROCESS_TIME);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [createPlan] = useCreatePlanMutation();
+
+  useEffect(() => {
+    focusOnInput();
+  }, [inputRef]);
+
+  const focusOnInput = () => {
+    inputRef.current?.focus();
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // これを入れているのは、リロードが走らないようにするため
@@ -48,7 +57,8 @@ export const RegisterTodoComponent = (props: Props) => {
     <div className='border-2 border-indigo-700 rounded-md w-[calc(100%_-_2rem)] h-[calc(100%_-_1rem)] mx-auto my-4 relative'>
       <form className='mt-5' id='register-todo-form' onSubmit={handleSubmit}>
         <div className='inset-x-0 mx-auto w-4/5'>
-          <SimpleInputComponent<string>
+          <SimpleInputComponent
+            ref={inputRef}
             id='title'
             name='title'
             type='text'
@@ -57,7 +67,7 @@ export const RegisterTodoComponent = (props: Props) => {
             setter={setTitle}
           />
         </div>
-        <div className='mt-4 inset-x-0 mx-auto w-4/5'>
+        <div className='mt-4 inset-x-0 mx-auto w-4/5' onClick={focusOnInput}>
           <SliderComponent min={15} max={120} title='所要時間' unit='分' values={processTime} setter={setProcessTime} />
         </div>
         <div className='absolute bottom-2.5 inset-x-0 mx-auto w-4/5'>

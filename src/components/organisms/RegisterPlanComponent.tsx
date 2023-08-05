@@ -90,7 +90,7 @@ export const RegisterPlanComponent = () => {
       <div className='absolute top-3 left-3 text-xl'>予定</div>
       <form className='mt-3' id='register-plan-form' onSubmit={handleSubmit}>
         <div className='mx-auto w-3/5'>
-          <SimpleInputComponent<string>
+          <SimpleInputComponent
             id='title'
             name='title'
             type='text'
