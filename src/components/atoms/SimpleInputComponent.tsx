@@ -1,24 +1,25 @@
-import { ReactNode } from 'react';
+import { ReactNode, forwardRef } from 'react';
 import { IconContext } from 'react-icons/lib';
 
-type Props<T> = {
+type Props = {
   id: string;
   name: string;
   type?: 'text' | 'password' | 'number' | undefined;
-  value: T;
+  value: string;
   placeholder?: string;
   extraClassName?: string | undefined;
-  setter: React.Dispatch<React.SetStateAction<T>>;
+  setter: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const SimpleInputComponent = <T extends string | number>(props: Props<T>) => {
+export const SimpleInputComponent = forwardRef((props: Props, ref: React.Ref<HTMLInputElement>) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.setter(event.target.value as T);
+    props.setter(event.target.value);
   };
 
   return (
     <div className='relative'>
       <input
+        ref={ref}
         id={props.id}
         name={props.name}
         type={props.type}
@@ -31,4 +32,4 @@ export const SimpleInputComponent = <T extends string | number>(props: Props<T>)
       />
     </div>
   );
-};
+});

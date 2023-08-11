@@ -1,19 +1,30 @@
 import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { CONSTANT } from '@/constant/default';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useRef, useEffect } from 'react';
 import { SimpleInputComponent } from '@/components/atoms/SimpleInputComponent';
 import SliderComponent from '@/components/atoms/SliderComponent';
 import { RegisterTodoModalComponent } from '@/components/molecules/RegisterTodoModalComponent';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 
-export const RegisterTodoComponent = () => {
+type Props = {
+  showsModal: boolean;
+  handleShowsModal: (showsModal: boolean) => void;
+};
+export const RegisterTodoComponent = (props: Props) => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
   const [processTime, setProcessTime] = useState<number[]>(CONSTANT.DEFAULT.PLAN.REGISTER_TODO.PROCESS_TIME);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [createPlan] = useCreatePlanMutation();
 
-  const [showsModal, setShowsModal] = useState<boolean>(false);
+  useEffect(() => {
+    focusOnInput();
+  }, [inputRef]);
+
+  const focusOnInput = () => {
+    inputRef.current?.focus();
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // これを入れているのは、リロードが走らないようにするため
@@ -36,19 +47,19 @@ export const RegisterTodoComponent = () => {
   };
 
   const handleClickOption = () => {
-    setShowsModal(true);
+    props.handleShowsModal(true);
   };
 
   const handleClose = () => {
-    setShowsModal(false);
+    props.handleShowsModal(false);
   };
 
   return (
-    <div className='border border-gray-200 shadow-md rounded-md w-96 h-[calc(25%_-_1rem)] my-4 relative'>
-      <div className='absolute top-3 left-3 text-xl'>TODO</div>
-      <form className='mt-3' id='register-todo-form' onSubmit={handleSubmit}>
-        <div className='mx-auto w-3/5'>
-          <SimpleInputComponent<string>
+    <div className='border-2 border-indigo-700 rounded-md w-[calc(100%_-_2rem)] h-[calc(100%_-_1rem)] mx-auto my-4 relative'>
+      <form className='mt-5' id='register-todo-form' onSubmit={handleSubmit}>
+        <div className='inset-x-0 mx-auto w-4/5'>
+          <SimpleInputComponent
+            ref={inputRef}
             id='title'
             name='title'
             type='text'
@@ -57,10 +68,10 @@ export const RegisterTodoComponent = () => {
             setter={setTitle}
           />
         </div>
-        <div className='mt-4 mx-auto w-3/5'>
+        <div className='mt-4 inset-x-0 mx-auto w-4/5' onClick={focusOnInput}>
           <SliderComponent min={15} max={120} title='所要時間' unit='分' values={processTime} setter={setProcessTime} />
         </div>
-        <div className='absolute bottom-3 right-16 text-md'>
+        <div className='absolute bottom-2.5 inset-x-0 mx-auto w-4/5'>
           <ButtonComponent
             extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'
@@ -68,13 +79,10 @@ export const RegisterTodoComponent = () => {
             handleClick={handleClickOption}
           />
         </div>
-        <div className='absolute bottom-3 right-3 text-md'>
-          <ButtonComponent type='submit' children='登録' />
-        </div>
       </form>
-      {showsModal && (
+      {props.showsModal && (
         <RegisterTodoModalComponent
-          showsModal={showsModal}
+          showsModal={props.showsModal}
           handleClose={handleClose}
           title={title}
           setTitle={setTitle}

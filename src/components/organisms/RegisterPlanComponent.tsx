@@ -90,7 +90,7 @@ export const RegisterPlanComponent = () => {
       <div className='absolute top-3 left-3 text-xl'>予定</div>
       <form className='mt-3' id='register-plan-form' onSubmit={handleSubmit}>
         <div className='mx-auto w-3/5'>
-          <SimpleInputComponent<string>
+          <SimpleInputComponent
             id='title'
             name='title'
             type='text'
@@ -124,7 +124,7 @@ export const RegisterPlanComponent = () => {
             />
           </div>
         </div>
-        <div className='absolute bottom-3 right-16 text-md'>
+        <div className='absolute bottom-3 left-3'>
           <ButtonComponent
             extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'
@@ -132,7 +132,7 @@ export const RegisterPlanComponent = () => {
             handleClick={handleClickOption}
           />
         </div>
-        <div className='absolute bottom-3 right-3 text-md'>
+        <div className='absolute bottom-3 right-3'>
           <ButtonComponent type='submit' children='登録' />
         </div>
       </form>
