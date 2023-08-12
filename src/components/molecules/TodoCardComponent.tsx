@@ -1,7 +1,7 @@
-import { Plan } from '@/redux/types';
-import { DeletePlanButtonComponent } from '@/components/molecules/DeletePlanButtonComponent';
 import { useState } from 'react';
 import { UpdateTodoModalComponent } from './UpdateTodoModalComponent';
+import { DeletePlanButtonComponent } from '@/components/molecules/DeletePlanButtonComponent';
+import { Plan } from '@/redux/types';
 
 type Props = {
   todo: Plan;
@@ -27,7 +27,7 @@ export const TodoCardComponent = (props: Props) => {
   return (
     <div className={className} onClick={handleClick}>
       <div className='text-center text-lg'>{props.todo.title}</div>
-      <div className='text-center text-xl flex'>
+      <div className='flex text-center text-xl'>
         <div>{props.todo.processTime}分</div>
         <DeletePlanButtonComponent size={1.5} planId={props.todo.id} />
       </div>

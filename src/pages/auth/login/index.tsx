@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
-import { LoginComponent } from '@/components/organisms/LoginComponent';
-import { ButtonComponent } from '@/components/atoms/ButtonComponent';
-import { useGuestLoginMutation } from '@/redux/auth/slice';
 import { useRouter } from 'next/router';
+import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { LoadingComponent } from '@/components/atoms/LoadingComponent';
-import { useReadUserQuery } from '@/redux/user/slice';
+import { LoginComponent } from '@/components/organisms/LoginComponent';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
+import { useGuestLoginMutation } from '@/redux/auth/slice';
+import { useReadUserQuery } from '@/redux/user/slice';
 
 const LoginPage: NextPage = () => {
   const { isFetching, isError } = useReadUserQuery();
@@ -25,9 +25,9 @@ const LoginPage: NextPage = () => {
   if (!isFetching) {
     if (isError) {
       return (
-        <div className='container mt-28 mx-auto xl:w-2/5 w-full'>
+        <div className='container mx-auto mt-28 w-full xl:w-2/5'>
           <LoginComponent />
-          <div className='mt-6 text-center mx-auto xl:w-2/5 w-3/5'>
+          <div className='mx-auto mt-6 w-3/5 text-center xl:w-2/5'>
             <ButtonComponent type='button' children='ゲストとして利用する' handleClick={handleClickGuestLogin} />
           </div>
         </div>

@@ -1,14 +1,13 @@
-import { ModalComponent } from '@/components/atoms/ModalComponent';
-import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
-import { TextAreaComponent } from '../atoms/TextAreaComponent';
-import { ButtonComponent } from '../atoms/ButtonComponent';
 import { FormEvent, useState } from 'react';
+import { ButtonComponent } from '../atoms/ButtonComponent';
+import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
+import SliderComponent from '../atoms/SliderComponent';
+import { TextAreaComponent } from '../atoms/TextAreaComponent';
+import { ModalComponent } from '@/components/atoms/ModalComponent';
 import { CONSTANT } from '@/constant/default';
-import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
 import { Plan } from '@/redux/types';
-import SliderComponent from '../atoms/SliderComponent';
-import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 type Props = {
   showsModal: boolean;
@@ -49,7 +48,7 @@ export const UpdateTodoModalComponent = (props: Props) => {
   return (
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='TODO'>
       <form className='mt-3' id='register-plan-detail-form' onSubmit={handleSubmit}>
-        <div className='w-full flex'>
+        <div className='flex w-full'>
           <div className='w-1/2'>
             <div className='mx-auto w-4/5'>
               <SimpleInputComponent<string>
@@ -61,8 +60,8 @@ export const UpdateTodoModalComponent = (props: Props) => {
                 setter={setTitle}
               />
             </div>
-            <div className='mt-2 mx-auto w-4/5 flex items-center'>
-              <div className='mt-8 mx-auto w-4/5'>
+            <div className='mx-auto mt-2 flex w-4/5 items-center'>
+              <div className='mx-auto mt-8 w-4/5'>
                 <SliderComponent
                   min={15}
                   max={120}
@@ -73,7 +72,7 @@ export const UpdateTodoModalComponent = (props: Props) => {
                 />
               </div>
             </div>
-            <div className='mt-4 ml-[13%] flex'>
+            <div className='ml-[13%] mt-4 flex'>
               <div className='mr-2'>説明</div>
               <div className='mt-1'>
                 <svg
@@ -82,7 +81,7 @@ export const UpdateTodoModalComponent = (props: Props) => {
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-5 h-5'
+                  className='h-5 w-5'
                 >
                   <path
                     strokeLinecap='round'
@@ -115,7 +114,7 @@ export const UpdateTodoModalComponent = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className='mt-2 ml-auto text-md w-1/6'>
+        <div className='ml-auto mt-2 w-1/6'>
           <ButtonComponent type='submit' children='更新' />
         </div>
       </form>

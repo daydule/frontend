@@ -1,14 +1,15 @@
-import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
-import { useReadScheduleQuery } from '@/redux/schedule/slice';
-import { TodoCardComponent } from '@/components/molecules/TodoCardComponent';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
-import { useUpdateTodoPriorityMutation } from '@/redux/plan/slice';
 import { Fragment, useEffect, useState, useRef } from 'react';
-import { CreateScheduleButtonComponent } from '../molecules/CreateScheduleButtonComponent';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import type { DropResult } from 'react-beautiful-dnd';
 import { IconContext } from 'react-icons';
 import { TbArrowBigUpLines } from 'react-icons/tb';
-import { RegisterTodoComponent } from './RegisterTodoComponent';
 import { ButtonComponent } from '../atoms/ButtonComponent';
+import { CreateScheduleButtonComponent } from '../molecules/CreateScheduleButtonComponent';
+import { RegisterTodoComponent } from './RegisterTodoComponent';
+import { TodoCardComponent } from '@/components/molecules/TodoCardComponent';
+import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { useUpdateTodoPriorityMutation } from '@/redux/plan/slice';
+import { useReadScheduleQuery } from '@/redux/schedule/slice';
 
 type Props = {
   children: React.ReactNode;
@@ -50,6 +51,7 @@ export const TodoListComponent = () => {
             .filter((id) => id !== null)
         : todoOrder,
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scheduleReadResult]);
 
   const handleShowsModal = (showsTodoModal: boolean) => {
@@ -80,19 +82,19 @@ export const TodoListComponent = () => {
   };
 
   return (
-    <div className='border border-gray-200 shadow-md rounded-md w-96 h-[calc(75%_-_2rem)] my-4 relative'>
-      <div className='absolute top-3 left-3 text-xl px-2 rounded-lg bg-opacity-50 bg-white'>TODO一覧</div>
+    <div className='relative my-4 h-[calc(75%_-_2rem)] w-96 rounded-md border border-gray-200 shadow-md'>
+      <div className='absolute left-3 top-3 rounded-lg bg-white px-2 text-xl'>TODO一覧</div>
       <div className='absolute bottom-3 right-6 z-10'>
         <CreateScheduleButtonComponent />
       </div>
       {isExpand ? (
         <OutsideClickHandler onOutsideClick={handleToggleTodoArea}>
-          <div className='absolute top-9 inset-0 h-48 z-10'>
+          <div className='absolute inset-0 top-9 z-10 h-48'>
             <RegisterTodoComponent showsModal={showsModal} handleShowsModal={handleShowsModal} />
           </div>
         </OutsideClickHandler>
       ) : (
-        <div className='absolute top-12 h-[calc(10%_-_1rem)] inset-x-0 mx-auto w-[calc(100%_-_2rem)] z-10'>
+        <div className='absolute inset-x-0 top-12 z-10 mx-auto h-[calc(10%_-_1rem)] w-[calc(100%_-_2rem)]'>
           <ButtonComponent
             extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'

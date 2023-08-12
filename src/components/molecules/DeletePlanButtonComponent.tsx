@@ -1,8 +1,8 @@
-import { useDeletePlanMutation } from '@/redux/plan/slice';
 import { FormEvent, MouseEvent, useCallback } from 'react';
 import { MdOutlineDeleteForever } from 'react-icons/md';
 import { ButtonWithIconComponent } from '@/components/atoms/ButtonWithIconComponent';
 import { useDeleteConfirmModalComponent } from '@/hooks/useDeleteConfirmModalComponent';
+import { useDeletePlanMutation } from '@/redux/plan/slice';
 
 type Props = {
   size: number;
@@ -22,6 +22,7 @@ export const DeletePlanButtonComponent = (props: Props) => {
 
       deletePlan({ id: props.planId });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [confirmDelete, props.planId],
   );
 

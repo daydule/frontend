@@ -1,12 +1,12 @@
-import { ModalComponent } from '@/components/atoms/ModalComponent';
-import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
-import { TextAreaComponent } from '../atoms/TextAreaComponent';
-import SliderComponent from '../atoms/SliderComponent';
-import { ButtonComponent } from '../atoms/ButtonComponent';
 import { FormEvent, useState } from 'react';
+import { ButtonComponent } from '../atoms/ButtonComponent';
+import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
+import SliderComponent from '../atoms/SliderComponent';
+import { TextAreaComponent } from '../atoms/TextAreaComponent';
+import { ModalComponent } from '@/components/atoms/ModalComponent';
 import { CONSTANT } from '@/constant/default';
-import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
+import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 
 type Props = {
   showsModal: boolean;
@@ -51,7 +51,7 @@ export const RegisterTodoModalComponent = (props: Props) => {
   return (
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='TODO'>
       <form className='mt-3' id='register-plan-detail-form' onSubmit={handleSubmit}>
-        <div className='w-full flex'>
+        <div className='flex w-full'>
           <div className='w-1/2'>
             <div className='mx-auto w-4/5'>
               <SimpleInputComponent
@@ -63,8 +63,8 @@ export const RegisterTodoModalComponent = (props: Props) => {
                 setter={props.setTitle}
               />
             </div>
-            <div className='mt-2 mx-auto w-4/5 flex items-center'>
-              <div className='mt-8 mx-auto w-4/5'>
+            <div className='mx-auto mt-2 flex w-4/5 items-center'>
+              <div className='mx-auto mt-8 w-4/5'>
                 <SliderComponent
                   min={15}
                   max={120}
@@ -75,7 +75,7 @@ export const RegisterTodoModalComponent = (props: Props) => {
                 />
               </div>
             </div>
-            <div className='mt-4 ml-[13%] flex'>
+            <div className='ml-[13%] mt-4 flex'>
               <div className='mr-2'>説明</div>
               <div className='mt-1'>
                 <svg
@@ -84,7 +84,7 @@ export const RegisterTodoModalComponent = (props: Props) => {
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-5 h-5'
+                  className='h-5 w-5'
                 >
                   <path
                     strokeLinecap='round'
@@ -117,7 +117,7 @@ export const RegisterTodoModalComponent = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className='mt-2 ml-auto text-md w-1/6'>
+        <div className='ml-auto mt-2 w-1/6'>
           <ButtonComponent type='submit' children='登録' />
         </div>
       </form>

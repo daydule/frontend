@@ -1,7 +1,7 @@
-import { NextPage, GetStaticProps } from 'next';
-import { MarkdownContentsComponent } from '@/components/organisms/MarkdownContentsComponent';
 import fs from 'fs';
 import path from 'path';
+import { NextPage, GetStaticProps } from 'next';
+import { MarkdownContentsComponent } from '@/components/organisms/MarkdownContentsComponent';
 
 type Props = {
   markdownText: string;

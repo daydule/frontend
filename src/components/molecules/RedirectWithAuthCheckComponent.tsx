@@ -1,6 +1,6 @@
-import { useReadUserQuery } from '@/redux/user/slice';
 import { useRouter } from 'next/router';
 import { LoadingComponent } from '../atoms/LoadingComponent';
+import { useReadUserQuery } from '@/redux/user/slice';
 
 type Props = {
   children: JSX.Element;

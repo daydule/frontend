@@ -1,5 +1,5 @@
-import { ErrorResponse } from '@/redux/auth/slice';
 import { toastr } from 'react-redux-toastr';
+import { ErrorResponse } from '@/redux/auth/slice';
 
 export const errorHandler = (error: { data: ErrorResponse }) => {
   const errorResponse = error.data;

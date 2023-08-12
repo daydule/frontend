@@ -1,9 +1,9 @@
-import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import React, { useState } from 'react';
 import 'react-tabs/style/react-tabs.css';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
-import { useReadUserQuery, useUpdateUserMutation } from '@/redux/user/slice';
+import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
+import { useReadUserQuery, useUpdateUserMutation } from '@/redux/user/slice';
 
 export const NicknameSettingComponent = () => {
   const [nickname, setNickname] = useState<string>('');
@@ -33,9 +33,9 @@ export const NicknameSettingComponent = () => {
   return (
     <div className='mt-20'>
       <form id='register-todo-form'>
-        <div className='mt-10 ml-20 flex'>
-          <label className='mr-8 block float-left w-28'>ニックネーム</label>
-          <div className=' border-b border-black w-64'>
+        <div className='ml-20 mt-10 flex'>
+          <label className='float-left mr-8 block w-28'>ニックネーム</label>
+          <div className=' w-64 border-b border-black'>
             <SimpleInputComponent<string>
               id='userName'
               name='userName'
@@ -47,7 +47,7 @@ export const NicknameSettingComponent = () => {
             />
           </div>
         </div>
-        <div className='flex ml-20 mt-20'>
+        <div className='ml-20 mt-20 flex'>
           <div className='mr-6'>
             <ButtonComponent type='button' children='ニックネーム変更' handleClick={handleClickUpdateNickname} />
           </div>

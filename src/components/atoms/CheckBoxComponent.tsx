@@ -14,12 +14,12 @@ export const CheckBoxComponent = (props: Props) => {
         name={props.name}
         type='checkbox'
         checked={props.value}
-        className='block w-4 h-4 my-auto text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
+        className='my-auto block h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600'
         onChange={props.handleChange}
       />
       <label
         htmlFor={props.id}
-        className='block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300'
+        className='ml-2 block text-sm font-medium text-gray-900 dark:text-gray-300'
         children={props.title}
       />
     </div>

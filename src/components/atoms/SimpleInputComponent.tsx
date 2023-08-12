@@ -11,6 +11,7 @@ type Props = {
   setter: React.Dispatch<React.SetStateAction<string>>;
 };
 
+// eslint-disable-next-line react/display-name
 export const SimpleInputComponent = forwardRef((props: Props, ref: React.Ref<HTMLInputElement>) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.setter(event.target.value);
