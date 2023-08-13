@@ -49,9 +49,8 @@ export const TodoListComponent = () => {
               return todo?.id;
             })
             .filter((id) => id !== null)
-        : todoOrder,
+        : [],
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scheduleReadResult]);
 
   const handleShowsModal = (showsTodoModal: boolean) => {
