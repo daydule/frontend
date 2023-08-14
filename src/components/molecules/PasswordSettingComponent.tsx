@@ -37,7 +37,7 @@ export const PasswordSettingComponent = () => {
         <div className='ml-20 mt-10 flex'>
           <label className='float-left mr-8 block w-64'>今のパスワード</label>
           <div className=' w-64 border-b border-black'>
-            <SimpleInputComponent<string>
+            <SimpleInputComponent
               id='currentPassword'
               name='currentPassword'
               type='password'
@@ -50,7 +50,7 @@ export const PasswordSettingComponent = () => {
         <div className='ml-20 mt-10 flex'>
           <label className='float-left mr-8 block w-64'>新しいパスワード</label>
           <div className=' w-64 border-b border-black'>
-            <SimpleInputComponent<string>
+            <SimpleInputComponent
               id='newPassword'
               name='newPassword'
               type='password'
@@ -63,7 +63,7 @@ export const PasswordSettingComponent = () => {
         <div className='ml-20 mt-10 flex'>
           <label className='float-left mr-8 block w-64'>新しいパスワード（確認用）</label>
           <div className=' w-64 border-b border-black'>
-            <SimpleInputComponent<string>
+            <SimpleInputComponent
               id='newPasswordConfirmation'
               name='newPasswordConfirmation'
               type='password'

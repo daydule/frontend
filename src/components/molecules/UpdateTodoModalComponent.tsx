@@ -51,7 +51,7 @@ export const UpdateTodoModalComponent = (props: Props) => {
         <div className='flex w-full'>
           <div className='w-1/2'>
             <div className='mx-auto w-4/5'>
-              <SimpleInputComponent<string>
+              <SimpleInputComponent
                 id='title'
                 name='title'
                 type='text'
@@ -103,7 +103,7 @@ export const UpdateTodoModalComponent = (props: Props) => {
           </div>
           <div className='w-1/2'>
             <div className='mx-auto w-4/5'>
-              <SimpleInputComponent<string>
+              <SimpleInputComponent
                 id='place'
                 name='place'
                 type='text'

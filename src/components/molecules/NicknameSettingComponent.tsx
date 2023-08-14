@@ -36,7 +36,7 @@ export const NicknameSettingComponent = () => {
         <div className='ml-20 mt-10 flex'>
           <label className='float-left mr-8 block w-28'>ニックネーム</label>
           <div className=' w-64 border-b border-black'>
-            <SimpleInputComponent<string>
+            <SimpleInputComponent
               id='userName'
               name='userName'
               type='text'
