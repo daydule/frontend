@@ -3,8 +3,9 @@
     "next/core-web-vitals",
     "plugin:import/recommended",
     "plugin:import/warnings",
-    "prettier",
-    "plugin:tailwindcss/recommended"
+    "plugin:tailwindcss/recommended",
+    "plugin:react/recommended",
+    "prettier"
   ],
   "rules": {
     "import/order": [
@@ -14,6 +15,11 @@
           "order": "asc"
         }
       }
-    ]
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react/no-children-prop": "off",
+    "react/prop-types": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "@next/next/no-img-element": "off"
   }
 }

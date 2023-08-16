@@ -1,10 +1,9 @@
-import { formatToYYYY_MM_DD, timeString4digitsDiffMin } from '@/helpers/dateHelper';
-import { useReadScheduleQuery } from '@/redux/schedule/slice';
 import React, { useEffect, useState } from 'react';
-
+import { BackToListButtonComponent } from '../molecules/BackToListButtonComponent';
 import { PlanCardComponent } from '../molecules/PlanCardComponent';
 import { CONSTANT } from '@/constant/default';
-import { BackToListButtonComponent } from '../molecules/BackToListButtonComponent';
+import { formatToYYYY_MM_DD, timeString4digitsDiffMin } from '@/helpers/dateHelper';
+import { useReadScheduleQuery } from '@/redux/schedule/slice';
 
 export const ScheduleComponent = () => {
   const [now, setNow] = useState<Date>(new Date());
@@ -49,26 +48,26 @@ export const ScheduleComponent = () => {
     Math.round(((now.getHours() - startTimeHour) * 60 + now.getMinutes()) * oneMinuteHeightPercent * 100) / 100;
 
   return (
-    <div className='border border-gray-200 shadow-md rounded-md w-full min-w-fit h-[calc(100%_-_2rem)] my-4 relative'>
-      <div className='absolute top-3 left-3 text-xl'>スケジュール</div>
+    <div className='relative my-4 h-[calc(100%_-_2rem)] w-full min-w-fit rounded-md border border-gray-200 shadow-md'>
+      <div className='absolute left-3 top-3 text-xl'>スケジュール</div>
       {scheduleReadResult.schedule.plans.some((plan) => plan.planType === CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO) && (
-        <div className='absolute top-3 right-3 text-xl'>
+        <div className='absolute right-3 top-3 text-xl'>
           <BackToListButtonComponent />
         </div>
       )}
-      <div className='flex h-[calc(100%_-_3rem)] min-w-fit w-full mt-12 relative'>
+      <div className='relative mt-12 flex h-[calc(100%_-_3rem)] w-full min-w-fit'>
         {nowTopPercent >= 0 && nowTopPercent <= 92 && (
           <div
-            className='absolute left-[8%] h-0 w-11/12 z-10'
+            className='absolute left-[8%] z-10 h-0 w-11/12'
             style={{
               top: 'calc(' + nowTopPercent + '% + 1rem - 1px)',
             }}
           >
-            <div className='border-t-4 border-red-500/70 w-full'></div>
-            <div className='absolute left-0 -top-1.5 border-8 rounded-full border-red-500 h-4 w-4'></div>
+            <div className='w-full border-t-4 border-red-500/70'></div>
+            <div className='absolute -top-1.5 left-0 h-4 w-4 rounded-full border-8 border-red-500'></div>
           </div>
         )}
-        <div className='h-full min-w-[5rem] w-1/12 flex justify-center relative'>
+        <div className='relative flex h-full w-1/12 min-w-[5rem] justify-center'>
           {[...Array(scheduleRangeHour)].map((_, i) => {
             const hour = i + startTimeHour;
             return (
@@ -82,11 +81,11 @@ export const ScheduleComponent = () => {
             );
           })}
         </div>
-        <div className='h-full min-w-[25rem] w-11/12 relative'>
+        <div className='relative h-full w-11/12 min-w-[25rem]'>
           {[...Array(scheduleRangeHour)].map((_, i) => (
             <div
               key={'timeAxisBorder' + i}
-              className={'absolute border-t border-500-gray h-0 w-11/12'}
+              className={'absolute h-0 w-11/12 border-t'}
               style={{ top: 'calc(' + Math.round(i * oneMinuteHeightPercent * 60 * 100) / 100 + '% + 1rem)' }}
             ></div>
           ))}

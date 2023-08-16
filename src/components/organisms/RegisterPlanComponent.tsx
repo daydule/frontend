@@ -1,12 +1,12 @@
-import { ButtonComponent } from '@/components/atoms/ButtonComponent';
-import { CONSTANT } from '@/constant/default';
-import { formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
-import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 import { FormEvent, useState } from 'react';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TimePickerComponent } from '../atoms/TimePickerComponent';
 import { RegisterPlanModalComponent } from '../molecules/RegisterPlanModalComponent';
+import { ButtonComponent } from '@/components/atoms/ButtonComponent';
+import { CONSTANT } from '@/constant/default';
+import { formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
+import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 
 export const RegisterPlanComponent = () => {
   // 開始時間を現在の時間から直後の15分刻みのキリのいい時間に設定
@@ -86,8 +86,8 @@ export const RegisterPlanComponent = () => {
   };
 
   return (
-    <div className='border border-gray-200 shadow-md rounded-md w-96 h-[calc(25%_-_1rem)] my-4 relative'>
-      <div className='absolute top-3 left-3 text-xl'>予定</div>
+    <div className='relative my-4 h-[calc(25%_-_1rem)] w-96 rounded-md border border-gray-200 shadow-md'>
+      <div className='absolute left-3 top-3 text-xl'>予定</div>
       <form className='mt-3' id='register-plan-form' onSubmit={handleSubmit}>
         <div className='mx-auto w-3/5'>
           <SimpleInputComponent
@@ -99,7 +99,7 @@ export const RegisterPlanComponent = () => {
             setter={setTitle}
           />
         </div>
-        <div className='mt-2 mx-auto h-1/6 w-3/5 flex items-center'>
+        <div className='mx-auto mt-2 flex h-1/6 w-3/5 items-center'>
           <div className='mr-2 w-5/6'>
             <TimePickerComponent
               id='startTime'

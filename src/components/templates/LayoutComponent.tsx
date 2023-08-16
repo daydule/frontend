@@ -8,9 +8,9 @@ type Props = {
 
 const LayoutComponent = (props: Props) => {
   return (
-    <div className='bg-white w-full h-screen border border-white'>
+    <div className='h-screen w-full border border-white bg-white'>
       <HeaderComponent />
-      <div className='w-[calc(100%_-_2rem)] h-[calc(100%_-_7rem)] mt-20 mb-8 mx-4 border border-white'>
+      <div className='mx-4 mb-8 mt-20 h-[calc(100%_-_7rem)] w-[calc(100%_-_2rem)] border border-white'>
         {props.children}
       </div>
       <FooterComponent />

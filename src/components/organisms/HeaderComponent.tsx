@@ -1,13 +1,13 @@
-import { RiAccountCircleFill } from 'react-icons/ri';
-import { IconContext } from 'react-icons/lib';
-import { useLogoutMutation } from '@/redux/auth/slice';
-import { useReadUserQuery } from '@/redux/user/slice';
+import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
 import { useRouter } from 'next/router';
 import { AiFillCaretDown, AiFillSchedule } from 'react-icons/ai';
-import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
-import '@szhsin/react-menu/dist/index.css';
+import { IconContext } from 'react-icons/lib';
+import { RiAccountCircleFill } from 'react-icons/ri';
 import { CONSTANT } from '@/constant/default';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
+import { useLogoutMutation } from '@/redux/auth/slice';
+import { useReadUserQuery } from '@/redux/user/slice';
+import '@szhsin/react-menu/dist/index.css';
 
 export const HeaderComponent = () => {
   const router = useRouter();
@@ -41,20 +41,20 @@ export const HeaderComponent = () => {
   };
 
   return (
-    <div className='w-full h-20 fixed left-0 top-0 border-b shadow-xl px-8 flex items-center text-left text-3xl text-white bg-indigo-700 z-10'>
+    <div className='fixed left-0 top-0 z-10 flex h-20 w-full items-center border-b bg-indigo-700 px-8 text-left text-3xl text-white shadow-xl'>
       <div className='my-0 ml-0 mr-5 flex cursor-pointer' onClick={() => router.push('/main')}>
         <IconContext.Provider value={{ size: '1.2em', className: 'text-white text-opacity-90' }}>
           <AiFillSchedule />
-          <img src='/logo.png' className='ml-3' />
+          <img src='/logo.png' className='ml-3' alt='ヘッダー画像' />
         </IconContext.Provider>
       </div>
       {isAboutPage && isError && (
-        <div className='ml-5 text-base cursor-pointer' onClick={() => router.push('/auth/login')}>
+        <div className='ml-5 cursor-pointer text-base' onClick={() => router.push('/auth/login')}>
           ログイン画面へ
         </div>
       )}
       {!isAboutPage && (
-        <div className='ml-5 text-base cursor-pointer' onClick={() => router.push('/about')}>
+        <div className='ml-5 cursor-pointer text-base' onClick={() => router.push('/about')}>
           このアプリについて
         </div>
       )}

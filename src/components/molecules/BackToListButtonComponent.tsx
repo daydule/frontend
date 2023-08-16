@@ -1,10 +1,8 @@
 import { FormEvent } from 'react';
 import { ButtonComponent } from '@/components//atoms/ButtonComponent';
-import { useBackToListMutation } from '@/redux/plan/slice';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
-import { ErrorResponse } from '@/redux/auth/slice';
-import { toastr } from 'react-redux-toastr';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
+import { useBackToListMutation } from '@/redux/plan/slice';
 
 export const BackToListButtonComponent = () => {
   const [backToList] = useBackToListMutation();

@@ -1,18 +1,14 @@
-import { ModalComponent } from '@/components/atoms/ModalComponent';
-import { TimePickerComponent } from '../atoms/TimePickerComponent';
-import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
-import { TextAreaComponent } from '../atoms/TextAreaComponent';
-import SliderComponent from '../atoms/SliderComponent';
-import { CheckBoxComponent } from '../atoms/CheckBoxComponent';
-import { ButtonComponent } from '../atoms/ButtonComponent';
 import { FormEvent, useState } from 'react';
+import { ButtonComponent } from '../atoms/ButtonComponent';
+import { TimePickerComponent } from '../atoms/TimePickerComponent';
+import { ModalComponent } from '@/components/atoms/ModalComponent';
 import { formatToDate, formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 import {
   scheduleRecordUpdateForm,
   useReadScheduleQuery,
   useUpdateScheduleRecordMutation,
 } from '@/redux/schedule/slice';
-import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 type Props = {
   showsModal: boolean;
@@ -52,7 +48,7 @@ export const RegisterSchedulingOptionsModalComponent = (props: Props) => {
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='TODOを予定にする際のオプション'>
       <form className='mt-3' id='register-scheduling-options-form' onSubmit={handleSubmit}>
         <div className='ml-8'>作業する時間帯</div>
-        <div className='mt-2 mx-auto w-4/5 flex items-center'>
+        <div className='mx-auto mt-2 flex w-4/5 items-center'>
           <div className='mr-2 w-5/6'>
             <TimePickerComponent
               id='startTime'
@@ -75,7 +71,7 @@ export const RegisterSchedulingOptionsModalComponent = (props: Props) => {
             />
           </div>
         </div>
-        <div className='mt-2 ml-auto text-md w-1/6'>
+        <div className='ml-auto mt-2 w-1/6'>
           <ButtonComponent type='submit' children='更新' />
         </div>
       </form>

@@ -1,13 +1,13 @@
 import '@/styles/global.css';
 
-import React from 'react';
 import type { AppProps } from 'next/app';
-import LayoutComponent from '@/components/templates/LayoutComponent';
+import Head from 'next/head';
+import React from 'react';
 import { Provider } from 'react-redux';
+import ReduxToastr from 'react-redux-toastr';
+import LayoutComponent from '@/components/templates/LayoutComponent';
 import { store } from '@/redux/store';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
-import ReduxToastr from 'react-redux-toastr';
-import Head from 'next/head';
 
 function App({ Component, pageProps }: AppProps) {
   return (

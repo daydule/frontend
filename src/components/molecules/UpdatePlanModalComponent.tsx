@@ -1,15 +1,15 @@
-import { ModalComponent } from '@/components/atoms/ModalComponent';
-import { TimePickerComponent } from '../atoms/TimePickerComponent';
+import { FormEvent, useState } from 'react';
+import { ButtonComponent } from '../atoms/ButtonComponent';
+import { CheckBoxComponent } from '../atoms/CheckBoxComponent';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TextAreaComponent } from '../atoms/TextAreaComponent';
-import { CheckBoxComponent } from '../atoms/CheckBoxComponent';
-import { ButtonComponent } from '../atoms/ButtonComponent';
-import { FormEvent, useState } from 'react';
+import { TimePickerComponent } from '../atoms/TimePickerComponent';
+import { ModalComponent } from '@/components/atoms/ModalComponent';
 import { CONSTANT } from '@/constant/default';
 import { formatToDate, formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
 import { Plan } from '@/redux/types';
-import { errorHandler } from '@/helpers/errorHandlerHelper';
 
 type Props = {
   showsModal: boolean;
@@ -86,10 +86,10 @@ export const UpdatePlanModalComponent = (props: Props) => {
   return (
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='予定'>
       <form className='mt-3' id='register-plan-detail-form' onSubmit={handleSubmit}>
-        <div className='w-full flex'>
+        <div className='flex w-full'>
           <div className='w-1/2'>
             <div className='mx-auto w-4/5'>
-              <SimpleInputComponent<string>
+              <SimpleInputComponent
                 id='title'
                 name='title'
                 type='text'
@@ -98,7 +98,7 @@ export const UpdatePlanModalComponent = (props: Props) => {
                 setter={setTitle}
               />
             </div>
-            <div className='mt-2 mx-auto w-4/5 flex items-center'>
+            <div className='mx-auto mt-2 flex w-4/5 items-center'>
               <div className='mr-2 w-5/6'>
                 <TimePickerComponent
                   id='startTime'
@@ -123,7 +123,7 @@ export const UpdatePlanModalComponent = (props: Props) => {
                 />
               </div>
             </div>
-            <div className='mt-4 ml-[13%] flex'>
+            <div className='ml-[13%] mt-4 flex'>
               <div className='mr-2'>説明</div>
               <div className='mt-1'>
                 <svg
@@ -132,7 +132,7 @@ export const UpdatePlanModalComponent = (props: Props) => {
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-5 h-5'
+                  className='h-5 w-5'
                 >
                   <path
                     strokeLinecap='round'
@@ -154,7 +154,7 @@ export const UpdatePlanModalComponent = (props: Props) => {
           </div>
           <div className='w-1/2'>
             <div className='mx-auto w-4/5'>
-              <SimpleInputComponent<string>
+              <SimpleInputComponent
                 id='place'
                 name='place'
                 type='text'
@@ -163,7 +163,7 @@ export const UpdatePlanModalComponent = (props: Props) => {
                 setter={setPlace}
               />
             </div>
-            <div className='mt-8 mx-auto w-4/5'>
+            <div className='mx-auto mt-8 w-4/5'>
               <CheckBoxComponent
                 id='required-plan'
                 name='required-plan'
@@ -174,7 +174,7 @@ export const UpdatePlanModalComponent = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className='mt-2 ml-auto text-md w-1/6'>
+        <div className='ml-auto mt-2 w-1/6'>
           <ButtonComponent type='submit' children='更新' />
         </div>
       </form>

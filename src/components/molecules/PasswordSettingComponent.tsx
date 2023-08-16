@@ -1,10 +1,9 @@
-import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import React, { useState } from 'react';
-import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
-import { useUpdatePasswordMutation } from '@/redux/user/slice';
+import { ButtonComponent } from '@/components/atoms/ButtonComponent';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
+import { useUpdatePasswordMutation } from '@/redux/user/slice';
 
 export const PasswordSettingComponent = () => {
   const [currentPassword, setCurrentPassword] = useState<string>('');
@@ -35,10 +34,10 @@ export const PasswordSettingComponent = () => {
   return (
     <div className='mt-20'>
       <form id='register-todo-form'>
-        <div className='mt-10 ml-20 flex'>
-          <label className='mr-8 block float-left w-64'>今のパスワード</label>
-          <div className=' border-b border-black w-64'>
-            <SimpleInputComponent<string>
+        <div className='ml-20 mt-10 flex'>
+          <label className='float-left mr-8 block w-64'>今のパスワード</label>
+          <div className=' w-64 border-b border-black'>
+            <SimpleInputComponent
               id='currentPassword'
               name='currentPassword'
               type='password'
@@ -48,10 +47,10 @@ export const PasswordSettingComponent = () => {
             />
           </div>
         </div>
-        <div className='mt-10 ml-20 flex'>
-          <label className='mr-8 block float-left w-64'>新しいパスワード</label>
-          <div className=' border-b border-black w-64'>
-            <SimpleInputComponent<string>
+        <div className='ml-20 mt-10 flex'>
+          <label className='float-left mr-8 block w-64'>新しいパスワード</label>
+          <div className=' w-64 border-b border-black'>
+            <SimpleInputComponent
               id='newPassword'
               name='newPassword'
               type='password'
@@ -61,10 +60,10 @@ export const PasswordSettingComponent = () => {
             />
           </div>
         </div>
-        <div className='mt-10 ml-20 flex'>
-          <label className='mr-8 block float-left w-64'>新しいパスワード（確認用）</label>
-          <div className=' border-b border-black w-64'>
-            <SimpleInputComponent<string>
+        <div className='ml-20 mt-10 flex'>
+          <label className='float-left mr-8 block w-64'>新しいパスワード（確認用）</label>
+          <div className=' w-64 border-b border-black'>
+            <SimpleInputComponent
               id='newPasswordConfirmation'
               name='newPasswordConfirmation'
               type='password'
@@ -74,7 +73,7 @@ export const PasswordSettingComponent = () => {
             />
           </div>
         </div>
-        <div className='flex ml-20 mt-20'>
+        <div className='ml-20 mt-20 flex'>
           <div className='mr-6'>
             <ButtonComponent type='button' children='パスワード変更' handleClick={handleClickUpdatePassword} />
           </div>

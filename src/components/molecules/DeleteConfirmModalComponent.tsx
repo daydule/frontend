@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { ModalComponent } from '@/components/atoms/ModalComponent';
 import { ButtonComponent } from '../atoms/ButtonComponent';
+import { ModalComponent } from '@/components/atoms/ModalComponent';
 
 export type DeleteConfirmModalComponentProps = {
   showsModal: boolean;
@@ -27,7 +27,7 @@ const DeleteConfirmModalComponent: React.FC<DeleteConfirmModalComponentProps> = 
           }}
           title={title}
         >
-          <div className='text-left text-2xl mt-5 mb-10'>本当に削除していいですか？</div>
+          <div className='mb-10 mt-5 text-left text-2xl'>本当に削除していいですか？</div>
           <div className='grid grid-cols-5 gap-5'>
             <div className='col-start-4 col-end-4'>
               <ButtonComponent
