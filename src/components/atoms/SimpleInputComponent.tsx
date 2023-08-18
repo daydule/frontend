@@ -7,7 +7,7 @@ type Props = {
   type?: 'text' | 'password' | 'number' | undefined;
   value: string;
   placeholder?: string;
-  extraClassName?: string | undefined;
+  extraClassName?: string;
   setter: React.Dispatch<React.SetStateAction<string>>;
 };
 

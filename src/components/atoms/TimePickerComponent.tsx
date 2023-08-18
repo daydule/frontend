@@ -7,7 +7,7 @@ type Props = {
   name: string;
   header: string;
   value: Date;
-  extraClassName?: string | undefined;
+  extraClassName?: string;
   setter: React.Dispatch<React.SetStateAction<Date>>;
   onChange?: (date: Date) => void;
 };

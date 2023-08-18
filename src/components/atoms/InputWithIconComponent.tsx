@@ -7,7 +7,7 @@ type Props = {
   type?: 'text' | 'password' | 'number' | undefined;
   placeholder?: string;
   icon: ReactNode;
-  extraClassName?: string | undefined;
+  extraClassName?: string;
   customRef: RefObject<HTMLInputElement>;
 };
 

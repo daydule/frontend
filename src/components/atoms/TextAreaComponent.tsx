@@ -3,7 +3,7 @@ type Props = {
   name: string;
   value: string;
   placeholder?: string;
-  extraClassName?: string | undefined;
+  extraClassName?: string;
   handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
