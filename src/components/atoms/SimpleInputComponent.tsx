@@ -1,5 +1,6 @@
 import { ReactNode, forwardRef } from 'react';
 import { IconContext } from 'react-icons/lib';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
   id: string;
@@ -17,6 +18,7 @@ export const SimpleInputComponent = forwardRef((props: Props, ref: React.Ref<HTM
     props.setter(event.target.value);
   };
 
+  const baseClassName = 'block h-8 w-full rounded-lg border border-gray-200 p-2.5 text-base shadow-md';
   return (
     <div className='relative'>
       <input
@@ -25,9 +27,7 @@ export const SimpleInputComponent = forwardRef((props: Props, ref: React.Ref<HTM
         name={props.name}
         type={props.type}
         value={props.value}
-        className={
-          props.extraClassName + ' ' + 'w-full border border-gray-200 shadow-md rounded-lg text-base block p-2.5 h-8'
-        }
+        className={twMerge(baseClassName, props.extraClassName)}
         placeholder={props.placeholder}
         onChange={handleChange}
       />
