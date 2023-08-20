@@ -7,12 +7,13 @@ import { useDeletePlanMutation } from '@/redux/plan/slice';
 type Props = {
   size: number;
   planId: number;
+  isDividedTodo?: boolean;
 };
 
 export const DeletePlanButtonComponent = (props: Props) => {
   const [deletePlan] = useDeletePlanMutation();
   const title = '削除の確認';
-  const { renderDeleteModal, confirmDelete } = useDeleteConfirmModalComponent();
+  const { renderDeleteModal, confirmDelete } = useDeleteConfirmModalComponent(props.isDividedTodo);
   const handleDeleteSubmit = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       // これを入れているのは、リロードが走らないようにするため

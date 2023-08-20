@@ -16,7 +16,7 @@ type ReturnValues = {
   renderDeleteModal: () => ReactNode;
 };
 
-export const useDeleteConfirmModalComponent = (): ReturnValues => {
+export const useDeleteConfirmModalComponent = (isDividedTodo?: boolean): ReturnValues => {
   const [state, setState] = useState<State | undefined>(undefined);
 
   const confirmDelete: ReturnValues['confirmDelete'] = useCallback(
@@ -36,7 +36,14 @@ export const useDeleteConfirmModalComponent = (): ReturnValues => {
   );
 
   const renderDeleteModal: ReturnValues['renderDeleteModal'] = () => {
-    return <DeleteConfirmModalComponent showsModal={!!state} title={state?.title ?? ''} onClose={handleClose} />;
+    return (
+      <DeleteConfirmModalComponent
+        showsModal={!!state}
+        title={state?.title ?? ''}
+        onClose={handleClose}
+        isDividedTodo={isDividedTodo}
+      />
+    );
   };
 
   return {
