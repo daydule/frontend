@@ -16,7 +16,7 @@ type ReturnValues = {
   renderDeleteModal: () => ReactNode;
 };
 
-export const useDeleteConfirmModalComponent = (isDividedTodo?: boolean): ReturnValues => {
+export const useDeleteConfirmModalComponent = (subMessage?: string): ReturnValues => {
   const [state, setState] = useState<State | undefined>(undefined);
 
   const confirmDelete: ReturnValues['confirmDelete'] = useCallback(
@@ -41,7 +41,7 @@ export const useDeleteConfirmModalComponent = (isDividedTodo?: boolean): ReturnV
         showsModal={!!state}
         title={state?.title ?? ''}
         onClose={handleClose}
-        isDividedTodo={isDividedTodo}
+        subMessage={subMessage}
       />
     );
   };

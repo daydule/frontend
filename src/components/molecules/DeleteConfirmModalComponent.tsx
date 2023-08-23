@@ -6,14 +6,14 @@ export type DeleteConfirmModalComponentProps = {
   showsModal: boolean;
   title: string;
   onClose: (options: { accepted: boolean }) => void;
-  isDividedTodo?: boolean;
+  subMessage?: string;
 };
 
 const DeleteConfirmModalComponent: React.FC<DeleteConfirmModalComponentProps> = ({
   showsModal,
   title,
   onClose,
-  isDividedTodo = false,
+  subMessage,
 }) => {
   const handleCancel = useCallback(() => {
     onClose({ accepted: false });
@@ -34,7 +34,7 @@ const DeleteConfirmModalComponent: React.FC<DeleteConfirmModalComponentProps> = 
           title={title}
         >
           <div className='mt-5 text-left text-2xl'>本当に削除していいですか？</div>
-          {isDividedTodo && <div className='mt-5 text-left text-base'>※ 分割された他のTODOも削除されます。</div>}
+          {subMessage && <div className='mt-5 text-left text-base'>{subMessage}</div>}
           <div className='mt-10 grid grid-cols-5 gap-5'>
             <div className='col-start-4 col-end-4'>
               <ButtonComponent

@@ -34,7 +34,10 @@ export const PlanCardComponent = (props: Props) => {
     height: height + '%',
   };
 
-  const isDividedTodo = props.plan.planType === CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO && props.plan.parentPlanId != null;
+  const subMessage =
+    props.plan.planType === CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO && props.plan.parentPlanId != null
+      ? '※ 分割された他のTODOも削除されます。'
+      : '';
   const bgColor = 'bg-blue-400 hover:bg-blue-500';
 
   return (
@@ -52,11 +55,7 @@ export const PlanCardComponent = (props: Props) => {
         {formatToTime(props.plan.startTime)} 〜 {formatToTime(props.plan.endTime)}
       </div>
       <div className='w-1/4'>
-        <DeletePlanButtonComponent
-          size={processTime < 30 ? 1 : 1.5}
-          planId={props.plan.id}
-          isDividedTodo={isDividedTodo}
-        />
+        <DeletePlanButtonComponent size={processTime < 30 ? 1 : 1.5} planId={props.plan.id} subMessage={subMessage} />
       </div>
       {showsModal && <UpdatePlanModalComponent showsModal={showsModal} handleClose={handleClose} plan={props.plan} />}
     </div>
