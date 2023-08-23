@@ -1,5 +1,6 @@
 import { ReactNode, RefObject } from 'react';
 import { IconContext } from 'react-icons/lib';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
   id: string;
@@ -7,11 +8,12 @@ type Props = {
   type?: 'text' | 'password' | 'number' | undefined;
   placeholder?: string;
   icon: ReactNode;
-  extraClassName?: string | undefined;
+  extraClassName?: string;
   customRef: RefObject<HTMLInputElement>;
 };
 
 export const InputWithIconComponent = (props: Props) => {
+  const baseClassName = 'w-full border border-black text-base block pl-10 h-12';
   return (
     <>
       <div className='relative'>
@@ -24,7 +26,7 @@ export const InputWithIconComponent = (props: Props) => {
           id={props.id}
           name={props.name}
           type={props.type}
-          className={props.extraClassName + ' ' + 'w-full border border-black text-base block pl-10 p-2.5 h-12'}
+          className={twMerge(baseClassName, props.extraClassName)}
           placeholder={props.placeholder}
           ref={props.customRef}
         />

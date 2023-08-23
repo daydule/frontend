@@ -1,13 +1,14 @@
 import { ReactNode } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
   id: string;
   name: string;
   header: string;
   value: Date;
-  extraClassName?: string | undefined;
+  extraClassName?: string;
   setter: React.Dispatch<React.SetStateAction<Date>>;
   onChange?: (date: Date) => void;
 };
@@ -18,6 +19,7 @@ export const TimePickerComponent = (props: Props) => {
     props.onChange && props.onChange(date);
   };
 
+  const baseClassName = 'w-full border border-gray-200 shadow-md text-base block p-1 h-12';
   return (
     <DatePicker
       timeFormat={'HH:mm'}
@@ -28,7 +30,7 @@ export const TimePickerComponent = (props: Props) => {
       timeIntervals={15}
       timeCaption={props.header}
       dateFormat='HH:mm'
-      className={props.extraClassName + ' ' + 'w-full border border-gray-200 shadow-md text-base block p-1 h-12'}
+      className={twMerge(baseClassName, props.extraClassName)}
     />
   );
 };
