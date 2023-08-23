@@ -100,7 +100,7 @@ export const RegisterPlanComponent = () => {
           />
         </div>
         <div className='mx-auto mt-2 flex h-1/6 w-3/5 items-center'>
-          <div className='mr-2 w-5/6'>
+          <div className='z-20 mr-2 w-5/6'>
             <TimePickerComponent
               id='startTime'
               name='startTime'
@@ -112,7 +112,7 @@ export const RegisterPlanComponent = () => {
             />
           </div>
           <div>〜</div>
-          <div className='ml-2 w-5/6'>
+          <div className='z-20 ml-2 w-5/6'>
             <TimePickerComponent
               id='endTime'
               name='endTime'
