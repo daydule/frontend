@@ -35,11 +35,11 @@ export const CreateScheduleButtonComponent = () => {
       <form id={`create-schedule-form`} onSubmit={handleCreateSubmit}>
         <ButtonWithOptionComponent
           typeForMainButton='submit'
-          children={'TODOを予定にする'}
-          extraClassName='w-52'
           typeForOptionButton={'button'}
           handleClickOption={handleClickOption}
-        />
+        >
+          TODOを予定に変換
+        </ButtonWithOptionComponent>
       </form>
       {showsModal && <RegisterSchedulingOptionsModalComponent showsModal={showsModal} handleClose={handleClose} />}
     </>

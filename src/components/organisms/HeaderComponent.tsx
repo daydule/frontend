@@ -42,43 +42,74 @@ export const HeaderComponent = () => {
 
   return (
     <div className='fixed left-0 top-0 z-10 flex h-20 w-full items-center border-b bg-indigo-700 px-8 text-left text-3xl text-white shadow-xl'>
-      <div className='my-0 ml-0 mr-5 flex cursor-pointer' onClick={() => router.push('/main')}>
-        <IconContext.Provider value={{ size: '1.2em', className: 'text-white text-opacity-90' }}>
+      <div
+        className='my-0 ml-0 mr-5 flex cursor-pointer duration-300 hover:scale-105'
+        onClick={() => router.push('/main')}
+      >
+        <IconContext.Provider value={{ size: '1.5em', className: 'text-opacity-90' }}>
           <AiFillSchedule />
-          <img src='/logo.png' className='ml-3' alt='ヘッダー画像' />
         </IconContext.Provider>
+        <div className='mx-2 font-mono text-4xl font-extrabold transition ease-in-out'>daydule</div>
       </div>
       {isAboutPage && isError && (
-        <div className='ml-5 cursor-pointer text-base' onClick={() => router.push('/auth/login')}>
+        <div
+          className='mx-2 cursor-pointer text-base duration-300 hover:scale-105 hover:text-gray-300'
+          onClick={() => router.push('/auth/login')}
+        >
           ログイン画面へ
         </div>
       )}
       {!isAboutPage && (
-        <div className='ml-5 cursor-pointer text-base' onClick={() => router.push('/about')}>
+        <div
+          className='mx-2 cursor-pointer text-base duration-300 hover:scale-105 hover:text-gray-300'
+          onClick={() => router.push('/about')}
+        >
           このアプリについて
         </div>
       )}
-      <div className='my-0 ml-auto mr-0 flex'>
-        {!isError && <div className='mx-4 pt-1 text-lg'>ユーザネーム : {getNickName()}</div>}
+      <div className='ml-auto mr-0 flex items-center'>
+        {!isError && <div className='mx-2 text-xl'>{getNickName()}</div>}
         {!isError && (
           <Menu
             menuButton={
               <MenuButton>
                 <div className='flex'>
-                  <IconContext.Provider value={{ size: '1.2em', className: 'text-white text-opacity-90' }}>
+                  <IconContext.Provider
+                    value={{
+                      size: '1.7em',
+                      className: 'text-opacity-90 duration-300 hover:scale-105 hover:text-gray-300',
+                    }}
+                  >
                     <RiAccountCircleFill />
                   </IconContext.Provider>
-                  <IconContext.Provider value={{ size: '0.5em', className: 'mt-3 text-white text-opacity-90' }}>
+                  <IconContext.Provider value={{ size: '0.6em', className: 'my-auto text-opacity-90' }}>
                     <AiFillCaretDown />
                   </IconContext.Provider>
                 </div>
               </MenuButton>
             }
+            offsetY={15}
           >
-            {readUserResult?.user?.isGuest && <MenuItem onClick={handleRenderSignup}>本登録</MenuItem>}
-            {readUserResult?.user?.isGuest && <MenuItem onClick={handleClickLogout}>ゲスト利用を終了</MenuItem>}
-            {!readUserResult?.user?.isGuest && <MenuItem onClick={handleClickFeedback}>フィードバック</MenuItem>}
-            {!readUserResult?.user?.isGuest && <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>}
+            {readUserResult?.user?.isGuest && (
+              <MenuItem className='text-xl font-bold' onClick={handleRenderSignup}>
+                本登録
+              </MenuItem>
+            )}
+            {readUserResult?.user?.isGuest && (
+              <MenuItem className='text-xl font-bold' onClick={handleClickLogout}>
+                ゲスト利用を終了
+              </MenuItem>
+            )}
+            {!readUserResult?.user?.isGuest && (
+              <MenuItem className='text-xl font-bold' onClick={handleClickFeedback}>
+                フィードバック
+              </MenuItem>
+            )}
+            {!readUserResult?.user?.isGuest && (
+              <MenuItem className='text-xl font-bold' onClick={handleClickLogout}>
+                ログアウト
+              </MenuItem>
+            )}
           </Menu>
         )}
       </div>
