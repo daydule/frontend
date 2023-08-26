@@ -1,3 +1,3 @@
 # daydule frontend
 
-This is daydule frontend.
+This is daydule frontend...
