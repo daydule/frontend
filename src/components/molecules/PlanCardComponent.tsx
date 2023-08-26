@@ -34,11 +34,9 @@ export const PlanCardComponent = (props: Props) => {
     height: height + '%',
   };
 
-  const subMessage =
-    props.plan.planType === CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO && props.plan.parentPlanId != null
-      ? '※ 分割された他のTODOも削除されます。'
-      : '';
-  const bgColor = 'bg-blue-400 hover:bg-blue-500';
+  const isTodoBefore = props.plan.planType === CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO;
+  const subMessage = isTodoBefore && props.plan.parentPlanId != null ? '※ 分割された他のTODOも削除されます。' : '';
+  const bgColor = isTodoBefore ? 'bg-indigo-300 bg-opacity-80' : 'bg-blue-400 hover:bg-blue-500';
 
   return (
     <div
