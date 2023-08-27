@@ -35,6 +35,7 @@ export const PlanCardComponent = (props: Props) => {
   };
 
   const isTodoBefore = props.plan.planType === CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO;
+  const subMessage = isTodoBefore && props.plan.parentPlanId != null ? '※ 分割された他のTODOも削除されます。' : '';
   const bgColor = isTodoBefore ? 'bg-indigo-300 bg-opacity-80' : 'bg-blue-400 hover:bg-blue-500';
 
   return (
@@ -45,14 +46,14 @@ export const PlanCardComponent = (props: Props) => {
         bgColor
       }
       style={style}
-      onClick={isTodoBefore ? () => {} : handleClick}
+      onClick={handleClick}
     >
       <div className='flex w-3/4'>
         <div className='w-1/3 truncate'>{props.plan.title}</div>
         {formatToTime(props.plan.startTime)} 〜 {formatToTime(props.plan.endTime)}
       </div>
       <div className='w-1/4'>
-        {!isTodoBefore && <DeletePlanButtonComponent size={processTime < 30 ? 1 : 1.5} planId={props.plan.id} />}
+        <DeletePlanButtonComponent size={processTime < 30 ? 1 : 1.5} planId={props.plan.id} subMessage={subMessage} />
       </div>
       {showsModal && <UpdatePlanModalComponent showsModal={showsModal} handleClose={handleClose} plan={props.plan} />}
     </div>

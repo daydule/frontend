@@ -6,9 +6,15 @@ export type DeleteConfirmModalComponentProps = {
   showsModal: boolean;
   title: string;
   onClose: (options: { accepted: boolean }) => void;
+  subMessage?: string;
 };
 
-const DeleteConfirmModalComponent: React.FC<DeleteConfirmModalComponentProps> = ({ showsModal, title, onClose }) => {
+const DeleteConfirmModalComponent: React.FC<DeleteConfirmModalComponentProps> = ({
+  showsModal,
+  title,
+  onClose,
+  subMessage,
+}) => {
   const handleCancel = useCallback(() => {
     onClose({ accepted: false });
   }, [onClose]);
@@ -27,8 +33,9 @@ const DeleteConfirmModalComponent: React.FC<DeleteConfirmModalComponentProps> = 
           }}
           title={title}
         >
-          <div className='mb-10 mt-5 text-left text-2xl'>本当に削除していいですか？</div>
-          <div className='grid grid-cols-5 gap-5'>
+          <div className='mt-5 text-left text-2xl'>本当に削除していいですか？</div>
+          {subMessage && <div className='mt-5 text-left text-base'>{subMessage}</div>}
+          <div className='mt-10 grid grid-cols-5 gap-5'>
             <div className='col-start-4 col-end-4'>
               <ButtonComponent
                 type='submit'
