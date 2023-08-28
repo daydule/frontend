@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const ButtonWithIconComponent = (props: Props) => {
-  const baseClassName = 'text-black text-opacity-30 hover:text-opacity-100';
+  const baseClassName = 'text-black text-opacity-50 hover:text-opacity-100';
   return (
     <div className='relative'>
       <button type={props.type} onClick={props.handleClick}>
