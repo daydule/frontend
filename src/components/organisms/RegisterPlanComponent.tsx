@@ -67,7 +67,8 @@ export const RegisterPlanComponent = () => {
    */
   const handleChangeEndTime = (newEndTime: Date) => {
     if (newEndTime.getTime() > startTime.getTime()) {
-      const newProcessTime = Math.floor(newEndTime.getTime() - startTime.getTime()) / (60 * 1000);
+      const newProcessTime =
+        (newEndTime.getHours() - startTime.getHours()) * 60 + (newEndTime.getMinutes() - startTime.getMinutes());
       setHiddenProcessTime(newProcessTime);
     } else {
       const newStartTime = new Date(newEndTime.getTime());
