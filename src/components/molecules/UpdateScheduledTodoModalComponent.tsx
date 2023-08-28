@@ -84,7 +84,7 @@ export const UpdateScheduledTodoModalComponent = (props: Props) => {
   };
 
   return (
-    <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='予定'>
+    <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='時間を割り当てられたTODO'>
       <form className='mt-3' id='register-plan-detail-form' onSubmit={handleSubmit}>
         <div className='flex w-full'>
           <div className='w-1/2'>
