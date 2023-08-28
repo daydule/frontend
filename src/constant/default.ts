@@ -17,6 +17,10 @@ export const CONSTANT = {
       PLACE: '',
       IS_REQUIRED_PLAN: true,
     },
+    TODO: {
+      PROCESS_TIME_MAX: 120,
+      PROCESS_TIME_MIN: 15,
+    },
     SCHEDULE: {
       START_TIME: '0900',
       END_TIME: '1800',

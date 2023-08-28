@@ -63,8 +63,8 @@ export const UpdateTodoModalComponent = (props: Props) => {
             <div className='mx-auto mt-2 flex w-4/5 items-center'>
               <div className='mx-auto mt-8 w-4/5'>
                 <SliderComponent
-                  min={15}
-                  max={120}
+                  min={CONSTANT.DEFAULT.TODO.PROCESS_TIME_MIN}
+                  max={CONSTANT.DEFAULT.TODO.PROCESS_TIME_MAX}
                   title='所要時間'
                   unit='分'
                   values={processTime}
