@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { TooltipComponent } from '../atoms/ToolTipComponent';
 import { RegisterSchedulingOptionsModalComponent } from './RegisterSchedulingOptionsModalComponent';
 import { ButtonWithOptionComponent } from '@/components/atoms/ButtonWithOptionComponent';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
@@ -31,7 +32,10 @@ export const CreateScheduleButtonComponent = () => {
   };
 
   return (
-    <>
+    <TooltipComponent
+      content='TODO一覧にあるTODOをスケジュールに入れます。できるだけTODOの時間を分割しないように入れ込みます。'
+      extraClassName='bottom-10 w-96 left-0'
+    >
       <form id={`create-schedule-form`} onSubmit={handleCreateSubmit}>
         <ButtonWithOptionComponent
           typeForMainButton='submit'
@@ -42,6 +46,6 @@ export const CreateScheduleButtonComponent = () => {
         </ButtonWithOptionComponent>
       </form>
       {showsModal && <RegisterSchedulingOptionsModalComponent showsModal={showsModal} handleClose={handleClose} />}
-    </>
+    </TooltipComponent>
   );
 };
