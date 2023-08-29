@@ -11,14 +11,13 @@ type Props = {
 };
 
 export const ButtonWithIconComponent = (props: Props) => {
-  const baseClassName = 'text-black text-opacity-50 hover:text-opacity-100';
+  const baseClassName = 'relative text-black text-opacity-50 hover:text-opacity-100';
   return (
-    <div className='relative'>
+    <div className={twMerge(baseClassName, props.extraClassName)}>
       <button type={props.type} onClick={props.handleClick}>
         <IconContext.Provider
           value={{
             size: (props?.size ? props.size : 1.5) + 'rem',
-            className: twMerge(baseClassName, props.extraClassName),
           }}
         >
           {props.icon}
