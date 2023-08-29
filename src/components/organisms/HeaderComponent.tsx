@@ -14,14 +14,20 @@ export const HeaderComponent = () => {
   const { data: readUserResult, isError } = useReadUserQuery();
   const [logout] = useLogoutMutation();
   const isAboutPage = router.pathname === '/about';
-  const isMainPage = router.pathname === '/main';
 
   const handleClickLogout = async () => {
     try {
-      await logout().unwrap().catch(errorHandler);
+      await logout()
+        .unwrap()
+        .then(() => router.push('about'))
+        .catch(errorHandler);
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleRenderUsage = () => {
+    router.push('/usage');
   };
 
   const handleRenderSignup = () => {
@@ -87,25 +93,33 @@ export const HeaderComponent = () => {
             }
             offsetY={15}
           >
+            {/* 'ゲスト利用時のプルダウン' */}
             {readUserResult?.user?.isGuest && (
-              <MenuItem className='text-xl font-bold' onClick={handleRenderSignup}>
-                本登録
-              </MenuItem>
+              <>
+                <MenuItem className='text-xl font-bold' onClick={handleRenderUsage}>
+                  使い方
+                </MenuItem>
+                <MenuItem className='text-xl font-bold' onClick={handleRenderSignup}>
+                  本登録
+                </MenuItem>
+                <MenuItem className='text-xl font-bold' onClick={handleClickLogout}>
+                  ゲスト利用を終了
+                </MenuItem>
+              </>
             )}
-            {readUserResult?.user?.isGuest && (
-              <MenuItem className='text-xl font-bold' onClick={handleClickLogout}>
-                ゲスト利用を終了
-              </MenuItem>
-            )}
+            {/* 'ログイン利用時のプルダウン' */}
             {!readUserResult?.user?.isGuest && (
-              <MenuItem className='text-xl font-bold' onClick={handleClickFeedback}>
-                フィードバック
-              </MenuItem>
-            )}
-            {!readUserResult?.user?.isGuest && (
-              <MenuItem className='text-xl font-bold' onClick={handleClickLogout}>
-                ログアウト
-              </MenuItem>
+              <>
+                <MenuItem className='text-xl font-bold' onClick={handleRenderUsage}>
+                  使い方
+                </MenuItem>
+                <MenuItem className='text-xl font-bold' onClick={handleClickFeedback}>
+                  フィードバック
+                </MenuItem>
+                <MenuItem className='text-xl font-bold' onClick={handleClickLogout}>
+                  ログアウト
+                </MenuItem>
+              </>
             )}
           </Menu>
         )}
