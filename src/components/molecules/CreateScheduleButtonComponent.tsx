@@ -34,11 +34,11 @@ export const CreateScheduleButtonComponent = () => {
 
   return (
     <div className='flex justify-center'>
-      <TooltipComponent content='TODOを予定にする際のオプションを設定する' extraClassName='bottom-12 w-44 right-6'>
-        <div onClick={handleClickOption} className='flex h-12 w-12 items-center justify-center'>
+      <div onClick={handleClickOption} className='flex h-12 w-12 items-center justify-center'>
+        <TooltipComponent content='TODOを予定にする際のオプションを設定する' extraClassName='bottom-7 right-2 w-44'>
           <IoMdOptions size={25} />
-        </div>
-      </TooltipComponent>
+        </TooltipComponent>
+      </div>
       <TooltipComponent content='TODO一覧にあるTODOを予定にする' extraClassName='bottom-12 w-64 left-8'>
         <div className='flex h-12 w-12 items-center justify-center rounded-full bg-indigo-700 pl-1 text-white shadow-[0px_0px_1px_1px_rgba(0,0,0,0.3)] hover:bg-indigo-600'>
           <div onClick={handleClickCreateSchedule} className=''>
