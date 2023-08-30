@@ -114,7 +114,7 @@ export const TodoListComponent = () => {
       </div>
       <div
         className={
-          'absolute inset-x-0 overflow-y-auto z-0 pb-12' +
+          'absolute inset-x-0 overflow-y-auto pb-12' +
           (isExpand ? ' top-60 bottom-10  h-[55%]' : ' top-24 inset-y-0  h-[80%]')
         }
       >
