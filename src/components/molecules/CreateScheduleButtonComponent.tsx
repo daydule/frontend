@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IoMdOptions } from 'react-icons/io';
-import { MdScheduleSend } from 'react-icons/md';
+import { MdMoreTime } from 'react-icons/md';
 import { TooltipComponent } from '../atoms/ToolTipComponent';
 import { RegisterSchedulingOptionsModalComponent } from './RegisterSchedulingOptionsModalComponent';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
@@ -40,9 +40,9 @@ export const CreateScheduleButtonComponent = () => {
         </TooltipComponent>
       </div>
       <TooltipComponent content='TODO一覧にあるTODOを予定にする' extraClassName='bottom-12 w-64 left-8'>
-        <div className='flex h-12 w-12 items-center justify-center rounded-full bg-indigo-700 pl-1 text-white shadow-[0px_0px_1px_1px_rgba(0,0,0,0.3)] hover:bg-indigo-600'>
-          <div onClick={handleClickCreateSchedule} className=''>
-            <MdScheduleSend size={30} />
+        <div className='flex h-12 w-12 items-center justify-center rounded-full bg-indigo-700 pb-1 pl-1 text-white shadow-[0px_0px_1px_1px_rgba(0,0,0,0.3)] hover:bg-indigo-600'>
+          <div onClick={handleClickCreateSchedule}>
+            <MdMoreTime size={30} />
           </div>
         </div>
       </TooltipComponent>

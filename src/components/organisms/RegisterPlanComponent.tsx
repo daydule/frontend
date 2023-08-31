@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { IoMdAdd } from 'react-icons/io';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TimePickerComponent } from '../atoms/TimePickerComponent';
 import { RegisterPlanModalComponent } from '../molecules/RegisterPlanModalComponent';
@@ -133,7 +134,13 @@ export const RegisterPlanComponent = () => {
           />
         </div>
         <div className='absolute bottom-3 right-3'>
-          <ButtonComponent type='submit' children='登録' />
+          <div className='flex h-12 w-12 items-center justify-center rounded-full bg-indigo-700 text-white shadow-[0px_0px_1px_1px_rgba(0,0,0,0.3)] hover:bg-indigo-600'>
+            <button type='submit'>
+              <IoMdAdd size={40} />
+            </button>
+          </div>
+
+          {/* <ButtonComponent type='submit' children='登録' /> */}
         </div>
       </form>
       {showsModal && (

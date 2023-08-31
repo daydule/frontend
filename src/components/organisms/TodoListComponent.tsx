@@ -2,9 +2,12 @@ import { Fragment, useEffect, useState, useRef } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import type { DropResult } from 'react-beautiful-dnd';
 import { IconContext } from 'react-icons';
+import { MdInfoOutline } from 'react-icons/md';
 import { TbArrowBigUpLines } from 'react-icons/tb';
 import { ButtonComponent } from '../atoms/ButtonComponent';
+import { TooltipComponent } from '../atoms/ToolTipComponent';
 import { CreateScheduleButtonComponent } from '../molecules/CreateScheduleButtonComponent';
+import { InfoIconComponent } from '../molecules/InfoIconComponent';
 import { RegisterTodoComponent } from './RegisterTodoComponent';
 import { TodoCardComponent } from '@/components/molecules/TodoCardComponent';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
@@ -82,7 +85,13 @@ export const TodoListComponent = () => {
 
   return (
     <div className='relative my-4 h-[calc(75%_-_2rem)] w-96 rounded-md border border-gray-200 shadow-md'>
-      <div className='absolute left-3 top-3 rounded-lg bg-white px-2 text-xl'>TODO一覧</div>
+      <div className='absolute left-3 top-3 z-10 flex items-center rounded-lg bg-white px-2 text-xl'>
+        <div>TODO一覧</div>
+        <InfoIconComponent
+          content='TODOは並び替え可能です。上にあるTODOほど優先的に予定になります。'
+          extraClassName='ml-2'
+        />
+      </div>
       <div className='absolute bottom-3 right-3 z-10'>
         <CreateScheduleButtonComponent />
       </div>
