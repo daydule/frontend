@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Range } from 'react-range';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
   min: number;
@@ -8,6 +9,7 @@ type Props = {
   unit: string;
   values: number[];
   setter: React.Dispatch<React.SetStateAction<number[]>>;
+  extraClassName: string;
 };
 
 const SliderComponent = (props: Props) => {
@@ -16,7 +18,7 @@ const SliderComponent = (props: Props) => {
   };
 
   return (
-    <div className='relative flex flex-col items-center'>
+    <div className={twMerge('relative flex flex-col items-center', props.extraClassName)}>
       <Range
         step={5}
         min={props.min}
@@ -35,9 +37,9 @@ const SliderComponent = (props: Props) => {
       <div className='absolute -left-1 top-2'>{props.min}</div>
       <div className='absolute -right-1 top-2'>{props.max}</div>
       <div className='mt-1'>
-        <span className='text-gray-700'>{props?.title + ' '}</span>
-        <span className='text-xl text-gray-700'>{props?.values[0]}</span>
-        <span className='text-gray-700'>{props?.unit}</span>
+        <span>{props?.title + ' '}</span>
+        <span className='text-xl'>{props?.values[0]}</span>
+        <span>{props?.unit}</span>
       </div>
     </div>
   );
