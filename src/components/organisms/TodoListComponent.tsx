@@ -2,9 +2,12 @@ import { Fragment, useEffect, useState, useRef } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import type { DropResult } from 'react-beautiful-dnd';
 import { IconContext } from 'react-icons';
+import { MdInfoOutline } from 'react-icons/md';
 import { TbArrowBigUpLines } from 'react-icons/tb';
 import { ButtonComponent } from '../atoms/ButtonComponent';
+import { TooltipComponent } from '../atoms/ToolTipComponent';
 import { CreateScheduleButtonComponent } from '../molecules/CreateScheduleButtonComponent';
+import { InfoIconComponent } from '../molecules/InfoIconComponent';
 import { RegisterTodoComponent } from './RegisterTodoComponent';
 import { TodoCardComponent } from '@/components/molecules/TodoCardComponent';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
@@ -82,27 +85,17 @@ export const TodoListComponent = () => {
 
   return (
     <div className='relative my-4 h-[calc(75%_-_2rem)] w-96 rounded-md border border-gray-200 shadow-md'>
-      <div className='absolute left-3 top-3 rounded-lg bg-white px-2 text-xl'>TODO一覧</div>
-      <div className='absolute bottom-3 right-6 z-10'>
+      <div className='absolute left-3 top-3 z-10 flex items-center rounded-lg bg-white px-2 text-xl'>
+        <div>TODO一覧</div>
+        <InfoIconComponent
+          content='TODOは並び替え可能です。上にあるTODOほど優先的に予定になります。'
+          extraClassName='ml-2'
+        />
+      </div>
+      <div className='absolute bottom-3 right-3 z-10'>
         <CreateScheduleButtonComponent />
       </div>
-      {isExpand ? (
-        <OutsideClickHandler onOutsideClick={handleToggleTodoArea}>
-          <div className='absolute inset-0 top-9 z-10 h-48'>
-            <RegisterTodoComponent showsModal={showsModal} handleShowsModal={handleShowsModal} />
-          </div>
-        </OutsideClickHandler>
-      ) : (
-        <div className='absolute inset-x-0 top-12 z-10 mx-auto h-[calc(10%_-_1rem)] w-[calc(100%_-_2rem)]'>
-          <ButtonComponent
-            extraClassName='bg-white hover:bg-gray-300 text-gray-500'
-            type='button'
-            children='+ TODO登録'
-            handleClick={handleToggleTodoArea}
-          />
-        </div>
-      )}
-      <div className={'absolute inset-0 flex justify-center items-center z-0' + (isExpand ? ' top-64' : '')}>
+      <div className={'absolute inset-0 z-0 flex items-center justify-center'}>
         <IconContext.Provider
           value={{
             size: '18rem',
@@ -112,16 +105,28 @@ export const TodoListComponent = () => {
           <TbArrowBigUpLines />
         </IconContext.Provider>
       </div>
-      <div
-        className={
-          'absolute inset-x-0 overflow-auto z-0' +
-          (isExpand ? ' top-60 bottom-10  h-[calc(55%_-_2rem)]' : ' top-24 inset-y-0  h-[70%]')
-        }
-      >
+      <div className={'no-scrollbar absolute inset-0 top-12 overflow-y-auto pb-16'}>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId='todoList'>
             {(provided, snapshot) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
+                <div className='mx-auto w-[calc(100%_-_2rem)]'>
+                  {isExpand ? (
+                    <OutsideClickHandler onOutsideClick={handleToggleTodoArea}>
+                      <div className='z-10'>
+                        <RegisterTodoComponent showsModal={showsModal} handleShowsModal={handleShowsModal} />
+                      </div>
+                    </OutsideClickHandler>
+                  ) : (
+                    <ButtonComponent
+                      extraClassName='bg-white h-16 hover:bg-gray-300 text-gray-500 border-dashed border-2'
+                      type='button'
+                      children='+ TODO登録'
+                      handleClick={handleToggleTodoArea}
+                    />
+                  )}
+                </div>
+
                 {todoOrder?.map((id, index) => {
                   const todo = scheduleReadResult?.todos.find((todo) => todo?.id === id);
                   if (!todo) return <Fragment key={'todoCard' + index}></Fragment>;
