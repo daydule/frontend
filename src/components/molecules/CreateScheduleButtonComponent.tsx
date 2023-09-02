@@ -12,8 +12,6 @@ export const CreateScheduleButtonComponent = () => {
 
   const handleClickCreateSchedule = async () => {
     const now = new Date();
-    now.setHours(8);
-    now.setMinutes(0);
     const dateString = formatToYYYY_MM_DD(now);
     const currentTime = ('00' + now.getHours()).slice(-2) + ('00' + now.getMinutes()).slice(-2);
     try {
