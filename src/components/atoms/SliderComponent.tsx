@@ -9,7 +9,7 @@ type Props = {
   unit: string;
   values: number[];
   setter: React.Dispatch<React.SetStateAction<number[]>>;
-  extraClassName: string;
+  extraClassName?: string;
 };
 
 const SliderComponent = (props: Props) => {

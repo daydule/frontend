@@ -55,7 +55,7 @@ export const RegisterTodoComponent = (props: Props) => {
   };
 
   return (
-    <div className='relative h-[calc(100%_-_1rem)] w-full rounded-md bg-indigo-300/80'>
+    <div className='relative h-[calc(100%_-_1rem)] w-full rounded-md border-2 border-indigo-300 bg-white'>
       <form className='py-4' id='register-todo-form' onSubmit={handleSubmit}>
         <div className='mx-auto w-4/5'>
           <SimpleInputComponent
@@ -66,23 +66,15 @@ export const RegisterTodoComponent = (props: Props) => {
             placeholder='タイトル'
             value={title}
             setter={setTitle}
-            extraClassName='bg-transparent text-white focus:outline-none border-dashed shadow-none'
+            extraClassName='focus:outline-none'
           />
         </div>
         <div className='inset-x-0 mx-auto mt-4 w-4/5' onClick={focusOnInput}>
-          <SliderComponent
-            min={15}
-            max={120}
-            title='所要時間'
-            unit='分'
-            values={processTime}
-            setter={setProcessTime}
-            extraClassName='text-white'
-          />
+          <SliderComponent min={15} max={120} title='所要時間' unit='分' values={processTime} setter={setProcessTime} />
         </div>
         <div className='mx-auto mt-4 w-4/5'>
           <ButtonComponent
-            extraClassName='bg-transparent hover:bg-gray-300 text-gray-500'
+            extraClassName='bg-white hover:bg-gray-300 text-gray-500'
             type='button'
             children='その他のオプション'
             handleClick={handleClickOption}
