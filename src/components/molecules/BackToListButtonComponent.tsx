@@ -1,5 +1,7 @@
 import { FormEvent } from 'react';
-import { ButtonComponent } from '@/components//atoms/ButtonComponent';
+import { TfiBackLeft } from 'react-icons/tfi';
+import { ButtonWithIconComponent } from '../atoms/ButtonWithIconComponent';
+import { TooltipComponent } from '../atoms/ToolTipComponent';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { useBackToListMutation } from '@/redux/plan/slice';
@@ -22,7 +24,9 @@ export const BackToListButtonComponent = () => {
 
   return (
     <form id={`back-to-list-form`} onSubmit={handleCreateSubmit}>
-      <ButtonComponent type='submit' children='スケジュール内のTODOをTODO一覧に戻す' />
+      <TooltipComponent content='スケジュール内のTODOをTODO一覧に戻す' extraClassName='w-48'>
+        <ButtonWithIconComponent type='submit' icon={<TfiBackLeft />} size={3} extraClassName='text-indigo-700' />
+      </TooltipComponent>
     </form>
   );
 };

@@ -38,6 +38,7 @@ export const DeletePlanButtonComponent = (props: Props) => {
           type='submit'
           icon={<MdOutlineDeleteForever />}
           size={props.size}
+          extraClassName='pt-1'
         ></ButtonWithIconComponent>
       </form>
     </>

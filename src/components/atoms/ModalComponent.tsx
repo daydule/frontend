@@ -14,7 +14,7 @@ export const ModalComponent = (props: ModalProps) => {
   };
 
   return (
-    <Dialog as='div' className='fixed inset-0 z-10 overflow-y-auto' open onClose={handleCloseModal}>
+    <Dialog as='div' className='fixed inset-0 z-50 overflow-y-auto' open onClose={handleCloseModal}>
       <div className='min-h-screen px-4 text-center'>
         <Dialog.Overlay className='fixed inset-0 bg-black/30' />
 
