@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Range } from 'react-range';
 import { twMerge } from 'tailwind-merge';
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DeletePlanButtonComponent } from '@/components/molecules/DeletePlanButtonComponent';
 import { UpdatePlanModalComponent } from '@/components/molecules/UpdatePlanModalComponent';
+import { UpdateScheduledTodoModalComponent } from '@/components/molecules/UpdateScheduledTodoModalComponent';
 import { CONSTANT } from '@/constant/default';
 import { formatToTime, timeString4digitsDiffMin } from '@/helpers/dateHelper';
 import { Plan } from '@/redux/types';
@@ -55,7 +56,12 @@ export const PlanCardComponent = (props: Props) => {
       <div className='w-1/4'>
         <DeletePlanButtonComponent size={processTime < 30 ? 1 : 1.5} planId={props.plan.id} subMessage={subMessage} />
       </div>
-      {showsModal && <UpdatePlanModalComponent showsModal={showsModal} handleClose={handleClose} plan={props.plan} />}
+      {showsModal && !isTodoBefore && (
+        <UpdatePlanModalComponent showsModal={showsModal} handleClose={handleClose} plan={props.plan} />
+      )}
+      {showsModal && isTodoBefore && (
+        <UpdateScheduledTodoModalComponent showsModal={showsModal} handleClose={handleClose} todo={props.plan} />
+      )}
     </div>
   );
 };
