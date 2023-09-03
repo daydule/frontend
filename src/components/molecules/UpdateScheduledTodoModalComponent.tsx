@@ -1,6 +1,5 @@
 import { FormEvent, useState } from 'react';
 import { ButtonComponent } from '../atoms/ButtonComponent';
-import { CheckBoxComponent } from '../atoms/CheckBoxComponent';
 import { SimpleInputComponent } from '../atoms/SimpleInputComponent';
 import { TextAreaComponent } from '../atoms/TextAreaComponent';
 import { TimePickerComponent } from '../atoms/TimePickerComponent';
@@ -14,20 +13,19 @@ import { Plan } from '@/redux/types';
 type Props = {
   showsModal: boolean;
   handleClose: () => void;
-  plan: Plan;
+  todo: Plan;
 };
 
-export const UpdatePlanModalComponent = (props: Props) => {
-  const [title, setTitle] = useState<string>(props.plan.title);
-  const defaultStartDate = formatToDate(props.plan.startTime);
+export const UpdateScheduledTodoModalComponent = (props: Props) => {
+  const [title, setTitle] = useState<string>(props.todo.title);
+  const defaultStartDate = formatToDate(props.todo.startTime);
   const [startTime, setStartTime] = useState<Date>(defaultStartDate);
-  const defaultEndDate = formatToDate(props.plan.endTime);
+  const defaultEndDate = formatToDate(props.todo.endTime);
   const [endTime, setEndTime] = useState<Date>(defaultEndDate);
   const defaultProcessTime = Math.floor(defaultEndDate.getTime() - defaultStartDate.getTime()) / (60 * 1000);
   const [hiddenProcessTime, setHiddenProcessTime] = useState<number>(defaultProcessTime);
-  const [context, setContext] = useState<string>(props.plan.context);
-  const [place, setPlace] = useState<string>(props.plan.place);
-  const [isRequiredPlan, setIsRequiredPlan] = useState<boolean>(props.plan.isRequiredPlan);
+  const [context, setContext] = useState<string>(props.todo.context);
+  const [place, setPlace] = useState<string>(props.todo.place);
 
   const [updatePlan] = useUpdatePlanMutation();
 
@@ -35,16 +33,17 @@ export const UpdatePlanModalComponent = (props: Props) => {
     // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
     const data: UpdateForm = {
-      id: Number(props.plan.id),
+      id: Number(props.todo.id),
       title: title,
-      date: formatToYYYY_MM_DD(new Date(props.plan.date)),
+      date: formatToYYYY_MM_DD(new Date(props.todo.date)),
       startTime: formatToTimeString4digits(startTime),
       endTime: formatToTimeString4digits(endTime),
+      processTime: hiddenProcessTime,
       context: context === null ? undefined : context,
       place: place === null ? undefined : place,
-      isRequiredPlan: isRequiredPlan,
       priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
-      planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
+      planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO,
+      parentPlanId: props.todo.parentPlanId ?? undefined,
     };
     try {
       await updatePlan(data)
@@ -85,7 +84,7 @@ export const UpdatePlanModalComponent = (props: Props) => {
   };
 
   return (
-    <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='予定'>
+    <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='時間を割り当てられたTODO'>
       <form className='mt-3' id='register-plan-detail-form' onSubmit={handleSubmit}>
         <div className='flex w-full'>
           <div className='w-1/2'>
@@ -162,15 +161,6 @@ export const UpdatePlanModalComponent = (props: Props) => {
                 placeholder='場所'
                 value={place}
                 setter={setPlace}
-              />
-            </div>
-            <div className='mx-auto mt-8 w-4/5'>
-              <CheckBoxComponent
-                id='required-plan'
-                name='required-plan'
-                title='この予定よりTODOを優先する'
-                value={!isRequiredPlan}
-                handleChange={() => setIsRequiredPlan(!isRequiredPlan)}
               />
             </div>
           </div>

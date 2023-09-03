@@ -70,7 +70,14 @@ export const RegisterTodoComponent = (props: Props) => {
           />
         </div>
         <div className='inset-x-0 mx-auto mt-4 w-4/5' onClick={focusOnInput}>
-          <SliderComponent min={15} max={120} title='所要時間' unit='分' values={processTime} setter={setProcessTime} />
+          <SliderComponent
+            min={CONSTANT.DEFAULT.TODO.PROCESS_TIME_MIN}
+            max={CONSTANT.DEFAULT.TODO.PROCESS_TIME_MAX}
+            title='所要時間'
+            unit='分'
+            values={processTime}
+            setter={setProcessTime}
+          />
         </div>
         <div className='mx-auto mt-4 w-4/5'>
           <ButtonComponent
