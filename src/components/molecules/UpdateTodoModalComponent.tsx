@@ -45,6 +45,10 @@ export const UpdateTodoModalComponent = (props: Props) => {
     }
   };
 
+  // NOTE: 最大値・最小値を計算しているのは、時間を割り当てられたTODOが更新されて所要時間が最大値以上になることがあるから
+  const processTimeMax = Math.max(CONSTANT.DEFAULT.TODO.PROCESS_TIME_MAX, props.todo.processTime);
+  const processTimeMin = Math.min(CONSTANT.DEFAULT.TODO.PROCESS_TIME_MIN, props.todo.processTime);
+
   return (
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='TODO'>
       <form className='mt-3' id='register-plan-detail-form' onSubmit={handleSubmit}>
@@ -63,8 +67,8 @@ export const UpdateTodoModalComponent = (props: Props) => {
             <div className='mx-auto mt-2 flex w-4/5 items-center'>
               <div className='mx-auto mt-8 w-4/5'>
                 <SliderComponent
-                  min={15}
-                  max={120}
+                  min={processTimeMin}
+                  max={processTimeMax}
                   title='所要時間'
                   unit='分'
                   values={processTime}

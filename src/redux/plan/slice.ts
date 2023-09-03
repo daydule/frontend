@@ -29,6 +29,7 @@ export type UpdateForm = {
   priority: number;
   planType: number;
   isRequiredPlan?: boolean;
+  parentPlanId?: number;
 };
 
 export type DeleteForm = {
