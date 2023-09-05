@@ -99,6 +99,9 @@ export const HeaderComponent = () => {
                 <MenuItem className='text-xl font-bold' onClick={handleRenderUsage}>
                   使い方
                 </MenuItem>
+                <MenuItem className='text-xl font-bold' onClick={handleClickFeedback}>
+                  フィードバック
+                </MenuItem>
                 <MenuItem className='text-xl font-bold' onClick={handleRenderSignup}>
                   本登録
                 </MenuItem>
