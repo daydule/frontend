@@ -96,9 +96,6 @@ export const HeaderComponent = () => {
             {/* 'ゲスト利用時のプルダウン' */}
             {readUserResult?.user?.isGuest && (
               <>
-                <MenuItem className='text-xl font-bold' onClick={handleRenderUsage}>
-                  使い方
-                </MenuItem>
                 <MenuItem className='text-xl font-bold' onClick={handleClickFeedback}>
                   フィードバック
                 </MenuItem>
@@ -113,9 +110,6 @@ export const HeaderComponent = () => {
             {/* 'ログイン利用時のプルダウン' */}
             {!readUserResult?.user?.isGuest && (
               <>
-                <MenuItem className='text-xl font-bold' onClick={handleRenderUsage}>
-                  使い方
-                </MenuItem>
                 <MenuItem className='text-xl font-bold' onClick={handleClickFeedback}>
                   フィードバック
                 </MenuItem>
