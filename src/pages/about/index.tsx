@@ -135,6 +135,7 @@ const AboutPage: NextPage = () => {
         <div className='mb-4 mt-24 text-3xl font-bold text-red-700'>注意</div>
         <ul className='list-disc pl-5'>
           <li className='text-xl'>本サービスはベータ版です。</li>
+          <li className='text-xl'>予告なく登録されたデータが削除する可能性がございます。</li>
           <li className='text-xl'>予告なくサービスを終了する可能性がございます。</li>
         </ul>
       </section>
