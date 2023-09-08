@@ -42,7 +42,10 @@ export const HeaderComponent = () => {
 
   return (
     <div className='fixed left-0 top-0 z-10 flex h-20 w-full items-center border-b bg-indigo-700 px-8 text-left text-3xl text-white shadow-xl'>
-      <div className='my-0 ml-0 mr-5 flex cursor-pointer duration-300' onClick={() => router.push('/main')}>
+      <div
+        className='my-0 ml-0 mr-5 flex cursor-pointer duration-300'
+        onClick={() => (isError ? router.push('/auth/login') : router.push('/main'))}
+      >
         <IconContext.Provider value={{ size: '1.5em', className: 'text-opacity-90' }}>
           <AiFillSchedule />
         </IconContext.Provider>
