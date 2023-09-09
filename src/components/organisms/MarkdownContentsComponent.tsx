@@ -10,7 +10,7 @@ type Props = {
 
 export const MarkdownContentsComponent = (props: Props) => {
   return (
-    <div className='prose prose-xl mx-auto my-12'>
+    <div className='prose prose-xl mx-auto my-12 pb-8'>
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={{ code: CodeBlockComponent }}>
         {props.markDownContents}
       </ReactMarkdown>
