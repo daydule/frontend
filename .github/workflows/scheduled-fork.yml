@@ -1,9 +1,15 @@
 name: Sync Fork
 
+# on:
+#   schedule:
+#     - cron: '*/5 * * * *'
+#   workflow_dispatch: # on button click
+
 on:
-  schedule:
-    - cron: '*/5 * * * *'
-  workflow_dispatch: # on button click
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
 
 jobs:
   sync:
