@@ -24,15 +24,15 @@ const AboutPage: NextPage = () => {
   };
 
   return (
-    <div className='mx-auto px-12 pb-36'>
-      <section className='mb-48'>
+    <div className='mx-auto pb-12'>
+      <section className='my-48'>
         <div className='flex items-center justify-center'>
           <IconContext.Provider value={{ size: '10em', className: 'text-opacity-90' }}>
             <AiFillSchedule />
           </IconContext.Provider>
-          <div className='my-56 font-mono text-9xl font-bold'>daydule</div>
+          <div className='font-mono text-9xl font-bold'>daydule</div>
         </div>
-        <div className='text-center text-4xl font-bold'>あなたの1日を「効率的」に、そして「計画的」に。</div>
+        <div className='mt-48 text-center text-4xl font-bold'>あなたの1日を「効率的」に、そして「計画的」に。</div>
         <div className='mx-72'>
           <img
             src='aboutPageContents/dayduleMainImage.png'
@@ -41,10 +41,10 @@ const AboutPage: NextPage = () => {
           />
         </div>
       </section>
-      <hr />
-      <section className='my-16'>
-        <div className='my-40 text-center text-6xl'>ご利用の流れ</div>
-        <div className='mx-52 mb-48 mt-24 grid grid-cols-2 gap-x-8 gap-y-56'>
+      <hr className='mx-auto w-4/5 border-gray-300' />
+      <section className='my-48'>
+        <div className='mt-40 text-center text-6xl'>ご利用の流れ</div>
+        <div className='mx-52 mt-24 grid grid-cols-2 gap-x-8 gap-y-56 px-12'>
           <div className='flex flex-col items-center justify-center'>
             <div>
               <div className='text-4xl font-semibold'>1. 予定を登録</div>
@@ -89,8 +89,8 @@ const AboutPage: NextPage = () => {
       </section>
       {isError && (
         <>
-          <hr />
-          <section className='my-36'>
+          <hr className='mx-auto w-4/5 border-gray-300' />
+          <section className='my-48'>
             <div className='mx-auto flex flex-col items-center'>
               <ButtonComponent
                 type='button'
@@ -101,13 +101,13 @@ const AboutPage: NextPage = () => {
               </ButtonComponent>
               <ButtonComponent
                 type='button'
-                extraClassName='w-fit p-4 text-4xl mt-8 mb-16 shadow-2xl'
+                extraClassName='w-fit p-4 text-4xl my-8 shadow-2xl'
                 handleClick={() => router.push('/auth/signup')}
               >
                 サインアップする
               </ButtonComponent>
             </div>
-            <div className='mx-auto flex items-center justify-center'>
+            <div className='mx-auto mt-8 flex items-center justify-center'>
               <div className='mr-4 text-xl'>既にアカウントをお持ちの場合は</div>
               <ButtonComponent
                 type='button'
@@ -120,19 +120,21 @@ const AboutPage: NextPage = () => {
           </section>
         </>
       )}
-      <hr />
+      <hr className='mx-auto w-4/5 border-gray-300' />
       <section className='mx-auto my-48 w-1/2'>
         <div className='mb-4 text-3xl font-bold'>dayduleへのフィードバック</div>
-        <div className='mb-6 text-xl'>「フィードバック」ボタンから皆様のご意見をお聞かせください。</div>
+        <div className='mb-6 text-xl'>「フィードバック」ボタンから皆様のご意見をお聞かせください！</div>
         <img src='aboutPageContents/sendFeedback.gif' alt='TODOを予定に変換のgif' className='rounded shadow-sm' />
         <div className='mb-4 mt-24 text-3xl font-bold'>今後のアップデート予定</div>
+        <div className='my-6 text-xl'>今後のアップデート予定は以下です。</div>
         <ul className='list-disc pl-5'>
           <li className='text-xl'>既存機能のブラッシュアップ</li>
           <li className='text-xl'>ユーザー情報のアップデート機能</li>
-          <li className='text-xl'>（ログインユーザー限定）繰り返しの予定登録機能</li>
+          <li className='text-xl'>TODOを予定にする際のロジックの切り替え機能</li>
+          <li className='text-xl'>（ログインユーザー限定）繰り返し予定機能</li>
         </ul>
-        <div className='my-6 text-2xl'>フィードバックをもとに、さらにパワーアップ予定！</div>
-        <div className='mb-4 mt-24 text-3xl font-bold text-red-700'>注意</div>
+        <div className='my-6 text-xl'>※いただいたフィードバックをもとに、さらにパワーアップする予定です！</div>
+        <div className='mb-4 mt-24 text-3xl font-bold text-red-700'>注意事項</div>
         <ul className='list-disc pl-5'>
           <li className='text-xl'>本サービスはベータ版です。</li>
           <li className='text-xl'>登録されたデータを予告なく削除する可能性がございます。</li>
