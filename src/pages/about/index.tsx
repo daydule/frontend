@@ -8,7 +8,7 @@ import { useGuestLoginMutation } from '@/redux/auth/slice';
 import { useReadUserQuery } from '@/redux/user/slice';
 
 const AboutPage: NextPage = () => {
-  const { data: readUserResult, isError } = useReadUserQuery();
+  const { data: _, isError } = useReadUserQuery();
   const [guestLogin] = useGuestLoginMutation();
   const router = useRouter();
 
