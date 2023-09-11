@@ -11,7 +11,7 @@ import '@szhsin/react-menu/dist/index.css';
 
 export const HeaderComponent = () => {
   const router = useRouter();
-  const { data: readUserResult, isError } = useReadUserQuery();
+  const { data: readUserResult, isError, isFetching } = useReadUserQuery();
   const [logout] = useLogoutMutation();
   const isAboutPage = router.pathname === '/about';
 
@@ -74,8 +74,8 @@ export const HeaderComponent = () => {
         </div>
       )}
       <div className='ml-auto mr-0 flex items-center'>
-        {!isError && <div className='mx-2 text-xl'>{getNickName()}</div>}
-        {!isError && (
+        {!isError && !isFetching && <div className='mx-2 text-xl'>{getNickName()}</div>}
+        {!isError && !isFetching && (
           <Menu
             menuButton={
               <MenuButton>
