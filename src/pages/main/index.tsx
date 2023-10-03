@@ -1,8 +1,7 @@
-import { RedirectWithAuthCheckComponent } from '@/components/molecules/RedirectWithAuthCheckComponent';
-import { RegisterPlanComponent } from '@/components/organisms/RegisterPlanComponent';
-import { RegisterTodoComponent } from '@/components/organisms/RegisterTodoComponent';
-import { ScheduleComponent } from '@/components/organisms/ScheduleComponent';
-import { TodoListComponent } from '@/components/organisms/TodoListComponent';
+import { RedirectWithAuthCheckComponent } from '@/components/common/tree/RedirectWithAuthCheckComponent';
+import { RegisterPlanComponent } from '@/components/pages/main/tree/RegisterPlanComponent';
+import { ScheduleComponent } from '@/components/pages/main/tree/ScheduleComponent';
+import { TodoListComponent } from '@/components/pages/main/tree/TodoListComponent';
 
 const MainPage = () => {
   return (

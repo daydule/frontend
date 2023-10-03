@@ -2,7 +2,7 @@ import { ReactNode, useCallback, useState } from 'react';
 
 import DeleteConfirmModalComponent, {
   DeleteConfirmModalComponentProps,
-} from '@/components/molecules/DeleteConfirmModalComponent';
+} from '@/components/pages/main/tree/DeleteConfirmModalComponent';
 
 type State = {
   title: string;

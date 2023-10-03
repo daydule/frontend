@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { ButtonComponent } from '@/components/atoms/ButtonComponent';
-import { LoadingComponent } from '@/components/atoms/LoadingComponent';
-import { LoginComponent } from '@/components/organisms/LoginComponent';
+import { LoadingComponent } from '@/components/common/leaf/LoadingComponent';
+import { ButtonComponent } from '@/components/common/tree/ButtonComponent';
+import { LoginComponent } from '@/components/pages/auth/login/forest/LoginComponent';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { useGuestLoginMutation } from '@/redux/auth/slice';
 import { useReadUserQuery } from '@/redux/user/slice';
