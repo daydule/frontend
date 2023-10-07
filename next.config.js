@@ -1,11 +1,18 @@
 module.exports = {
   async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/about',
-        permanent: false,
-      },
-    ];
+    return process.env.NEXT_PUBLIC_MAINTENANCE_MODE !== 'true'
+      ? [
+          {
+            source: '/',
+            destination: '/about',
+            permanent: false,
+          },
+          {
+            source: '/maintenance',
+            destination: '/about',
+            permanent: false,
+          },
+        ]
+      : [];
   },
 };
