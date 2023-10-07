@@ -11,7 +11,7 @@ import '@szhsin/react-menu/dist/index.css';
 
 export const HeaderComponent = () => {
   const router = useRouter();
-  const { data: readUserResult, isError } = useReadUserQuery();
+  const { data: readUserResult, isError, isFetching } = useReadUserQuery();
   const [logout] = useLogoutMutation();
   const isAboutPage = router.pathname === '/about';
 
@@ -48,7 +48,10 @@ export const HeaderComponent = () => {
 
   return (
     <div className='fixed left-0 top-0 z-10 flex h-20 w-full items-center border-b bg-indigo-700 px-8 text-left text-3xl text-white shadow-xl'>
-      <div className='my-0 ml-0 mr-5 flex cursor-pointer duration-300' onClick={() => router.push('/main')}>
+      <div
+        className='my-0 ml-0 mr-5 flex cursor-pointer duration-300'
+        onClick={() => (isError ? router.push('/auth/login') : router.push('/main'))}
+      >
         <IconContext.Provider value={{ size: '1.5em', className: 'text-opacity-90' }}>
           <AiFillSchedule />
         </IconContext.Provider>
@@ -71,8 +74,8 @@ export const HeaderComponent = () => {
         </div>
       )}
       <div className='ml-auto mr-0 flex items-center'>
-        {!isError && <div className='mx-2 text-xl'>{getNickName()}</div>}
-        {!isError && (
+        {!isError && !isFetching && <div className='mx-2 text-xl'>{getNickName()}</div>}
+        {!isError && !isFetching && (
           <Menu
             menuButton={
               <MenuButton>
@@ -96,8 +99,8 @@ export const HeaderComponent = () => {
             {/* 'ゲスト利用時のプルダウン' */}
             {readUserResult?.user?.isGuest && (
               <>
-                <MenuItem className='text-xl font-bold' onClick={handleRenderUsage}>
-                  使い方
+                <MenuItem className='text-xl font-bold' onClick={handleClickFeedback}>
+                  フィードバック
                 </MenuItem>
                 <MenuItem className='text-xl font-bold' onClick={handleRenderSignup}>
                   本登録
@@ -110,9 +113,6 @@ export const HeaderComponent = () => {
             {/* 'ログイン利用時のプルダウン' */}
             {!readUserResult?.user?.isGuest && (
               <>
-                <MenuItem className='text-xl font-bold' onClick={handleRenderUsage}>
-                  使い方
-                </MenuItem>
                 <MenuItem className='text-xl font-bold' onClick={handleClickFeedback}>
                   フィードバック
                 </MenuItem>

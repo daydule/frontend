@@ -8,6 +8,7 @@ export const dayduleApi = createApi({
     },
     credentials: 'include',
   }),
+  refetchOnFocus: true,
   tagTypes: ['Auth', 'Schedule'],
   endpoints: (builder) => ({}),
 });
