@@ -1,7 +1,7 @@
 import { RedirectWithAuthCheckComponent } from '@/components/common/tree/RedirectWithAuthCheckComponent';
-import { RegisterPlanComponent } from '@/components/pages/main/tree/RegisterPlanComponent';
-import { ScheduleComponent } from '@/components/pages/main/tree/ScheduleComponent';
-import { TodoListComponent } from '@/components/pages/main/tree/TodoListComponent';
+import { RegisterPlanComponent } from '@/components/features/main/tree/RegisterPlanComponent';
+import { ScheduleComponent } from '@/components/features/main/tree/ScheduleComponent';
+import { TodoListComponent } from '@/components/features/main/tree/TodoListComponent';
 
 const MainPage = () => {
   return (

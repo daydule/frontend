@@ -1,7 +1,7 @@
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import { NicknameSettingComponent } from '@/components/pages/individualSettings/tree/NicknameSettingComponent';
-import { PasswordSettingComponent } from '@/components/pages/individualSettings/tree/PasswordSettingComponent';
+import { NicknameSettingComponent } from '@/components/features/individualSettings/tree/NicknameSettingComponent';
+import { PasswordSettingComponent } from '@/components/features/individualSettings/tree/PasswordSettingComponent';
 
 export const IndividualSettingComponent = () => {
   return (

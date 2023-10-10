@@ -7,7 +7,7 @@ import { ButtonComponent } from '../../../common/tree/ButtonComponent';
 import { InfoIconComponent } from '../../../common/tree/InfoIconComponent';
 import { CreateScheduleButtonComponent } from './CreateScheduleButtonComponent';
 import { RegisterTodoComponent } from './RegisterTodoComponent';
-import { TodoCardComponent } from '@/components/pages/main/tree/TodoCardComponent';
+import { TodoCardComponent } from '@/components/features/main/tree/TodoCardComponent';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { useUpdateTodoPriorityMutation } from '@/redux/plan/slice';
 import { useReadScheduleQuery } from '@/redux/schedule/slice';

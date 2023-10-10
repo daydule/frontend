@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { UpdateTodoModalComponent } from './UpdateTodoModalComponent';
-import { DeletePlanButtonComponent } from '@/components/pages/main/tree/DeletePlanButtonComponent';
+import { DeletePlanButtonComponent } from '@/components/features/main/tree/DeletePlanButtonComponent';
 import { Plan } from '@/redux/types';
 
 type Props = {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { DeletePlanButtonComponent } from '@/components/pages/main/tree/DeletePlanButtonComponent';
-import { UpdatePlanModalComponent } from '@/components/pages/main/tree/UpdatePlanModalComponent';
-import { UpdateScheduledTodoModalComponent } from '@/components/pages/main/tree/UpdateScheduledTodoModalComponent';
+import { DeletePlanButtonComponent } from '@/components/features/main/tree/DeletePlanButtonComponent';
+import { UpdatePlanModalComponent } from '@/components/features/main/tree/UpdatePlanModalComponent';
+import { UpdateScheduledTodoModalComponent } from '@/components/features/main/tree/UpdateScheduledTodoModalComponent';
 import { CONSTANT } from '@/constant/default';
 import { formatToTime, timeString4digitsDiffMin } from '@/helpers/dateHelper';
 import { Plan } from '@/redux/types';

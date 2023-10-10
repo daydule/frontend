@@ -2,7 +2,7 @@ import { FormEvent, useState, useRef, useEffect } from 'react';
 import { SimpleInputComponent } from '@/components/common/leaf/SimpleInputComponent';
 import SliderComponent from '@/components/common/leaf/SliderComponent';
 import { ButtonComponent } from '@/components/common/tree/ButtonComponent';
-import { RegisterTodoModalComponent } from '@/components/pages/main/tree/RegisterTodoModalComponent';
+import { RegisterTodoModalComponent } from '@/components/features/main/tree/RegisterTodoModalComponent';
 import { CONSTANT } from '@/constant/default';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
