@@ -5,7 +5,7 @@ import Head from 'next/head';
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReduxToastr from 'react-redux-toastr';
-import LayoutComponent from '@/components/templates/LayoutComponent';
+import LayoutComponent from '@/components/common/forest/LayoutComponent';
 import { store } from '@/redux/store';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 

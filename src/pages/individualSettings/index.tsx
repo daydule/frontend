@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
-import { RedirectWithAuthCheckComponent } from '@/components/molecules/RedirectWithAuthCheckComponent';
-import { IndividualSettingComponent } from '@/components/organisms/IndividualSettingComponent';
+import { RedirectWithAuthCheckComponent } from '@/components/common/tree/RedirectWithAuthCheckComponent';
+import { IndividualSettingComponent } from '@/components/features/individualSettings/forest/IndividualSettingsComponent';
 
 const IndividualSettingsPage: NextPage = () => {
   return (
