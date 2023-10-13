@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { LoadingComponent } from '@/components/atoms/LoadingComponent';
-import { SignupComponent } from '@/components/organisms/SignupComponent';
+import { LoadingComponent } from '@/components/common/leaf/LoadingComponent';
+import { SignupComponent } from '@/components/features/signup/forest/SignupComponent';
 // import { RedirectToMainIfSignupComponent } from '@/components/utils/RedirectToMainIfSignupComponent';
 import { useReadUserQuery } from '@/redux/user/slice';
 

@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { IconContext } from 'react-icons';
 import { AiFillSchedule } from 'react-icons/ai';
-import { ButtonComponent } from '@/components/atoms/ButtonComponent';
+import { ButtonComponent } from '@/components/common/tree/ButtonComponent';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { useGuestLoginMutation } from '@/redux/auth/slice';
 import { useReadUserQuery } from '@/redux/user/slice';
