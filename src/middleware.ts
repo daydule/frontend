@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export const config = {
+  // NOTE: _nextも除外しているのは、内部処理が動かなくなってしまうため
   matcher: '/((?!maintenance|_next).*)',
 };
 
