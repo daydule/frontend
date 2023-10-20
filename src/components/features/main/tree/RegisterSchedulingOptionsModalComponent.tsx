@@ -2,7 +2,7 @@ import { FormEvent, useState } from 'react';
 import { TimePickerComponent } from '../../../common/leaf/TimePickerComponent';
 import { ButtonComponent } from '../../../common/tree/ButtonComponent';
 import { ModalComponent } from '@/components/common/tree/ModalComponent';
-import { formatToDate, formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { formatToDate, formatDateToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import {
   scheduleRecordUpdateForm,
@@ -31,8 +31,8 @@ export const RegisterSchedulingOptionsModalComponent = (props: Props) => {
     event.preventDefault();
     const data: scheduleRecordUpdateForm = {
       date: dateString,
-      startTime: formatToTimeString4digits(startTime),
-      endTime: formatToTimeString4digits(endTime),
+      startTime: formatDateToTimeString4digits(startTime),
+      endTime: formatDateToTimeString4digits(endTime),
     };
     try {
       await updateScheduleRecord(data)

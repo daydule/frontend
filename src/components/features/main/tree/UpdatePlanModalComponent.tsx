@@ -6,7 +6,7 @@ import { TimePickerComponent } from '../../../common/leaf/TimePickerComponent';
 import { ButtonComponent } from '../../../common/tree/ButtonComponent';
 import { ModalComponent } from '@/components/common/tree/ModalComponent';
 import { CONSTANT } from '@/constant/default';
-import { formatToDate, formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { formatToDate, formatDateToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
 import { Plan } from '@/redux/types';
@@ -38,8 +38,8 @@ export const UpdatePlanModalComponent = (props: Props) => {
       id: Number(props.plan.id),
       title: title,
       date: formatToYYYY_MM_DD(new Date(props.plan.date)),
-      startTime: formatToTimeString4digits(startTime),
-      endTime: formatToTimeString4digits(endTime),
+      startTime: formatDateToTimeString4digits(startTime),
+      endTime: formatDateToTimeString4digits(endTime),
       context: context === null ? undefined : context,
       place: place === null ? undefined : place,
       isRequiredPlan: isRequiredPlan,

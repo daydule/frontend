@@ -5,7 +5,7 @@ import { TimePickerComponent } from '../../../common/leaf/TimePickerComponent';
 import { ButtonComponent } from '../../../common/tree/ButtonComponent';
 import { ModalComponent } from '@/components/common/tree/ModalComponent';
 import { CONSTANT } from '@/constant/default';
-import { formatToDate, formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { formatDateToTimeString4digits, formatToDate, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
 import { Plan } from '@/redux/types';
@@ -36,8 +36,8 @@ export const UpdateScheduledTodoModalComponent = (props: Props) => {
       id: Number(props.todo.id),
       title: title,
       date: formatToYYYY_MM_DD(new Date(props.todo.date)),
-      startTime: formatToTimeString4digits(startTime),
-      endTime: formatToTimeString4digits(endTime),
+      startTime: formatDateToTimeString4digits(startTime),
+      endTime: formatDateToTimeString4digits(endTime),
       processTime: hiddenProcessTime,
       context: context === null ? undefined : context,
       place: place === null ? undefined : place,

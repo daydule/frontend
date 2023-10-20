@@ -1,67 +1,75 @@
-import React, { useState } from 'react';
+import React, { CSSProperties, memo, useEffect, useState } from 'react';
+import { useDrag } from 'react-dnd';
+import { twMerge } from 'tailwind-merge';
+import { ItemTypes } from './ScheduleComponent';
 import { DeletePlanButtonComponent } from '@/components/features/main/tree/DeletePlanButtonComponent';
 import { UpdatePlanModalComponent } from '@/components/features/main/tree/UpdatePlanModalComponent';
 import { UpdateScheduledTodoModalComponent } from '@/components/features/main/tree/UpdateScheduledTodoModalComponent';
 import { CONSTANT } from '@/constant/default';
-import { formatToTime, timeString4digitsDiffMin } from '@/helpers/dateHelper';
+import { formatToDisplayString } from '@/helpers/dateHelper';
 import { Plan } from '@/redux/types';
 
 type Props = {
   plan: Plan;
-  start: number;
-  oneMinuteHeightPercent: number;
+  style: CSSProperties;
 };
 
-export const PlanCardComponent = (props: Props) => {
-  const startHour = parseInt(props.plan.startTime.slice(0, 2), 10) - props.start;
-  const startMinute = parseInt(props.plan.startTime.slice(-2), 10);
-  const top = Math.round((startHour * 60 + startMinute) * props.oneMinuteHeightPercent * 100) / 100;
-  const processTime = timeString4digitsDiffMin(props.plan.startTime, props.plan.endTime);
-  const height = processTime * props.oneMinuteHeightPercent;
+const getStyle = (style: CSSProperties, isDragging: boolean) => {
+  return {
+    ...style,
+    opacity: isDragging ? 0.3 : 1,
+    zIndex: isDragging ? 100 : 0,
+    cursor: isDragging ? 'grabbing' : 'grab',
+  };
+};
 
+export const PlanCardComponent = memo(function PlanCardComponent(props: Props) {
   const [showsModal, setShowsModal] = useState<boolean>(false);
 
-  const handleClick = () => {
-    setShowsModal(true);
-  };
-
-  const handleClose = () => {
-    setShowsModal(false);
-  };
-
-  if (top > 100 || height <= 0) return <></>;
-  const style = {
-    top: 'calc(' + top + '% + 1rem)',
-    height: height + '%',
-  };
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: ItemTypes.PLAN_CARD,
+      item: { plan: props.plan },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    }),
+    [props.plan],
+  );
 
   const isTodoBefore = props.plan.planType === CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO;
   const subMessage = isTodoBefore && props.plan.parentPlanId != null ? '※ 分割された他のTODOも削除されます。' : '';
-  const bgColor = isTodoBefore ? 'bg-indigo-300 bg-opacity-80' : 'bg-blue-400 hover:bg-blue-500';
+  const bgColor = isTodoBefore ? 'bg-indigo-300 bg-opacity-80 hover:bg-opacity-100' : 'bg-blue-400 hover:bg-blue-500';
+  const className = twMerge(
+    'flex absolute left-[5%] w-4/5 rounded-lg px-4 border items-center text-md duration-300',
+    bgColor,
+  );
 
   return (
     <div
-      className={
-        'flex absolute left-[5%] w-4/5 rounded-lg px-4 border items-center text-md cursor-pointer duration-500' +
-        ' ' +
-        bgColor
-      }
-      style={style}
-      onClick={handleClick}
+      className={className}
+      style={getStyle(props.style, isDragging)}
+      ref={drag}
+      role='PlanCardComponent'
+      onClick={() => setShowsModal(true)}
     >
       <div className='flex w-3/4'>
         <div className='w-1/3 truncate'>{props.plan.title}</div>
-        {formatToTime(props.plan.startTime)} 〜 {formatToTime(props.plan.endTime)}
+        {formatToDisplayString(props.plan.startTime)} 〜 {formatToDisplayString(props.plan.endTime)}
       </div>
       <div className='w-1/4'>
-        <DeletePlanButtonComponent size={processTime < 30 ? 1 : 1.5} planId={props.plan.id} subMessage={subMessage} />
+        <DeletePlanButtonComponent size={1.5} planId={props.plan.id} subMessage={subMessage} />
       </div>
       {showsModal && !isTodoBefore && (
-        <UpdatePlanModalComponent showsModal={showsModal} handleClose={handleClose} plan={props.plan} />
+        <UpdatePlanModalComponent showsModal={showsModal} handleClose={() => setShowsModal(false)} plan={props.plan} />
       )}
       {showsModal && isTodoBefore && (
-        <UpdateScheduledTodoModalComponent showsModal={showsModal} handleClose={handleClose} todo={props.plan} />
+        <UpdateScheduledTodoModalComponent
+          showsModal={showsModal}
+          handleClose={() => setShowsModal(false)}
+          todo={props.plan}
+        />
       )}
     </div>
   );
-};
+});

@@ -5,7 +5,7 @@ import { TimePickerComponent } from '../../../common/leaf/TimePickerComponent';
 import { RegisterPlanModalComponent } from './RegisterPlanModalComponent';
 import { ButtonComponent } from '@/components/common/tree/ButtonComponent';
 import { CONSTANT } from '@/constant/default';
-import { formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { formatDateToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { CreateForm, useCreatePlanMutation } from '@/redux/plan/slice';
 
@@ -35,8 +35,8 @@ export const RegisterPlanComponent = () => {
     const data: CreateForm = {
       title: title,
       date: formatToYYYY_MM_DD(new Date()),
-      startTime: formatToTimeString4digits(startTime),
-      endTime: formatToTimeString4digits(endTime),
+      startTime: formatDateToTimeString4digits(startTime),
+      endTime: formatDateToTimeString4digits(endTime),
       isRequiredPlan: CONSTANT.DEFAULT.PLAN.IS_REQUIRED_PLAN,
       priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
       planType: CONSTANT.DEFAULT.PLAN.PLAN_TYPE.PLAN,
