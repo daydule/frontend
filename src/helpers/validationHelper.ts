@@ -29,7 +29,7 @@ const createSchema = (schemaData: SchemaData): void => {
 
       break;
     case 'password':
-      const passwordSchema = z.string().min(1);
+      const passwordSchema = z.string().min(8);
 
       validationSuccess = passwordSchema.safeParse(schemaData.data.password).success;
       if (!validationSuccess) schemaData.result.password = MESSAGE.PASSWORD;
