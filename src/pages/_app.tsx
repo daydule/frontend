@@ -8,6 +8,7 @@ import ReduxToastr from 'react-redux-toastr';
 import LayoutComponent from '@/components/common/forest/LayoutComponent';
 import { store } from '@/redux/store';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
+import GoogleAnalytics from '@/components/common/leaf/GoogleAnalytics';
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -22,7 +23,9 @@ function App({ Component, pageProps }: AppProps) {
         <meta name='msapplication-TileColor' content='#da532c' />
         <meta name='theme-color' content='#ffffff'></meta>
       </Head>
+
       <LayoutComponent>
+        <GoogleAnalytics />
         <Component {...pageProps} />
         <ReduxToastr
           timeOut={10000}
