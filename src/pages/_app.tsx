@@ -6,9 +6,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ReduxToastr from 'react-redux-toastr';
 import LayoutComponent from '@/components/common/forest/LayoutComponent';
+import GoogleAnalytics from '@/components/common/leaf/GoogleAnalytics';
 import { store } from '@/redux/store';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
-import GoogleAnalytics from '@/components/common/leaf/GoogleAnalytics';
 
 function App({ Component, pageProps }: AppProps) {
   return (
