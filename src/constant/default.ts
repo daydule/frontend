@@ -27,4 +27,5 @@ export const CONSTANT = {
     },
   },
   GUEST_NAME: 'ゲスト',
+  MINUTES_IN_DAY: 1440,
 };
