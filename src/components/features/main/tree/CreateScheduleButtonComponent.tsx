@@ -17,7 +17,7 @@ export const CreateScheduleButtonComponent = () => {
     try {
       await createSchedule({ date: dateString, currentTime: currentTime }).unwrap().catch(errorHandler);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
   const [showsModal, setShowsModal] = useState<boolean>(false);
