@@ -8,7 +8,10 @@
     "start": "next start -p 3001",
     "lint": "next lint --dir src",
     "lint:fix": "yarn lint --fix",
-    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'"
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -36,7 +39,16 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^7.4.6",
+    "@storybook/addon-interactions": "^7.4.6",
+    "@storybook/addon-links": "^7.4.6",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.4.6",
+    "@storybook/nextjs": "^7.4.6",
+    "@storybook/react": "^7.4.6",
+    "@storybook/testing-library": "^0.2.2",
     "@tailwindcss/typography": "^0.5.9",
+    "@types/gtag.js": "^0.0.17",
     "@types/node": "18.11.16",
     "@types/react": "18.0.26",
     "@types/react-beautiful-dnd": "^13.1.4",
@@ -44,12 +56,15 @@
     "@types/react-dom": "18.0.9",
     "@types/react-syntax-highlighter": "^15.5.7",
     "autoprefixer": "^10.4.13",
+    "chromatic": "^7.4.0",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-storybook": "^0.6.15",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "postcss": "^8.4.20",
     "prettier": "^2.8.1",
+    "storybook": "^7.4.6",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "^3.2.4",
     "typescript": "4.9.4"
