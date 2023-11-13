@@ -1,4 +1,4 @@
-import React, { CSSProperties, memo, useEffect, useState } from 'react';
+import React, { CSSProperties, memo, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import { twMerge } from 'tailwind-merge';
 import { ItemTypes } from './ScheduleComponent';
@@ -24,6 +24,7 @@ const getStyle = (style: CSSProperties, isDragging: boolean) => {
 };
 
 export const PlanCardComponent = memo(function PlanCardComponent(props: Props) {
+  console.log('PlanCardComponent', props.plan.title);
   const [showsModal, setShowsModal] = useState<boolean>(false);
 
   const [{ isDragging }, drag] = useDrag(
@@ -40,10 +41,7 @@ export const PlanCardComponent = memo(function PlanCardComponent(props: Props) {
   const isTodoBefore = props.plan.planType === CONSTANT.DEFAULT.PLAN.PLAN_TYPE.TODO;
   const subMessage = isTodoBefore && props.plan.parentPlanId != null ? '※ 分割された他のTODOも削除されます。' : '';
   const bgColor = isTodoBefore ? 'bg-indigo-300 bg-opacity-80 hover:bg-opacity-100' : 'bg-blue-400 hover:bg-blue-500';
-  const className = twMerge(
-    'flex absolute left-[5%] w-4/5 rounded-lg px-4 border items-center text-md duration-300',
-    bgColor,
-  );
+  const className = twMerge('flex absolute left-[5%] w-4/5 rounded-lg px-4 border items-center text-md', bgColor);
 
   return (
     <div

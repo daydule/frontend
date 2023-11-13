@@ -6,6 +6,13 @@ import {
 import { CONSTANT } from '@/constant/default';
 import { Plan } from '@/redux/types';
 
+export const getNowPosition = (oneMinuteHeight: number) => {
+  const now = new Date();
+  now.setHours(8);
+  now.setMinutes(0);
+  return (now.getHours() * 60 + now.getMinutes()) * oneMinuteHeight;
+};
+
 export const getHeight = (startTime: string, endTime: string, oneMinuteHeight: number) => {
   return getTimeString4digitsDiffMin(startTime, endTime) * oneMinuteHeight;
 };
