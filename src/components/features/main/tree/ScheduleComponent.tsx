@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
+import { AvailableTimeRangeComponent } from '../leaf/AvailableTimeRangeComponent';
 import { CurrentTimeBarComponent } from '../leaf/CurrentTimeBarComponent';
 import { BackToListButtonComponent } from './BackToListButtonComponent';
 import { PlanCardComponent } from './PlanCardComponent';
@@ -153,6 +154,16 @@ export const ScheduleComponent = () => {
           })}
         </div>
         <div className='relative mt-4 h-full w-11/12 min-w-[25rem]'>
+          {scheduleReadResult && (
+            <AvailableTimeRangeComponent
+              top={getPosition(scheduleReadResult.schedule.startTime, oneMinuteHeight)}
+              height={getHeight(
+                scheduleReadResult.schedule.startTime,
+                scheduleReadResult.schedule.endTime,
+                oneMinuteHeight,
+              )}
+            />
+          )}
           {[...Array(SCHEDULE_RANGE_HOUR)].map((_, hour) => (
             <div
               key={'timeAxisBorder' + hour}
