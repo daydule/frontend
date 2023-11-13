@@ -24,7 +24,6 @@ const getStyle = (style: CSSProperties, isDragging: boolean) => {
 };
 
 export const PlanCardComponent = memo(function PlanCardComponent(props: Props) {
-  console.log('PlanCardComponent', props.plan.title);
   const [showsModal, setShowsModal] = useState<boolean>(false);
 
   const [{ isDragging }, drag] = useDrag(
