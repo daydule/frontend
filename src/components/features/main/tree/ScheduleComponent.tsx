@@ -107,7 +107,7 @@ export const ScheduleComponent = () => {
 
   const scrollToPosition = (position: number) => {
     if (scheduleTableRef.current) {
-      scheduleTableRef.current.scrollTo({ top: position, behavior: 'instant' });
+      scheduleTableRef.current.scrollTo({ top: position, behavior: 'auto' });
     }
   };
 
