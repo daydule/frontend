@@ -6,7 +6,7 @@ import { TimeLabelComponent } from '../leaf/TimeLabelComponent';
 import { BackToListButtonComponent } from './BackToListButtonComponent';
 import { DraggablePlanCardComponent } from './DraggablePlanCardComponent';
 import { CONSTANT } from '@/constant/default';
-import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { convertToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { getNewTimeAfterDropped, getNowTop, getTopAndHeight } from '@/helpers/scheduleHelper';
 import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
@@ -24,7 +24,7 @@ export const ScheduleComponent = () => {
   const [oneMinuteHeight, setOneMinuteHeight] = useState(DEFAULT_ONE_MINUTE_HEIGHT);
   const scheduleTableRef = useRef<HTMLDivElement | null>(null);
   const now = new Date();
-  const dateString = formatToYYYY_MM_DD(now);
+  const dateString = convertToYYYY_MM_DD(now);
   const { data: scheduleReadResult } = useReadScheduleQuery({ date: dateString });
   const [updatePlan] = useUpdatePlanMutation();
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -73,7 +73,7 @@ export const ScheduleComponent = () => {
         const data: UpdateForm = {
           id: Number(plan.id),
           title: plan.title,
-          date: formatToYYYY_MM_DD(new Date(plan.date)),
+          date: convertToYYYY_MM_DD(new Date(plan.date)),
           startTime: newStartTime,
           endTime: newEndTime,
           processTime: plan.processTime === null ? undefined : plan.processTime,

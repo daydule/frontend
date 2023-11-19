@@ -3,7 +3,7 @@ import { IoMdOptions } from 'react-icons/io';
 import { MdMoreTime } from 'react-icons/md';
 import { TooltipComponent } from '../../../common/tree/ToolTipComponent';
 import { RegisterSchedulingOptionsModalComponent } from './RegisterSchedulingOptionsModalComponent';
-import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { convertToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { useCreateScheduleMutation } from '@/redux/schedule/slice';
 
@@ -12,7 +12,7 @@ export const CreateScheduleButtonComponent = () => {
 
   const handleClickCreateSchedule = async () => {
     const now = new Date();
-    const dateString = formatToYYYY_MM_DD(now);
+    const dateString = convertToYYYY_MM_DD(now);
     const currentTime = ('00' + now.getHours()).slice(-2) + ('00' + now.getMinutes()).slice(-2);
     try {
       await createSchedule({ date: dateString, currentTime: currentTime }).unwrap().catch(errorHandler);

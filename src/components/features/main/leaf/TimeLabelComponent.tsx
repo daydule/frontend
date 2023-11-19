@@ -1,4 +1,4 @@
-import { formatHourMinuteToTimeString4digits, formatToDisplayString } from '@/helpers/dateHelper';
+import { convertHourMinuteToTimeString4digits, convertToColonSeparatedTime } from '@/helpers/dateHelper';
 
 type Props = {
   hour: number;
@@ -6,8 +6,8 @@ type Props = {
 };
 
 export const TimeLabelComponent = ({ hour, minute }: Props) => {
-  const timeString4digits = formatHourMinuteToTimeString4digits(hour, minute);
-  const displayString = formatToDisplayString(timeString4digits);
+  const timeString4digits = convertHourMinuteToTimeString4digits(hour, minute);
+  const displayString = convertToColonSeparatedTime(timeString4digits);
 
   return <div>{displayString}</div>;
 };

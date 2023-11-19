@@ -6,7 +6,7 @@ import { TimePickerComponent } from '../../../common/leaf/TimePickerComponent';
 import { ButtonComponent } from '../../../common/tree/ButtonComponent';
 import { ModalComponent } from '@/components/common/tree/ModalComponent';
 import { CONSTANT } from '@/constant/default';
-import { formatToDate, formatDateToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { convertToDate, convertDateToTimeString4digits, convertToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
 import { Plan } from '@/redux/types';
@@ -19,9 +19,9 @@ type Props = {
 
 export const UpdatePlanModalComponent = (props: Props) => {
   const [title, setTitle] = useState<string>(props.plan.title);
-  const defaultStartDate = formatToDate(props.plan.startTime);
+  const defaultStartDate = convertToDate(props.plan.startTime);
   const [startTime, setStartTime] = useState<Date>(defaultStartDate);
-  const defaultEndDate = formatToDate(props.plan.endTime);
+  const defaultEndDate = convertToDate(props.plan.endTime);
   const [endTime, setEndTime] = useState<Date>(defaultEndDate);
   const defaultProcessTime = Math.floor(defaultEndDate.getTime() - defaultStartDate.getTime()) / (60 * 1000);
   const [hiddenProcessTime, setHiddenProcessTime] = useState<number>(defaultProcessTime);
@@ -37,9 +37,9 @@ export const UpdatePlanModalComponent = (props: Props) => {
     const data: UpdateForm = {
       id: Number(props.plan.id),
       title: title,
-      date: formatToYYYY_MM_DD(new Date(props.plan.date)),
-      startTime: formatDateToTimeString4digits(startTime),
-      endTime: formatDateToTimeString4digits(endTime),
+      date: convertToYYYY_MM_DD(new Date(props.plan.date)),
+      startTime: convertDateToTimeString4digits(startTime),
+      endTime: convertDateToTimeString4digits(endTime),
       context: context === null ? undefined : context,
       place: place === null ? undefined : place,
       isRequiredPlan: isRequiredPlan,

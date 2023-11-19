@@ -2,7 +2,7 @@ import { FormEvent, useState } from 'react';
 import { TimePickerComponent } from '../../../common/leaf/TimePickerComponent';
 import { ButtonComponent } from '../../../common/tree/ButtonComponent';
 import { ModalComponent } from '@/components/common/tree/ModalComponent';
-import { formatToDate, formatDateToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { convertToDate, convertDateToTimeString4digits, convertToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import {
   scheduleRecordUpdateForm,
@@ -17,22 +17,22 @@ type Props = {
 
 export const RegisterSchedulingOptionsModalComponent = (props: Props) => {
   const now = new Date();
-  const dateString = formatToYYYY_MM_DD(now);
+  const dateString = convertToYYYY_MM_DD(now);
   const { data: scheduleReadResult } = useReadScheduleQuery({ date: dateString });
   const [updateScheduleRecord] = useUpdateScheduleRecordMutation();
 
   if (!scheduleReadResult) return <></>;
 
-  const [startTime, setStartTime] = useState<Date>(formatToDate(scheduleReadResult.schedule.startTime));
-  const [endTime, setEndTime] = useState<Date>(formatToDate(scheduleReadResult.schedule.endTime));
+  const [startTime, setStartTime] = useState<Date>(convertToDate(scheduleReadResult.schedule.startTime));
+  const [endTime, setEndTime] = useState<Date>(convertToDate(scheduleReadResult.schedule.endTime));
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // これを入れているのは、リロードが走らないようにするため
     event.preventDefault();
     const data: scheduleRecordUpdateForm = {
       date: dateString,
-      startTime: formatDateToTimeString4digits(startTime),
-      endTime: formatDateToTimeString4digits(endTime),
+      startTime: convertDateToTimeString4digits(startTime),
+      endTime: convertDateToTimeString4digits(endTime),
     };
     try {
       await updateScheduleRecord(data)

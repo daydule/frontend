@@ -4,7 +4,7 @@ import { DeletePlanButtonComponent } from '@/components/features/main/tree/Delet
 import { UpdatePlanModalComponent } from '@/components/features/main/tree/UpdatePlanModalComponent';
 import { UpdateScheduledTodoModalComponent } from '@/components/features/main/tree/UpdateScheduledTodoModalComponent';
 import { CONSTANT } from '@/constant/default';
-import { formatToDisplayString } from '@/helpers/dateHelper';
+import { convertToColonSeparatedTime } from '@/helpers/dateHelper';
 import { Plan } from '@/redux/types';
 
 type Props = {
@@ -24,7 +24,7 @@ export const PlanCardComponent = memo(function PlanCardComponent(props: Props) {
     <div className={className} role='PlanCardComponent' onClick={() => setShowsModal(true)}>
       <div className='flex w-3/4'>
         <div className='w-1/3 truncate'>{props.plan.title}</div>
-        {formatToDisplayString(props.plan.startTime)} 〜 {formatToDisplayString(props.plan.endTime)}
+        {convertToColonSeparatedTime(props.plan.startTime)} 〜 {convertToColonSeparatedTime(props.plan.endTime)}
       </div>
       <div className='w-1/4'>
         <DeletePlanButtonComponent size={1.5} planId={props.plan.id} subMessage={subMessage} />
