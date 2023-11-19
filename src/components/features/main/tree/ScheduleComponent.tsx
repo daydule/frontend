@@ -139,7 +139,9 @@ export const ScheduleComponent = () => {
         </div>
       )}
       <div ref={setRefs} className='relative mt-12 flex h-[calc(100%_-_3rem)] w-full min-w-fit overflow-y-scroll'>
-        <CurrentTimeBarComponent oneMinuteHeight={oneMinuteHeight} />
+        <div className='absolute left-[8%] z-10 mt-4 w-11/12' style={{ top: getNowPosition(oneMinuteHeight) }}>
+          <CurrentTimeBarComponent />
+        </div>
         <div className='relative flex h-full w-1/12 min-w-[5rem] justify-center'>
           {[...Array(SCHEDULE_RANGE_HOUR)].map((_, hour) => {
             return (
