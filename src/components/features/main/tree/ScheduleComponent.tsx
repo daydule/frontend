@@ -1,13 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { AvailableTimeRangeComponent } from '../leaf/AvailableTimeRangeComponent';
 import { CurrentTimeBarComponent } from '../leaf/CurrentTimeBarComponent';
+import { TimeLabelComponent } from '../leaf/TimeLabelComponent';
 import { BackToListButtonComponent } from './BackToListButtonComponent';
 import { DraggablePlanCardComponent } from './DraggablePlanCardComponent';
 import { CONSTANT } from '@/constant/default';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
-import { getHeight, getNewTimeAfterDropped, getNowPosition, getPosition } from '@/helpers/scheduleHelper';
+import { getNewTimeAfterDropped, getNowTop, getTopAndHeight } from '@/helpers/scheduleHelper';
 import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
 import { useReadScheduleQuery } from '@/redux/schedule/slice';
 import { Plan } from '@/redux/types';
@@ -31,7 +32,7 @@ export const ScheduleComponent = () => {
   useEffect(() => {
     // NOTE: 初回描画時に現在時刻をスケジュール表の上から1/3ほどの位置にするために、スクロールする
     const scrollRefHeight = scheduleTableRef.current?.clientHeight ?? DEFAULT_ONE_MINUTE_HEIGHT * 60;
-    setScrollPosition(getNowPosition(DEFAULT_ONE_MINUTE_HEIGHT) - scrollRefHeight / 3);
+    setScrollPosition(getNowTop(DEFAULT_ONE_MINUTE_HEIGHT) - scrollRefHeight / 3);
 
     const node = scheduleTableRef.current;
     node?.addEventListener('wheel', handleZoom);
@@ -124,26 +125,46 @@ export const ScheduleComponent = () => {
     scrollToPosition(scrollPosition);
   }, [scrollPosition]);
 
-  const calcTopOfTimeAxis = useCallback(
-    (hour: number) => {
-      return hour * oneMinuteHeight * 60;
-    },
-    [oneMinuteHeight],
-  );
+  const renderTimeAxis = () => {
+    const calcTopOfTimeAxis = (hour: number) => hour * 60 * oneMinuteHeight;
+    return (
+      <>
+        {[...Array(SCHEDULE_RANGE_HOUR)].map((_, hour) => {
+          const style = { top: calcTopOfTimeAxis(hour) };
+          return (
+            <Fragment key={'timeAxis' + hour}>
+              <div className='absolute left-4 z-10 mt-[-1rem] text-2xl' style={style}>
+                <TimeLabelComponent hour={hour} minute={0} />
+              </div>
+              <div className='absolute left-28 w-5/6 border-t border-gray-300' style={style}></div>
+            </Fragment>
+          );
+        })}
+      </>
+    );
+  };
 
-  const renderPlanCards = useCallback(() => {
+  const renderAvailableTimeRange = () => {
+    const availableTimeRangeStyle =
+      scheduleReadResult &&
+      getTopAndHeight(scheduleReadResult.schedule.startTime, scheduleReadResult.schedule.endTime, oneMinuteHeight);
+    return (
+      <div className='absolute w-full' style={availableTimeRangeStyle}>
+        <AvailableTimeRangeComponent />
+      </div>
+    );
+  };
+
+  const renderPlanCardList = () => {
     return scheduleReadResult?.schedule.plans.map((plan) => {
-      const style = {
-        top: getPosition(plan.startTime, oneMinuteHeight),
-        height: getHeight(plan.startTime, plan.endTime, oneMinuteHeight),
-      };
+      const style = getTopAndHeight(plan.startTime, plan.endTime, oneMinuteHeight);
       return (
-        <div key={plan.id} className='absolute left-[5%] w-4/5' style={style}>
+        <div key={plan.id} className='absolute left-32 z-10 w-4/5' style={style}>
           <DraggablePlanCardComponent plan={plan} />
         </div>
       );
     });
-  }, [scheduleReadResult, oneMinuteHeight]);
+  };
 
   return (
     <div className='relative my-4 h-[calc(100%_-_2rem)] w-full min-w-fit rounded-md border border-gray-200 shadow-md'>
@@ -154,46 +175,13 @@ export const ScheduleComponent = () => {
         </div>
       )}
       <div ref={setRefs} className='relative mt-12 flex h-[calc(100%_-_3rem)] w-full min-w-fit overflow-y-scroll'>
-        <div className='absolute left-[8%] z-10 mt-4 w-11/12' style={{ top: getNowPosition(oneMinuteHeight) }}>
-          <CurrentTimeBarComponent />
-        </div>
-        <div className='relative flex h-full w-1/12 min-w-[5rem] justify-center'>
-          {[...Array(SCHEDULE_RANGE_HOUR)].map((_, hour) => {
-            return (
-              <div
-                key={'timeAxis' + hour}
-                className={'absolute mx-auto text-2xl'}
-                style={{ top: calcTopOfTimeAxis(hour) }}
-              >
-                {hour}:00
-              </div>
-            );
-          })}
-        </div>
-        <div className='relative mt-4 h-full w-11/12 min-w-[25rem]'>
-          {scheduleReadResult && (
-            <div
-              className='absolute w-full'
-              style={{
-                top: getPosition(scheduleReadResult.schedule.startTime, oneMinuteHeight),
-                height: getHeight(
-                  scheduleReadResult.schedule.startTime,
-                  scheduleReadResult.schedule.endTime,
-                  oneMinuteHeight,
-                ),
-              }}
-            >
-              <AvailableTimeRangeComponent />
-            </div>
-          )}
-          {[...Array(SCHEDULE_RANGE_HOUR)].map((_, hour) => (
-            <div
-              key={'timeAxisBorder' + hour}
-              className={'absolute h-0 w-11/12 border-t'}
-              style={{ top: calcTopOfTimeAxis(hour) }}
-            ></div>
-          ))}
-          {renderPlanCards()}
+        <div className='absolute mt-4 h-full w-full min-w-[50rem]'>
+          {renderTimeAxis()}
+          <div className='absolute z-10 w-full' style={{ top: getNowTop(oneMinuteHeight) }}>
+            <CurrentTimeBarComponent />
+          </div>
+          {renderAvailableTimeRange()}
+          {renderPlanCardList()}
         </div>
       </div>
     </div>

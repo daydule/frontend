@@ -6,19 +6,27 @@ import {
 import { CONSTANT } from '@/constant/default';
 import { Plan } from '@/redux/types';
 
-export const getNowPosition = (oneMinuteHeight: number) => {
+export const getNowTop = (oneMinuteHeight: number) => {
   const now = new Date();
+
   return (now.getHours() * 60 + now.getMinutes()) * oneMinuteHeight;
 };
 
-export const getHeight = (startTime: string, endTime: string, oneMinuteHeight: number) => {
+const getHeight = (startTime: string, endTime: string, oneMinuteHeight: number) => {
   return getTimeString4digitsDiffMin(startTime, endTime) * oneMinuteHeight;
 };
 
-export const getPosition = (startTime4digitsString: string, oneMinuteHeight: number) => {
+const getTop = (startTime4digitsString: string, oneMinuteHeight: number) => {
   const startHour = parseInt(startTime4digitsString.slice(0, 2), 10);
   const startMinute = parseInt(startTime4digitsString.slice(-2), 10);
   return (startHour * 60 + startMinute) * oneMinuteHeight;
+};
+
+export const getTopAndHeight = (startTime: string, endTime: string, oneMinuteHeight: number) => {
+  return {
+    top: getTop(startTime, oneMinuteHeight),
+    height: getHeight(startTime, endTime, oneMinuteHeight),
+  };
 };
 
 export const getTimeString4digits = (top: number, oneMinuteHeight: number) => {
@@ -34,7 +42,7 @@ export const getNewTimeString4digits = (position: number, oneMinuteHeight: numbe
 };
 
 export const getNewTimeAfterDropped = (plan: Plan, deltaY: number, oneMinuteHeight: number) => {
-  const previousTopPosition = getPosition(plan.startTime, oneMinuteHeight);
+  const previousTopPosition = getTop(plan.startTime, oneMinuteHeight);
   const notRoundedNewTopPosition = previousTopPosition + deltaY;
   const processTime = getTimeString4digitsDiffMin(plan.startTime, plan.endTime);
 
@@ -46,7 +54,7 @@ export const getNewTimeAfterDropped = (plan: Plan, deltaY: number, oneMinuteHeig
 
   if (newBottomPosition > CONSTANT.MINUTES_IN_DAY * oneMinuteHeight) {
     newEndTime = '0000';
-    newTopPosition = getPosition('2400', oneMinuteHeight) - processTime * oneMinuteHeight;
+    newTopPosition = getTop('2400', oneMinuteHeight) - processTime * oneMinuteHeight;
     newStartTime = getNewTimeString4digits(newTopPosition, oneMinuteHeight);
   }
   return { newStartTime, newEndTime };
