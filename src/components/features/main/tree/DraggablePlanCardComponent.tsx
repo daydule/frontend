@@ -20,7 +20,7 @@ export const DraggablePlanCardComponent = ({ plan }: Props) => {
   );
 
   const baseClass = 'w-full h-full';
-  const draggingRelatedClass = isDragging ? 'opacity-30 z-10 cursor-grabbing' : 'opacity-100 z-0 cursor-grab';
+  const draggingRelatedClass = isDragging ? 'opacity-30 cursor-grabbing' : 'opacity-100 cursor-grab';
   const className = `${baseClass} ${draggingRelatedClass}`;
 
   return (
