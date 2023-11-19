@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 import { AvailableTimeRangeComponent } from '../leaf/AvailableTimeRangeComponent';
 import { CurrentTimeBarComponent } from '../leaf/CurrentTimeBarComponent';
 import { BackToListButtonComponent } from './BackToListButtonComponent';
-import { PlanCardComponent } from './PlanCardComponent';
+import { DraggablePlanCardComponent } from './DraggablePlanCardComponent';
 import { CONSTANT } from '@/constant/default';
 import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
@@ -130,6 +130,20 @@ export const ScheduleComponent = () => {
     [oneMinuteHeight],
   );
 
+  const renderPlanCards = useCallback(() => {
+    return scheduleReadResult?.schedule.plans.map((plan) => {
+      const style = {
+        top: getPosition(plan.startTime, oneMinuteHeight),
+        height: getHeight(plan.startTime, plan.endTime, oneMinuteHeight),
+      };
+      return (
+        <div key={plan.id} className='absolute left-[5%] w-4/5' style={style}>
+          <DraggablePlanCardComponent plan={plan} />
+        </div>
+      );
+    });
+  }, [scheduleReadResult, oneMinuteHeight]);
+
   return (
     <div className='relative my-4 h-[calc(100%_-_2rem)] w-full min-w-fit rounded-md border border-gray-200 shadow-md'>
       <div className='absolute left-3 top-3 text-xl'>スケジュール</div>
@@ -178,13 +192,7 @@ export const ScheduleComponent = () => {
               style={{ top: calcTopOfTimeAxis(hour) }}
             ></div>
           ))}
-          {scheduleReadResult?.schedule.plans.map((plan) => {
-            const style = {
-              top: getPosition(plan.startTime, oneMinuteHeight),
-              height: getHeight(plan.startTime, plan.endTime, oneMinuteHeight),
-            };
-            return <PlanCardComponent key={plan.id} plan={plan} style={style} />;
-          })}
+          {renderPlanCards()}
         </div>
       </div>
     </div>
