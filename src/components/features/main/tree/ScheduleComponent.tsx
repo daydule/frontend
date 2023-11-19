@@ -12,13 +12,14 @@ import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
 import { useReadScheduleQuery } from '@/redux/schedule/slice';
 import { Plan } from '@/redux/types';
 
+const DEFAULT_ONE_MINUTE_HEIGHT = 1;
+const SCHEDULE_RANGE_HOUR = 25;
+
 export const ItemTypes = {
   PLAN_CARD: 'PLAN_CARD',
 };
 
 export const ScheduleComponent = () => {
-  const DEFAULT_ONE_MINUTE_HEIGHT = 1;
-  const SCHEDULE_RANGE_HOUR = 25;
   const [oneMinuteHeight, setOneMinuteHeight] = useState(DEFAULT_ONE_MINUTE_HEIGHT);
   const scheduleTableRef = useRef<HTMLDivElement | null>(null);
   const now = new Date();
