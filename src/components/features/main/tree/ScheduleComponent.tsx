@@ -126,11 +126,10 @@ export const ScheduleComponent = () => {
   }, [scrollPosition]);
 
   const renderTimeAxis = () => {
-    const calcTopOfTimeAxis = (hour: number) => hour * 60 * oneMinuteHeight;
     return (
       <>
         {[...Array(SCHEDULE_RANGE_HOUR)].map((_, hour) => {
-          const style = { top: calcTopOfTimeAxis(hour) };
+          const style = { top: hour * 60 * oneMinuteHeight };
           return (
             <Fragment key={'timeAxis' + hour}>
               <div className='absolute left-4 z-10 mt-[-1rem] text-2xl' style={style}>
