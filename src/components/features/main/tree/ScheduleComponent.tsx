@@ -155,14 +155,19 @@ export const ScheduleComponent = () => {
         </div>
         <div className='relative mt-4 h-full w-11/12 min-w-[25rem]'>
           {scheduleReadResult && (
-            <AvailableTimeRangeComponent
-              top={getPosition(scheduleReadResult.schedule.startTime, oneMinuteHeight)}
-              height={getHeight(
-                scheduleReadResult.schedule.startTime,
-                scheduleReadResult.schedule.endTime,
-                oneMinuteHeight,
-              )}
-            />
+            <div
+              className='absolute w-full'
+              style={{
+                top: getPosition(scheduleReadResult.schedule.startTime, oneMinuteHeight),
+                height: getHeight(
+                  scheduleReadResult.schedule.startTime,
+                  scheduleReadResult.schedule.endTime,
+                  oneMinuteHeight,
+                ),
+              }}
+            >
+              <AvailableTimeRangeComponent />
+            </div>
           )}
           {[...Array(SCHEDULE_RANGE_HOUR)].map((_, hour) => (
             <div
