@@ -79,7 +79,7 @@ export const ScheduleComponent = () => {
           processTime: plan.processTime === null ? undefined : plan.processTime,
           context: plan.context === null ? undefined : plan.context,
           place: plan.place === null ? undefined : plan.place,
-          isRequiredPlan: plan.isRequiredPlan,
+          isRequiredPlan: plan.isRequiredPlan === null ? undefined : plan.isRequiredPlan,
           priority: CONSTANT.DEFAULT.PLAN.PRIORITY,
           planType: plan.planType,
         };
