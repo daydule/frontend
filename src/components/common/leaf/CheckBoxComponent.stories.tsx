@@ -74,7 +74,6 @@ export const GroupedCheckBox = {
       {isTargetDays.map((targetDay, index) => (
         <div className='mr-2' key={index}>
           <CheckBoxComponent
-            key={index}
             id={`day-${index}`}
             name={`day-${index}`}
             title={`${targetDaysName[index]}`}
