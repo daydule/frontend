@@ -1,7 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 
 type Props = {
-  key?: number;
   id: string;
   name: string;
   title: string;
