@@ -4,17 +4,8 @@ type Props = {
   key?: number;
   id: string;
   name: string;
-  /**
-   * ラベルに表示するタイトルです。
-   */
   title: string;
-  /**
-   * チェックボックスの初期値です。
-   */
   value: boolean;
-  /**
-   * 指定可能なラベルの表示位置です。
-   */
   labelLocation: 'top' | 'bottom' | 'left' | 'right';
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
