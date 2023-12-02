@@ -3,6 +3,7 @@ import { SimpleInputComponent } from '../../../common/leaf/SimpleInputComponent'
 import SliderComponent from '../../../common/leaf/SliderComponent';
 import { TextAreaComponent } from '../../../common/leaf/TextAreaComponent';
 import { ButtonComponent } from '../../../common/tree/ButtonComponent';
+import { InfoIconComponent } from '@/components/common/tree/InfoIconComponent';
 import { ModalComponent } from '@/components/common/tree/ModalComponent';
 import { CONSTANT } from '@/constant/default';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
@@ -63,7 +64,7 @@ export const RegisterTodoModalComponent = (props: Props) => {
                 setter={props.setTitle}
               />
             </div>
-            <div className='mx-auto mt-2 flex w-4/5 items-center'>
+            <div className='mx-auto mt-2 flex w-full items-center'>
               <div className='mx-auto mt-8 w-4/5'>
                 <SliderComponent
                   min={CONSTANT.DEFAULT.TODO.PROCESS_TIME_MIN}
@@ -73,6 +74,9 @@ export const RegisterTodoModalComponent = (props: Props) => {
                   values={props.processTime}
                   setter={props.setProcessTime}
                 />
+                <div className='relative bottom-[21px] left-[195px] z-50 h-0'>
+                  <InfoIconComponent content='所要時間は「最小15分」「最大120分」で入力してください。' />
+                </div>
               </div>
             </div>
             <div className='ml-[13%] mt-4 flex'>

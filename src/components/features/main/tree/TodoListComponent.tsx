@@ -103,7 +103,7 @@ export const TodoListComponent = () => {
           <TbArrowBigUpLines />
         </IconContext.Provider>
       </div>
-      <div className={'no-scrollbar absolute inset-0 top-12 overflow-y-auto pb-16'}>
+      <div className={'no-scrollbar absolute inset-0 top-12 pb-16'}>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId='todoList'>
             {(provided, snapshot) => (

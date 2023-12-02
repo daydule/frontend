@@ -2,6 +2,7 @@ import { FormEvent, useState, useRef, useEffect } from 'react';
 import { SimpleInputComponent } from '@/components/common/leaf/SimpleInputComponent';
 import SliderComponent from '@/components/common/leaf/SliderComponent';
 import { ButtonComponent } from '@/components/common/tree/ButtonComponent';
+import { InfoIconComponent } from '@/components/common/tree/InfoIconComponent';
 import { RegisterTodoModalComponent } from '@/components/features/main/tree/RegisterTodoModalComponent';
 import { CONSTANT } from '@/constant/default';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
@@ -14,17 +15,8 @@ type Props = {
 export const RegisterTodoComponent = (props: Props) => {
   const [title, setTitle] = useState<string>(CONSTANT.DEFAULT.PLAN.TITLE);
   const [processTime, setProcessTime] = useState<number[]>(CONSTANT.DEFAULT.PLAN.REGISTER_TODO.PROCESS_TIME);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const [createPlan] = useCreatePlanMutation();
-
-  useEffect(() => {
-    focusOnInput();
-  }, [inputRef]);
-
-  const focusOnInput = () => {
-    inputRef.current?.focus();
-  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // これを入れているのは、リロードが走らないようにするため
@@ -59,7 +51,6 @@ export const RegisterTodoComponent = (props: Props) => {
       <form className='py-4' id='register-todo-form' onSubmit={handleSubmit}>
         <div className='mx-auto w-4/5'>
           <SimpleInputComponent
-            ref={inputRef}
             id='title'
             name='title'
             type='text'
@@ -69,7 +60,7 @@ export const RegisterTodoComponent = (props: Props) => {
             extraClassName='focus:outline-none'
           />
         </div>
-        <div className='inset-x-0 mx-auto mt-4 w-4/5' onClick={focusOnInput}>
+        <div className='inset-x-0 mx-auto mt-4 w-4/5'>
           <SliderComponent
             min={CONSTANT.DEFAULT.TODO.PROCESS_TIME_MIN}
             max={CONSTANT.DEFAULT.TODO.PROCESS_TIME_MAX}
@@ -78,6 +69,9 @@ export const RegisterTodoComponent = (props: Props) => {
             values={processTime}
             setter={setProcessTime}
           />
+          <div className='relative bottom-[21px] left-[205px] z-50 h-0'>
+            <InfoIconComponent content='所要時間は「最小15分」「最大120分」で入力してください。' />
+          </div>
         </div>
         <div className='mx-auto mt-4 w-4/5'>
           <ButtonComponent

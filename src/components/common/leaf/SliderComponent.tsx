@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Range } from 'react-range';
 import { twMerge } from 'tailwind-merge';
 
@@ -13,14 +13,35 @@ type Props = {
 };
 
 const SliderComponent = (props: Props) => {
+  const [enteringNumbers, setEnteringNumbers] = useState<number>(30);
+  const [enteringNumbersFlag, setEnteringNumbersFlag] = useState<boolean>(false);
+
   const handleChange = (newValues: number[]) => {
     props.setter(newValues);
+  };
+  const enteringNumbersFunc = (flag: boolean) => {
+    setEnteringNumbersFlag(flag);
+    setEnteringNumbers(props?.values[0]);
+  };
+  const changeInput = (inputValue: string) => {
+    const inputNum = Number(inputValue);
+    if (isNaN(inputNum)) return;
+
+    if (inputNum > 120) {
+      handleChange([120]);
+    } else if (inputNum < 15) {
+      handleChange([15]);
+    } else {
+      handleChange([inputNum]);
+    }
+
+    setEnteringNumbers(inputNum);
   };
 
   return (
     <div className={twMerge('relative flex flex-col items-center', props.extraClassName)}>
       <Range
-        step={5}
+        step={1}
         min={props.min}
         max={props.max}
         values={props.values}
@@ -38,7 +59,15 @@ const SliderComponent = (props: Props) => {
       <div className='absolute -right-1 top-2'>{props.max}</div>
       <div className='mt-1'>
         <span>{props?.title + ' '}</span>
-        <span className='text-xl'>{props?.values[0]}</span>
+        <input
+          type='text'
+          inputMode='numeric'
+          className='w-8'
+          value={enteringNumbersFlag ? enteringNumbers : props?.values[0]}
+          onFocus={() => enteringNumbersFunc(true)}
+          onChange={(event) => changeInput(event.target.value)}
+          onBlur={() => enteringNumbersFunc(false)}
+        />
         <span>{props?.unit}</span>
       </div>
     </div>
