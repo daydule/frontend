@@ -58,7 +58,7 @@ export const ScheduleComponent = () => {
       <div className='relative mt-12 flex h-[calc(100%_-_3rem)] w-full min-w-fit'>
         {nowTopPercent >= 0 && nowTopPercent <= 92 && (
           <div
-            className='absolute left-[8%] z-10 h-0 w-11/12'
+            className='absolute left-[8%] z-[5] h-0 w-11/12'
             style={{
               top: 'calc(' + nowTopPercent + '% + 1rem - 1px)',
             }}
