@@ -12,12 +12,17 @@ type Props = {
 export const CheckBoxComponent = (props: Props) => {
   let parentClass = '';
   let extraLabelClass;
+  let extraInputClass;
   switch (props.labelLocation) {
     case 'top':
-      extraLabelClass = 'mb-2';
+      parentClass = 'relative inline-block w-auto';
+      extraLabelClass = 'mb-2 ml-1 mr-1';
+      extraInputClass = 'absolute inset-x-0 mx-auto';
       break;
     case 'bottom':
-      extraLabelClass = 'mt-2';
+      parentClass = 'relative inline-block w-auto';
+      extraLabelClass = 'mt-6 ml-1 mr-1';
+      extraInputClass = 'absolute inset-x-0 mx-auto';
       break;
     case 'left':
       parentClass = 'flex';
@@ -42,7 +47,10 @@ export const CheckBoxComponent = (props: Props) => {
         name={props.name}
         type='checkbox'
         checked={props.value}
-        className='my-auto block h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500'
+        className={twMerge(
+          'my-auto block h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500',
+          `${extraInputClass}`,
+        )}
         onChange={props.handleChange}
       />
       {(props.labelLocation == 'bottom' || props.labelLocation == 'right') && (
