@@ -34,11 +34,11 @@ export const CheckBoxComponent = (props: Props) => {
       break;
   }
   return (
-    <div className={`${parentClass}`}>
+    <div className={parentClass}>
       {(props.labelLocation == 'top' || props.labelLocation == 'left') && (
         <label
           htmlFor={props.id}
-          className={twMerge('block text-sm font-medium text-gray-900', `${extraLabelClass}`)}
+          className={twMerge('block text-sm font-medium text-gray-900', extraLabelClass)}
           children={props.title}
         />
       )}
@@ -49,14 +49,14 @@ export const CheckBoxComponent = (props: Props) => {
         checked={props.value}
         className={twMerge(
           'my-auto block h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500',
-          `${extraInputClass}`,
+          extraInputClass,
         )}
         onChange={props.handleChange}
       />
       {(props.labelLocation == 'bottom' || props.labelLocation == 'right') && (
         <label
           htmlFor={props.id}
-          className={twMerge('block text-sm font-medium text-gray-900', `${extraLabelClass}`)}
+          className={twMerge('block text-sm font-medium text-gray-900', extraLabelClass)}
           children={props.title}
         />
       )}
