@@ -170,6 +170,7 @@ export const UpdatePlanModalComponent = (props: Props) => {
                 name='required-plan'
                 title='この予定よりTODOを優先する'
                 value={!isRequiredPlan}
+                labelLocation='right'
                 handleChange={() => setIsRequiredPlan(!isRequiredPlan)}
               />
             </div>
