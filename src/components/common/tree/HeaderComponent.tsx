@@ -26,10 +26,6 @@ export const HeaderComponent = () => {
     }
   };
 
-  const handleRenderUsage = () => {
-    router.push('/usage');
-  };
-
   const handleRenderSignup = () => {
     router.push('/auth/signup');
   };
