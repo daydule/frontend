@@ -2,7 +2,7 @@ import { FormEvent } from 'react';
 import { TfiBackLeft } from 'react-icons/tfi';
 import { ButtonWithIconComponent } from '../../../common/leaf/ButtonWithIconComponent';
 import { TooltipComponent } from '../../../common/tree/ToolTipComponent';
-import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { convertToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { useBackToListMutation } from '@/redux/plan/slice';
 
@@ -14,7 +14,7 @@ export const BackToListButtonComponent = () => {
     event.preventDefault();
     const now = new Date();
     try {
-      await backToList({ date: formatToYYYY_MM_DD(now) })
+      await backToList({ date: convertToYYYY_MM_DD(now) })
         .unwrap()
         .catch(errorHandler);
     } catch (e) {

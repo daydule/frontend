@@ -5,7 +5,7 @@ import { TimePickerComponent } from '../../../common/leaf/TimePickerComponent';
 import { ButtonComponent } from '../../../common/tree/ButtonComponent';
 import { ModalComponent } from '@/components/common/tree/ModalComponent';
 import { CONSTANT } from '@/constant/default';
-import { formatToDate, formatToTimeString4digits, formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { convertDateToTimeString4digits, convertToDate, convertToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { UpdateForm, useUpdatePlanMutation } from '@/redux/plan/slice';
 import { Plan } from '@/redux/types';
@@ -18,9 +18,9 @@ type Props = {
 
 export const UpdateScheduledTodoModalComponent = (props: Props) => {
   const [title, setTitle] = useState<string>(props.todo.title);
-  const defaultStartDate = formatToDate(props.todo.startTime);
+  const defaultStartDate = convertToDate(props.todo.startTime);
   const [startTime, setStartTime] = useState<Date>(defaultStartDate);
-  const defaultEndDate = formatToDate(props.todo.endTime);
+  const defaultEndDate = convertToDate(props.todo.endTime);
   const [endTime, setEndTime] = useState<Date>(defaultEndDate);
   const defaultProcessTime = Math.floor(defaultEndDate.getTime() - defaultStartDate.getTime()) / (60 * 1000);
   const [hiddenProcessTime, setHiddenProcessTime] = useState<number>(defaultProcessTime);
@@ -35,9 +35,9 @@ export const UpdateScheduledTodoModalComponent = (props: Props) => {
     const data: UpdateForm = {
       id: Number(props.todo.id),
       title: title,
-      date: formatToYYYY_MM_DD(new Date(props.todo.date)),
-      startTime: formatToTimeString4digits(startTime),
-      endTime: formatToTimeString4digits(endTime),
+      date: convertToYYYY_MM_DD(new Date(props.todo.date)),
+      startTime: convertDateToTimeString4digits(startTime),
+      endTime: convertDateToTimeString4digits(endTime),
       processTime: hiddenProcessTime,
       context: context === null ? undefined : context,
       place: place === null ? undefined : place,

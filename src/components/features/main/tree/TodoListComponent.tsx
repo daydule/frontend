@@ -8,7 +8,7 @@ import { InfoIconComponent } from '../../../common/tree/InfoIconComponent';
 import { CreateScheduleButtonComponent } from './CreateScheduleButtonComponent';
 import { RegisterTodoComponent } from './RegisterTodoComponent';
 import { TodoCardComponent } from '@/components/features/main/tree/TodoCardComponent';
-import { formatToYYYY_MM_DD } from '@/helpers/dateHelper';
+import { convertToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { useUpdateTodoPriorityMutation } from '@/redux/plan/slice';
 import { useReadScheduleQuery } from '@/redux/schedule/slice';
 
@@ -36,7 +36,7 @@ const OutsideClickHandler = ({ children, onOutsideClick }: Props) => {
 };
 
 export const TodoListComponent = () => {
-  const { data: scheduleReadResult } = useReadScheduleQuery({ date: formatToYYYY_MM_DD(new Date()) });
+  const { data: scheduleReadResult } = useReadScheduleQuery({ date: convertToYYYY_MM_DD(new Date()) });
   const [updateTodoPriority] = useUpdateTodoPriorityMutation();
   const [todoOrder, setTodoOrder] = useState<number[]>([]);
   const [showsModal, setShowsModal] = useState<boolean>(false);

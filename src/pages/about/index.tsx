@@ -27,7 +27,7 @@ const AboutPage: NextPage = () => {
     <div className='mx-auto pb-12'>
       <section className='my-48'>
         <div className='flex items-center justify-center'>
-          <IconContext.Provider value={{ size: '10em', className: 'text-opacity-90' }}>
+          <IconContext.Provider value={{ size: '10rem', className: 'text-opacity-90' }}>
             <AiFillSchedule />
           </IconContext.Provider>
           <div className='font-mono text-9xl font-bold'>daydule</div>
