@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { TimePickerComponent } from '../../../common/leaf/TimePickerComponent';
 import { ButtonComponent } from '../../../common/tree/ButtonComponent';
+import { InfoIconComponent } from '../../../common/tree/InfoIconComponent';
 import { ModalComponent } from '@/components/common/tree/ModalComponent';
 import { convertToDate, convertDateToTimeString4digits, convertToYYYY_MM_DD } from '@/helpers/dateHelper';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
@@ -47,7 +48,13 @@ export const RegisterSchedulingOptionsModalComponent = (props: Props) => {
   return (
     <ModalComponent isOpen={props.showsModal} onClose={props.handleClose} title='TODOを予定にする際のオプション'>
       <form className='mt-3' id='register-scheduling-options-form' onSubmit={handleSubmit}>
-        <div className='ml-8'>作業する時間帯</div>
+        <div className='flex items-center'>
+          <div className='ml-8'>作業する時間帯</div>
+          <InfoIconComponent
+            content='「作業する時間帯」とは「あなたがTODOを実行できる時間帯」のことです。'
+            extraClassName='ml-2'
+          />
+        </div>
         <div className='mx-auto mt-2 flex w-4/5 items-center'>
           <div className='mr-2 w-5/6'>
             <TimePickerComponent
