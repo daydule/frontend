@@ -51,7 +51,7 @@ export const RegisterSchedulingOptionsModalComponent = (props: Props) => {
         <div className='flex items-center'>
           <div className='ml-8'>作業する時間帯</div>
           <InfoIconComponent
-            content='左側の項目に「作業開始時間」、右側の項目に「作業終了時間」を入力してください。'
+            content='「作業する時間帯」とは「あなたがTODOを実行できる時間帯」のことです。'
             extraClassName='ml-2'
           />
         </div>
