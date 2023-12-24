@@ -1,3 +1,0 @@
-[submodule ".github/workflows/PULL_REQUEST_TEMPLATE"]
-	path = .github/workflows/PULL_REQUEST_TEMPLATE
-	url = git@github.com:daydule/PR-Template.git
