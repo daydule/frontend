@@ -1,6 +1,7 @@
 import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { AiFillCaretDown, AiFillSchedule } from 'react-icons/ai';
+import { AiFillCaretDown } from 'react-icons/ai';
 import { IconContext } from 'react-icons/lib';
 import { RiAccountCircleFill } from 'react-icons/ri';
 import { CONSTANT } from '@/constant/default';
@@ -8,6 +9,9 @@ import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { useLogoutMutation } from '@/redux/auth/slice';
 import { useReadUserQuery } from '@/redux/user/slice';
 import '@szhsin/react-menu/dist/index.css';
+const ScheduleIconComponent = dynamic(() => import('@/components/common/leaf/ScheduleIconComponent'), {
+  ssr: false,
+});
 
 export const HeaderComponent = () => {
   const router = useRouter();
@@ -48,9 +52,7 @@ export const HeaderComponent = () => {
         className='my-0 ml-0 mr-5 flex cursor-pointer duration-300'
         onClick={() => (isError ? router.push('/auth/login') : router.push('/main'))}
       >
-        <IconContext.Provider value={{ size: '1.5em', className: 'text-opacity-90' }}>
-          <AiFillSchedule />
-        </IconContext.Provider>
+        <ScheduleIconComponent size='1.5em' className='text-opacity-90' />
         <div className='mx-2 font-mono text-4xl font-extrabold transition ease-in-out'>daydule</div>
       </div>
       {isAboutPage && isError && (

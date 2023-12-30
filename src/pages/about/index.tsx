@@ -1,11 +1,14 @@
 import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { IconContext } from 'react-icons';
-import { AiFillSchedule } from 'react-icons/ai';
 import { ButtonComponent } from '@/components/common/tree/ButtonComponent';
 import { errorHandler } from '@/helpers/errorHandlerHelper';
 import { useGuestLoginMutation } from '@/redux/auth/slice';
 import { useReadUserQuery } from '@/redux/user/slice';
+
+const ScheduleIconComponent = dynamic(() => import('@/components/common/leaf/ScheduleIconComponent'), {
+  ssr: false,
+});
 
 const AboutPage: NextPage = () => {
   const { data: _, isError } = useReadUserQuery();
@@ -27,9 +30,7 @@ const AboutPage: NextPage = () => {
     <div className='mx-auto pb-12'>
       <section className='my-48'>
         <div className='flex items-center justify-center'>
-          <IconContext.Provider value={{ size: '10rem', className: 'text-opacity-90' }}>
-            <AiFillSchedule />
-          </IconContext.Provider>
+          <ScheduleIconComponent size='10em' className='text-opacity-90' />
           <div className='font-mono text-9xl font-bold'>daydule</div>
         </div>
         <div className='mt-48 text-center text-4xl font-bold'>あなたの1日を「効率的」に、そして「計画的」に。</div>
